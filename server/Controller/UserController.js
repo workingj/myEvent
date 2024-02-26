@@ -1,7 +1,7 @@
 import asyncHandler from '../utils/AsyncHandler.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 import User from '../models/UserModel.js';
-import bcrypt from 'becrypt'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 
 export const createUser = asyncHandler(async (req, res, next) => {

@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
 import { errorHandler } from "./middelwares/ErrorHandler.js";
-// import cookieParser from 'cookie-parser';
-// import contactRouter from './routes/contactRouter.js';
+import cookieParser from 'cookie-parser';
+import contactRouter from './routes/ContactRouter.js';
+import userRouter from './routes/UserRouter.js';
 import "./db/db.js";
 import dotenv from "dotenv";
 import adminTemplateRouter from "./routes/TemplateRouter.js";
@@ -21,10 +22,11 @@ app.use(express.json());
 // app.use(cookieParser());
 
 // ROUTES
-app.use("/events", eventRouter);
 app.use('/register', registerRouter);
-// app.use('/contacts', contactRouter);
-app.use("/admin/templates", adminTemplateRouter);
+app.use('/user', userRouter);
+app.use('/contacts', contactRouter);
+app.use('/events', eventRouter);
+app.use('/admin/templates', adminTemplateRouter);
 
 // ERROR HANDLER
 app.use(errorHandler);

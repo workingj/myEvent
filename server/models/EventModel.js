@@ -17,10 +17,12 @@ const EventModel = new mongoose.Schema({
   },
   image: {
     type: String,
+    default: 'defaultImage.jpg',
   
   },
   eventNR: {
     type: Number,
+    
     required: [true, 'Event NR is required'],
     unique: true,
 
@@ -34,3 +36,4 @@ const EventModel = new mongoose.Schema({
 });
 
 export default mongoose.model('Event', EventModel);
+

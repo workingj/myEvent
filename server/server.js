@@ -5,7 +5,9 @@ import { errorHandler } from "./middelwares/ErrorHandler.js";
 // import contactRouter from './routes/contactRouter.js';
 import "./db/db.js";
 import dotenv from "dotenv";
-dotenv.config();
+import eventRouter from "./routes/EventRouter.js";
+import registerRouter from "./routes/RegisterRouter.js";
+
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -17,6 +19,8 @@ app.use(express.json());
 // app.use(cookieParser());
 
 // ROUTES
+app.use("/events", eventRouter);
+app.use('/register', registerRouter);
 // app.use('/contacts', contactRouter);
 
 // ERROR HANDLER

@@ -5,7 +5,7 @@ import User from '../models/UserModel.js';
 export const createUser = asyncHandler(async (req, res, next) => {
     const { username, email, password,firstName,lastName,birthDate, avatar,role} = req.body;
     const existingUser = await User.findOne({ email });
-    const existingUsername= await User.findOne({ username });
+    const existingUsername = await User.findOne({ username });
     if (existingUsername)
       throw new ErrorResponse('An account with this username already exists', 409);
     if (existingUser)
@@ -64,4 +64,35 @@ export const deleteUser = asyncHandler(async (req, res, next) => {
 
     await User.findByIdAndDelete(id);
     res.json({ success: `User ${id} was deleted` });
+});
+
+
+//Login
+export const login = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+  const isUserExist = await User.findOne({ email }).select("+password");
+  if (!isUserExist) throw new Error("User not found", 404);
+  const match = await bcrypt.compare(password, isUserExist.password);
+  if (!match) throw new Error("Password is not correct", 401);
+  const token = jwt.sign({ uid: isUserExist._id }, process.env.JWT_SECRET, {
+    expiresIn: "30m",
+  });
+  res.send({ token }); // for Insomnia Test
+  res.cookie("token", token, { maxAge: 1800000 }); //30min, with Cookie schould use ms
+  res.send({ status: "success" });
+});
+
+
+//verify User
+
+export const getUser2 = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.uid);
+    res.json(user);
+});
+
+//Logout
+
+export const logout = asyncHandler(async (req, res, next) => {
+    res.clearCookie('token');
+    res.send({ status: 'success' });
 });

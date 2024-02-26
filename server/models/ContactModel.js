@@ -16,8 +16,26 @@ const contactSchema = new mongoose.Schema({
         required: [true, 'Lastname is required'],
         trim: true,
     },
-    address: {
+    zipcode: {
+        type: String,
+        trim: true,
+    },
+    city: {
+        type: String,
+        trim: true,
+    },
+    street: {
+        type: String,
+        trim: true,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    dates: {
         type: Map,
-        of: String,
+        of: Date,
     }
 })
+
+export default mongoose.model('Contact', contactSchema);

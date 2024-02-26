@@ -7,10 +7,8 @@ import userRouter from './routes/UserRouter.js';
 import "./db/db.js";
 import dotenv from "dotenv";
 import adminTemplateRouter from "./routes/TemplateRouter.js";
-dotenv.config();
 import eventRouter from "./routes/EventRouter.js";
-
-
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -18,11 +16,11 @@ const PORT = process.env.PORT || 8000;
 // CONFIGURE EXPRESS
 app.use(cors());
 app.use(express.json());
+
 // COOKIES
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // ROUTES
-
 app.use('/user', userRouter);
 app.use('/contacts', contactRouter);
 app.use('/events', eventRouter);

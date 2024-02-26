@@ -5,6 +5,8 @@ import { errorHandler } from "./middelwares/ErrorHandler.js";
 // import contactRouter from './routes/contactRouter.js';
 import "./db/db.js";
 import dotenv from "dotenv";
+import adminTemplateRouter from "./routes/TemplateRouter.js";
+dotenv.config();
 import eventRouter from "./routes/EventRouter.js";
 import registerRouter from "./routes/RegisterRouter.js";
 
@@ -22,6 +24,7 @@ app.use(express.json());
 app.use("/events", eventRouter);
 app.use('/register', registerRouter);
 // app.use('/contacts', contactRouter);
+app.use("/admin/templates", adminTemplateRouter);
 
 // ERROR HANDLER
 app.use(errorHandler);

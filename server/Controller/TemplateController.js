@@ -1,5 +1,5 @@
 import AdminTemplates from '../models/TemplateModel.js';
-import asyncHandler from "../utils/asyncHandler.js";
+import asyncHandler from "../utils/AsyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 
 export const getAllTemplates = asyncHandler(async (req, res, next) => {

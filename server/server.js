@@ -1,3 +1,4 @@
+
 import express from "express";
 import cors from "cors";
 import { errorHandler } from "./middlewares/ErrorHandler.js";
@@ -9,15 +10,24 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-app.use(cors());
 
+// CONFIGURE EXPRESS
+app.use(cors());
 app.use(express.json());
+// COOKIES
 // app.use(cookieParser());
+
+
+
+
 
 // ROUTES
 // app.use('/contacts', contactRouter);
 
-// Error Handler
+// ERROR HANDLER
+app.use(errorHandler);
 
 
+// LISTENER
 app.listen(PORT, () => console.log(`Server is running on port:${PORT}`));
+

@@ -2,14 +2,32 @@ import asyncHandler from '../utils/AsyncHandler.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 import User from '../models/UserModel.js';
 
-
 export const createUser = asyncHandler(async (req, res, next) => {
-    const newUser = await User.create(req.body);
-
-    if (!newUser) throw new ErrorResponse(`User ${req.body.username} could not be created`, 422);
-
-    res.status(201).json(newUser);
-});
+    const { username, email, password,firstName,lastName,birthDate, avatar,role} = req.body;
+    const existingUser = await User.findOne({ email });
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername)
+      throw new ErrorResponse('An account with this username already exists', 409);
+    if (existingUser)
+      throw new ErrorResponse('An account with this Email already exists', 409);
+  
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      username,
+      email,
+      password: hash,
+      firstName,
+      lastName,
+      birthDate,
+      avatar,
+      role
+    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+    res.status(201).json({ success: true, token });
+  
+  });
 
 export const getUser = asyncHandler(async (req, res, next) => {
     const id = req.params.id;
@@ -46,4 +64,35 @@ export const deleteUser = asyncHandler(async (req, res, next) => {
 
     await User.findByIdAndDelete(id);
     res.json({ success: `User ${id} was deleted` });
+});
+
+
+//Login
+export const login = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+  const isUserExist = await User.findOne({ email }).select("+password");
+  if (!isUserExist) throw new Error("User not found", 404);
+  const match = await bcrypt.compare(password, isUserExist.password);
+  if (!match) throw new Error("Password is not correct", 401);
+  const token = jwt.sign({ uid: isUserExist._id }, process.env.JWT_SECRET, {
+    expiresIn: "30m",
+  });
+  res.send({ token }); // for Insomnia Test
+  res.cookie("token", token, { maxAge: 1800000 }); //30min, with Cookie schould use ms
+  res.send({ status: "success" });
+});
+
+
+//verify User
+
+export const getUser2 = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.uid);
+    res.json(user);
+});
+
+//Logout
+
+export const logout = asyncHandler(async (req, res, next) => {
+    res.clearCookie('token');
+    res.send({ status: 'success' });
 });

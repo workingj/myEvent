@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import adminTemplateRouter from "./routes/TemplateRouter.js";
 dotenv.config();
 import eventRouter from "./routes/EventRouter.js";
-import registerRouter from "./routes/RegisterRouter.js";
+
 
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.json());
 // app.use(cookieParser());
 
 // ROUTES
-app.use('/register', registerRouter);
+
 app.use('/user', userRouter);
 app.use('/contacts', contactRouter);
 app.use('/events', eventRouter);

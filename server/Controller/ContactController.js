@@ -12,7 +12,7 @@ export const createContact = asyncHandler(async (req, res, next) => {
 });
 
 export const getContact = asyncHandler(async (req, res, next) => {
-    const id = req.params;
+    const id = req.params.id;
 
     const contact = await Contact.findById(id);
     if (!contact) throw new ErrorResponse(`Contact ${id} does not exist`, 404);

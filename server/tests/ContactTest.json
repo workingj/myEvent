@@ -1,0 +1,36 @@
+{
+    "POST Create CONTACT": "http://localhost:8000/contacts/",
+    "body": {
+        "email": "fara@egypt.oh",
+        "firstName": "Fara",
+        "lastName": "Kara",
+        "zipcode": "06537",
+        "city": "Hasteburg",
+        "street": "Heimweg 3",
+        "user": "65dcb94bb98cb608d3587723",
+        "dates": {
+            "birthday": "1708961919832",
+            "mariage": "1708961919832"
+        }
+    },
+    "GET All Contacts": "http://localhost:8000/contacts/",
+    "body": {},
+    "GET User :id": "http://localhost:8000/contacts/65dcbd53fb018b780a3160c3",
+    "body": {},
+    "PUT UPDATE Contact :i": "http://localhost:8000/contacts/65dcbd53fb018b780a3160c3",
+    "body": {
+        "email": "fara@persico.oh",
+        "firstName": "Fara",
+        "lastName": "Kara",
+        "zipcode": "06537",
+        "city": "Hasteburg",
+        "street": "Heimweg 3",
+        "user": "65dcb94bb98cb608d3587723",
+        "dates": {
+            "birthday": "1708961919832",
+            "mariage": "1708961919832"
+        }
+    },
+    "DELETE": "http://localhost:8000/contacts/65dcbd53fb018b780a3160c3",
+    "body": {}
+}

@@ -2,16 +2,21 @@ import { Router } from 'express';
 import * as eventController from '../Controller/EventController.js';
 const eventRouter = Router();
 
- // ROUTES
+// ROUTES
 
-eventRouter.route('/').get(eventController.getEvents).post(eventController.createEvent);
+eventRouter.route('/')
+    .get(eventController.getEvents)
+    .post(eventController.createEvent);
 
-eventRouter.route('/:id').get(eventController.getEvent).put(eventController.updateEvent).delete(eventController.deleteEvent);
+eventRouter.route('/:id')
+    .get(eventController.getEvent)
+    .put(eventController.updateEvent)
+    .delete(eventController.deleteEvent);
 
 
 
 
-export default eventRouter; 
+export default eventRouter;
 
 
 //  --------------create event -----------

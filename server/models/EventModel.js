@@ -13,25 +13,19 @@ const EventModel = new mongoose.Schema({
   text: {
     type: String,
     required: [true, 'Text is required'],
-    
   },
   image: {
     type: String,
     default: 'defaultImage.jpg',
-  
   },
   eventNR: {
     type: Number,
-    
     required: [true, 'Event NR is required'],
     unique: true,
-
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-
-    
   },
 });
 

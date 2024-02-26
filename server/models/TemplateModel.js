@@ -1,4 +1,4 @@
-import mongoose from ' mongoose';
+import mongoose from "mongoose";
 
 export const templateSchema = new mongoose.Schema({
   title: {
@@ -28,3 +28,5 @@ export const templateSchema = new mongoose.Schema({
     requires: [true, "Image is required"],
   },
 });
+
+export default mongoose.model("AdminTemplates", templateSchema);

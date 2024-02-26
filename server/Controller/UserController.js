@@ -30,7 +30,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
   });
 
 export const getUser = asyncHandler(async (req, res, next) => {
-    const id = req.params;
+    const id = req.params.id;
 
     const user = await User.findById(id);
     if (!user) throw new ErrorResponse(`user ${id} does not exist`, 404);

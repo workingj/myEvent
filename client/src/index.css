@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+}
+body {
+  background-image: url("./assets/bg.png");
+  background-size: cover;
+}

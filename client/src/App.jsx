@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Contacts from "./components/Contacts/Contacts";
 import Home from "./components/Home.jsx";
 import NotFound from "./components/NotFound.jsx";
 import MyEvents from "./components/Events/MyEvents.jsx";
@@ -8,6 +9,8 @@ import ShowAll from "./components/Events/ShowAll.jsx";
 export default function App() {
   return (
     <>
+      <h1>MyEvent</h1>
+      <Contacts />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/myevents" element={<MyEvents />}/>

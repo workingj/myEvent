@@ -1,0 +1,1 @@
+MONGO_URI="mongodb+srv://admin:adminjfi@jfi.kpwvxa8.mongodb.net/

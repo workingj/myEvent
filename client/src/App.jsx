@@ -1,8 +1,10 @@
-import Contacts from "./components/Contacts/Contacts";
-
 import { Routes, Route } from "react-router-dom";
+import Contacts from "./components/Contacts/Contacts";
 import Home from "./components/Home.jsx";
 import NotFound from "./components/NotFound.jsx";
+import MyEvents from "./components/Events/MyEvents.jsx";
+import AddEvent from "./components/Events/AddEvent.jsx";
+import ShowAll from "./components/Events/ShowAll.jsx";
 
 export default function App() {
   return (
@@ -11,8 +13,14 @@ export default function App() {
       <Contacts />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/myevents" element={<MyEvents />}/>
+          <Route path="/myevents/showall" element={<ShowAll />} />
+      
+       
+          <Route path="/myevents/addevent" element={<AddEvent />}/>
+   
 
-        <Route path="*" element={<NotFound />}></Route>
+        <Route path="*" element={<NotFound />}/>
       </Routes>
     </>
   );

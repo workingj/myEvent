@@ -28,13 +28,13 @@ const contactSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-    },
     dates: {
         type: Map,
         of: Date,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     }
 })
 

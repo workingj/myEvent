@@ -1,0 +1,71 @@
+.Contacts {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 80%;
+  min-width: 23rem;
+  max-width: 83rem;
+  min-height: 30rem;
+  margin: auto;
+  background-color: #ffffffc7;
+
+  color: black;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+.ContactCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 18rem;
+  height: 25rem;
+  padding: 1rem;
+
+  color: black;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+.DefaultAvatar {
+  position: relative;
+
+  color: black;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.initialen {
+  position: absolute;
+  display: block;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  line-height: 9rem;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+}
+img {
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+}
+.cName {
+  border: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.cData {
+  font-size: 1.1rem;
+  border: none;
+}
+.cBirthday {
+  font-size: 1.2rem;
+  border: none;
+}
+.btn {
+  width: 6rem;
+  color: black;
+  border: 1px solid black;
+  border-radius: 15px;
+}

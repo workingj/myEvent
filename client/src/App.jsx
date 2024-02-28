@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Contacts from "./components/Contacts/Contacts";
+import Contacts from "./components/Contacts/Contacts.jsx";
 import Home from "./components/Home.jsx";
 import NotFound from "./components/NotFound.jsx";
 import MyEvents from "./components/Events/MyEvents.jsx";
@@ -21,6 +21,7 @@ export default function App() {
        
           <Route path="/myevents/addevent" element={<AddEvent />}/>
    
+          <Route path="/user/contacts" element={<Contacts />}/>
 
         <Route path="*" element={<NotFound />}/>
       </Routes>

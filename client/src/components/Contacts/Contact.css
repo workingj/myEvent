@@ -9,7 +9,7 @@
   max-width: 83rem;
   min-height: 30rem;
   margin: auto;
-  background-color: #ffffffc7;
+  background-color: #ffffffcd; /* Opacity 80% */
 
   color: black;
   border: 1px solid black;

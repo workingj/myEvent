@@ -16,7 +16,7 @@ const EventModel = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: 'defaultImage.jpg',
+    default: 'defaultImage.png',
   },
   eventNR: {
     type: Number,

@@ -1,15 +1,24 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './components/Home.jsx';
-import NotFound from './components/NotFound.jsx';
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home.jsx";
+import NotFound from "./components/NotFound.jsx";
+import MyEvents from "./components/Events/MyEvents.jsx";
+import AddEvent from "./components/Events/AddEvent.jsx";
+import ShowAll from "./components/Events/ShowAll.jsx";
 
 export default function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/myevents" element={<MyEvents />}/>
+          <Route path="/myevents/showall" element={<ShowAll />} />
+      
+       
+          <Route path="/myevents/addevent" element={<AddEvent />}/>
+   
 
-        <Route path='*' element={<NotFound />}></Route>
-     </Routes>
+        <Route path="*" element={<NotFound />}/>
+      </Routes>
     </>
   );
 }

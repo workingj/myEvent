@@ -6,7 +6,9 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 // @route   GET /v1/events
 // @access  Public
 export const getEvents = asyncHandler(async (req, res, next) => {
-  const events = await Event.find();
+  const {user}=req.body
+
+  const events = await Event.find({user});
 
   res.status(200).json({ success: true, data: events });
 });

@@ -39,7 +39,7 @@ function RegisterForm() {
     }
   };
   return (
-    <div className="container mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500">
+    <div className="container mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500 bg-white">
       <div className="p-4 mt-20">
         <h2 className="text-2xl font-semibold mb-4">Register</h2>
         <form onSubmit={handleSubmit}>

@@ -1,29 +1,29 @@
 import React, { useRef, useState } from "react";
 import defaultAvatar from "../../assets/defaultAvatar.svg";
 
-export default function ContactCard({ contact }) {
+export default function ContactCard({ Contact }) {
   return (
-    <div className="ContactCard">
-      <DefaultAvatar contact={contact} />
+    <div name="ContactCard" className="ContactCard">
+      <DefaultAvatar Contact={Contact} />
       <h3 className="cName">
-        {contact.firstName} {contact.last}
+        {Contact.firstName} {Contact.last}
       </h3>
-      <span className="cData">{contact.email}</span>
-      &nbsp;
-      <span className="cBirthday">{contact.dates.birthday}</span>
-      <span className="cData">{contact.city}</span>
-      <span className="cData">{contact.street}</span>
-      &nbsp;
-      <button className="btn">Edit</button>
+      <span className="cData">{Contact.email}</span>
+      <span className="vSpace">&nbsp;</span>
+      <span className="cBirthday">{Contact.dates.birthday}</span>
+      <span className="cData">{Contact.city}</span>
+      <span className="cData">{Contact.street}</span>
+      <span className="vSpace">&nbsp;</span>
+      <button className="editBtn">Edit</button>
     </div>
   );
 }
 
-function DefaultAvatar({ contact }) {
+function DefaultAvatar({ Contact }) {
   return (
-    <div className="DefaultAvatar">
+    <div name="DefaultAvatar" className="DefaultAvatar">
       <span className="initialen">
-        {contact.firstName[0]}.{contact.last[0]}.
+        {Contact.firstName[0]}.{Contact.last[0]}.
       </span>
       <img src={defaultAvatar} alt="" />
     </div>

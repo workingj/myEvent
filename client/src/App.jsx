@@ -11,7 +11,6 @@ import LoginForm from "./components/Users/LoginForm.jsx";
 import RegisterForm from "./components/Users/RegisterForm.jsx";
 import Privacy from "./components/Global/Privacy.jsx";
 
-
 export default function App() {
   return (
     <>

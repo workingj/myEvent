@@ -37,17 +37,17 @@
 .initialen {
   position: absolute;
   display: block;
-  width: 9rem;
-  height: 9rem;
+  width: 8rem;
+  height: 8rem;
   border-radius: 50%;
-  line-height: 9rem;
+  line-height: 8rem;
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
 }
 img {
-  width: 9rem;
-  height: 9rem;
+  width: 8rem;
+  height: 8rem;
   border-radius: 50%;
 }
 .cName {
@@ -68,4 +68,7 @@ img {
   color: black;
   border: 1px solid black;
   border-radius: 15px;
+}
+.vSpace {
+  line-height: 0.8rem;
 }

@@ -5,16 +5,17 @@ import NotFound from "./components/NotFound.jsx";
 import MyEvents from "./components/Events/MyEvents.jsx";
 import AddEvent from "./components/Events/AddEvent.jsx";
 import ShowAll from "./components/Events/ShowAll.jsx";
+import RegisterForm from "./components/Users/RegisterForm";
 
 export default function App() {
   return (
     <>
       <h1>MyEvent</h1>
-      <Contacts />
-      <Routes>
+        <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/myevents" element={<MyEvents />}/>
           <Route path="/myevents/showall" element={<ShowAll />} />
+          <Route path="/user/register" element={<RegisterForm />} />
       
        
           <Route path="/myevents/addevent" element={<AddEvent />}/>

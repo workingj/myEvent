@@ -1,76 +1,58 @@
-import React, { useState } from 'react'
-import MyEvents from './Events/MyEvents'
-import AddEvent from './Events/AddEvent'
+import React, { useContext, useEffect, useState } from "react";
+import MyEvents from "./Events/MyEvents";
+import AddEvent from "./Events/AddEvent";
+import Contacts from "./Contacts/Contacts";
+import Profile from "./Gloubal/Profile";
+import Dashboard from "./Gloubal/Dashboard";
+import { DataContext } from "../Context/MyEventContext";
+import Overview from "./Gloubal/Overview";
 
 function Home() {
-  const [myEvents, setMyEvents] = useState(false)
-  const [addEvent, setAddEvent] = useState(false)
+  const [myEvents, setMyEvents] = useState(false);
+  const [addEvent, setAddEvent] = useState(false);
+  const [contacts, setContacts] = useState(false);
+  const { overview, setOverview } = useContext(DataContext);
+
+  useEffect(() => {
+    if (overview == true) {
+      setMyEvents(false);
+      setAddEvent(false);
+      setContacts(false);
+    }
+  }, [overview]);
 
   const handleButtonClick = (button) => {
-    setMyEvents(false)
-    setAddEvent(false)
+    setMyEvents(false);
+    setAddEvent(false);
+    setContacts(false);
 
-    if (button === "myEvents") setMyEvents(true)
-    if (button === "addEvent") setAddEvent(true)
+    setOverview(false);
 
-  }
+    if (button === "myEvents") setMyEvents(true);
+    if (button === "addEvent") setAddEvent(true);
+    if (button === "contacts") setContacts(true);
+  };
   return (
-    <div className="container flex  bg-gray-300 justify-center text-center w-full h-full ">
-
-
-
-
-
+    <div className="container flex  justify-center text-center w-full h-full ">
       {/* left side */}
-      <div className="m-4 bg-gray-100 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-      
-        {myEvents && <MyEvents handleButtonClick={handleButtonClick
-        }/>}
-        {addEvent && <AddEvent handleButtonClick={handleButtonClick
-        }
-         />}
-       
-
+      <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+        {myEvents && <MyEvents handleButtonClick={handleButtonClick} />}
+        {addEvent && <AddEvent handleButtonClick={handleButtonClick} />}
+        {contacts && <Contacts />}
+        {overview && <Overview />}
       </div>
 
-
-
-
-
-
-
       {/* Right side */}
-      <div className="border border-gray-300 p-4 m-4 bg-gray-100 rounded-md text-center w-96">
-      <div className='profile flex flex-col items-center justify-center bg-gray-100 p-4 rounded-md shadow-md mx-auto max-w-md w-82 h-72
-        '>
-          <h2>Prpfile</h2>
-
+      <div className="border border-gray-300 p-4 m-4  rounded-md text-center ">
+        <div className="profile flex flex-col items-center justify-center  p-4 rounded-md shadow-md mx-auto max-w-md w-82 h-72">
+          <Profile />
         </div>
-        <div className='dashboard mt-5 flex flex-col items-center justify-center bg-gray-100 p-4 rounded-md shadow-md mx-auto max-w-md w-82 h-96
-        '>
-          <h2>Dashboard</h2>
-
-          <ul>
-            
-             {/* Buttons */}
-            <li>             
-              <button
-                className="btn-left my-2 hover:bg-blue-200 text-blue-500
-                "
-                onClick={() => handleButtonClick("myEvents")}
-              >
-                My Events
-              </button>
-            </li>
-            
-          </ul>
-
+        <div>
+          <Dashboard handleButtonClick={handleButtonClick} />
         </div>
       </div>
     </div>
-
-
-  )
+  );
 }
 
-export default Home
+export default Home;

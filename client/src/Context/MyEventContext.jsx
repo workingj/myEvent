@@ -1,16 +1,16 @@
-import React from 'react'
-import { createContext, useEffect, useState } from 'react';
+import React from "react";
+import { createContext, useEffect, useState } from "react";
 export const DataContext = createContext();
 
 function MyEventContext({ children }) {
   //useStates
-  const value = {};
+  const [overview, setOverview] = useState(true);
+  const value = {
+    overview,
+    setOverview,
+  };
 
-  return (
-    <DataContext.Provider value={value} >
-      {children}
-    </DataContext.Provider>
-  );
+  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
 
 export default MyEventContext;

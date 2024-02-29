@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import MyEvents from "./Events/MyEvents";
 import AddEvent from "./Events/AddEvent";
 import Contacts from "./Contacts/Contacts";
-import Profile from "./Gloubal/Profile";
-import Dashboard from "./Gloubal/Dashboard";
+import Profile from "./Global/Profile";
+import Dashboard from "./Global/Dashboard";
 import { DataContext } from "../Context/MyEventContext";
-import Overview from "./Gloubal/Overview";
+import Overview from "./Global/Overview";
 
 function Home() {
   const [myEvents, setMyEvents] = useState(false);

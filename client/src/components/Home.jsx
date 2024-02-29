@@ -7,11 +7,13 @@ import Dashboard from "./Global/Dashboard";
 import { DataContext } from "../Context/MyEventContext";
 import Overview from "./Global/Overview";
 import { toast } from "react-toastify";
+import Settings from "./Global/Settings"
 
 function Home() {
   const [myEvents, setMyEvents] = useState(false);
   const [addEvent, setAddEvent] = useState(false);
   const [contacts, setContacts] = useState(false);
+  const [settings, setSettings] = useState(false);
   const { overview, setOverview } = useContext(DataContext);
 
   useEffect(() => {
@@ -19,6 +21,7 @@ function Home() {
       setMyEvents(false);
       setAddEvent(false);
       setContacts(false);
+      setSettings(false);
     }
   }, [overview]);
 
@@ -26,21 +29,23 @@ function Home() {
     setMyEvents(false);
     setAddEvent(false);
     setContacts(false);
-
     setOverview(false);
+    setSettings(false);
 
     if (button === "myEvents") setMyEvents(true);
     if (button === "addEvent") setAddEvent(true);
     if (button === "contacts") setContacts(true);
+    if (button === "settings") setSettings(true);
   };
   return (
-    <div className="container flex  justify-center text-center w-full h-full ">
+    <div className="containerHome flex  justify-center text-center w-full h-full ">
       {/* left side */}
       <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
         {myEvents && <MyEvents handleButtonClick={handleButtonClick} />}
         {addEvent && <AddEvent handleButtonClick={handleButtonClick} />}
         {contacts && <Contacts />}
         {overview && <Overview />}
+        {settings && <Settings />}
       </div>
 
       {/* Right side */}

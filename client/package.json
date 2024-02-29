@@ -18,7 +18,8 @@
     "react-router-dom": "^6.22.1",
     "react-spinners": "^0.13.8",
     "react-toastify": "^10.0.4",
-    "spinners-react": "^1.0.7"
+    "spinners-react": "^1.0.7",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

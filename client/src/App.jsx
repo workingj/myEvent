@@ -5,9 +5,9 @@ import NotFound from "./components/Global/NotFound.jsx";
 import MyEvents from "./components/Events/MyEvents.jsx";
 import AddEvent from "./components/Events/AddEvent.jsx";
 import ShowAll from "./components/Events/ShowAll.jsx";
-
-import Navbar from "./components/Global/Navbar.jsx";
-import Login from "./components/Users/Login.jsx";
+import Profile from "./components/Gloubal/Profile.jsx";
+import Navbar from "./components/Gloubal/Navbar.jsx";
+import LoginForm from "./components/Users/LoginForm.jsx";
 import RegisterForm from "./components/Users/RegisterForm.jsx";
 import Privacy from "./components/Global/Privacy.jsx";
 
@@ -15,21 +15,19 @@ import Privacy from "./components/Global/Privacy.jsx";
 export default function App() {
   return (
     <>
-
       <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<Login />} />
+        <Route path="/user/login" element={<LoginForm />} />
         <Route path="/privacy" element={<Privacy />} />
-        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/user/register" element={<RegisterForm />} />
 
         <Route path="/myevents" element={<MyEvents />} />
         <Route path="/myevents/showall" element={<ShowAll />} />
         <Route path="/myevents/addevent" element={<AddEvent />} />
-
+        <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/contacts" element={<Contacts />} />
-
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -11,7 +11,7 @@
     "**/node_modules": true,
     "**/.eslintrc.cjs": true,
     "**/vite.config.js": true,
-    "**/.gitignore": true,
+    // "**/.gitignore": true,
     // "**/tailwind.config.js": true,
     // "**/postcss.config.js": true
   }

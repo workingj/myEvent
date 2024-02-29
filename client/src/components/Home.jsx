@@ -5,7 +5,8 @@ import Contacts from "./Contacts/Contacts";
 import Profile from "./Global/Profile";
 import Dashboard from "./Global/Dashboard";
 import { DataContext } from "../Context/MyEventContext";
-import Overview from "./Global/Overview";
+import Overview from "./Gloubal/Overview";
+import { toast } from "react-toastify";
 
 function Home() {
   const [myEvents, setMyEvents] = useState(false);

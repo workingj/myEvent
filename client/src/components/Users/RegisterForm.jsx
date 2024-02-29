@@ -6,15 +6,21 @@ import axios from "axios";
 function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== password2) {
+      console.log('password',password , 'pass2',password2);
+      toast.error('Passwords are not equal !!');
+    } else {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/user/register`,
@@ -35,15 +41,16 @@ function RegisterForm() {
             navigate('/login');
         }
     } catch (error) {
+      setError(error.response.data.error);
         toast.error(error.response.data.error || 'Registration failed');
+      }
     }
   };
   return (
-
-    <div className="container mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500 bg-white">
-
+    <div className="container mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500 bg-white bg-opacity-80">
       <div className="p-4 mt-20">
         <h2 className="text-2xl font-semibold mb-4">Register</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <p className="mb-2"></p>
@@ -101,6 +108,17 @@ function RegisterForm() {
             />
           </div>
           <div className="mb-4">
+            <p className="mb-2"></p>
+            <input
+              placeholder="Retype Password"
+              type="password"
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
+              className="border rounded-full w-full p-2"
+              required
+            />
+          </div>
+          <div className="mb-4">
             <p className="mb-2">Birth Date</p>
             <input
               placeholder="Birth Date"
@@ -120,7 +138,7 @@ function RegisterForm() {
         </form>
         <p>
           Have you already an account?
-          <Link className="underline " to="/login">
+          <Link className="underline " to="/user/login">
             Click here
           </Link>
         </p>

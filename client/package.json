@@ -19,7 +19,8 @@
     "react-spinners": "^0.13.8",
     "react-toastify": "^10.0.4",
     "spinners-react": "^1.0.7",
-    "toastify": "^2.0.1"
+    "toastify": "^2.0.1",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

@@ -5,14 +5,17 @@ import NotFound from "./components/Gloubal/NotFound.jsx";
 import MyEvents from "./components/Events/MyEvents.jsx";
 import AddEvent from "./components/Events/AddEvent.jsx";
 import ShowAll from "./components/Events/ShowAll.jsx";
+
 import Navbar from "./components/Gloubal/Navbar.jsx";
 import Login from "./components/Users/Login.jsx";
 import RegisterForm from "./components/Users/RegisterForm.jsx";
 import Privacy from "./components/Gloubal/Privacy.jsx";
 
+
 export default function App() {
   return (
     <>
+
       <Navbar />
 
       <Routes>
@@ -26,6 +29,7 @@ export default function App() {
         <Route path="/myevents/addevent" element={<AddEvent />} />
 
         <Route path="/user/contacts" element={<Contacts />} />
+
 
         <Route path="*" element={<NotFound />} />
       </Routes>

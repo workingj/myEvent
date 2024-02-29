@@ -37,7 +37,7 @@ function LoginForm() {
     }
   };
   return (
-    <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white">
+    <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
       <div className="p-4">
         <h2 className="text-21 font-semibold mb-4">Login</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}

@@ -10,12 +10,14 @@ import Navbar from "./components/Global/Navbar.jsx";
 import LoginForm from "./components/Users/LoginForm.jsx";
 import RegisterForm from "./components/Users/RegisterForm.jsx";
 import Privacy from "./components/Global/Privacy.jsx";
+ import { ToastContainer } from "react-toastify";
+ import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   return (
     <>
       <Navbar />
-
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/user/login" element={<LoginForm />} />

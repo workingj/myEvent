@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Contacts from "./components/Contacts/Contacts.jsx";
 import Home from "./components/Home.jsx";
-import NotFound from "./components/Gloubal/NotFound.jsx";
+import NotFound from "./components/Global/NotFound.jsx";
 import MyEvents from "./components/Events/MyEvents.jsx";
 import AddEvent from "./components/Events/AddEvent.jsx";
 import ShowAll from "./components/Events/ShowAll.jsx";
@@ -9,7 +9,7 @@ import Profile from "./components/Gloubal/Profile.jsx";
 import Navbar from "./components/Gloubal/Navbar.jsx";
 import LoginForm from "./components/Users/LoginForm.jsx";
 import RegisterForm from "./components/Users/RegisterForm.jsx";
-import Privacy from "./components/Gloubal/Privacy.jsx";
+import Privacy from "./components/Global/Privacy.jsx";
 
 
 export default function App() {

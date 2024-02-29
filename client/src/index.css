@@ -16,7 +16,6 @@
   /* background-image: url("./assets/bg.png");
   background-size: cover; */
 }
-
 h2 {
   width: 100%;
   text-align: center;
@@ -29,7 +28,6 @@ body {
   background-attachment: fixed;
   background-position: center;
 }
-
 .NotFound {
   display: flex;
   flex-direction: column;
@@ -41,7 +39,7 @@ body {
   max-width: 50rem;
   min-height: 25rem;
   margin: 10% auto auto auto;
-  background-color: #ffffffcd; /* Opacity 80% */
+  background-color: #ffffffcd; /*Opacity 80% Hex: CD */
 
   color: black;
   border: 1px solid black;
@@ -66,4 +64,25 @@ body {
     background-color: #fcd133ff;
     color: black;
   }
+}
+.Profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  && img {
+    width: 6rem;
+    height: 6rem;
+  }
+}
+.editBtn {
+  text-decoration: underline;
+  color: black;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 0.1rem 2rem;
+}
+.editBtn:hover {
+  background-color: #fcd133ff;
+  color: black;
 }

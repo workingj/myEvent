@@ -2,7 +2,8 @@ import React from "react";
 import ContactCard from "./ContactCard";
 import "./Contact.css";
 
-const contact = {
+// Placeholder data for contactCard Component
+const Contact = {
   email: "email@provider.net",
   firstName: "Firstname",
   last: "Lastname",
@@ -20,13 +21,13 @@ export default function Contacts() {
     <>
       <h2>CONTACTS</h2>
       <div className="Contacts">
-        <ContactCard contact={contact} />
-        <ContactCard contact={contact} />
-        <ContactCard contact={contact} />
-        <ContactCard contact={contact} />
-        <ContactCard contact={contact} />
-        <ContactCard contact={contact} />
-        <ContactCard contact={contact} />
+        <ContactCard Contact={Contact} />
+        <ContactCard Contact={Contact} />
+        <ContactCard Contact={Contact} />
+        <ContactCard Contact={Contact} />
+        <ContactCard Contact={Contact} />
+        <ContactCard Contact={Contact} />
+        <ContactCard Contact={Contact} />
       </div>
     </>
   );

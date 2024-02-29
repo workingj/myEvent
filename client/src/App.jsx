@@ -11,11 +11,9 @@ import Login from "./components/Users/Login.jsx";
 import RegisterForm from "./components/Users/RegisterForm.jsx";
 import Privacy from "./components/Global/Privacy.jsx";
 
-
 export default function App() {
   return (
     <>
-
       <Navbar />
 
       <Routes>
@@ -29,7 +27,6 @@ export default function App() {
         <Route path="/myevents/addevent" element={<AddEvent />} />
 
         <Route path="/user/contacts" element={<Contacts />} />
-
 
         <Route path="*" element={<NotFound />} />
       </Routes>

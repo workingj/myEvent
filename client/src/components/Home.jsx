@@ -5,7 +5,7 @@ import Contacts from "./Contacts/Contacts";
 import Profile from "./Global/Profile";
 import Dashboard from "./Global/Dashboard";
 import { DataContext } from "../Context/MyEventContext";
-import Overview from "./Gloubal/Overview";
+import Overview from "./Global/Overview";
 import { toast } from "react-toastify";
 
 function Home() {

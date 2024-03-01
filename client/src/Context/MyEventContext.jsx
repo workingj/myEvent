@@ -13,6 +13,7 @@ function MyEventContext({ children }) {
   const [overview, setOverview] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  const [allEvents, setAllEvents] = useState([]);
 
   const checkUser = async () => {
     try {
@@ -51,6 +52,8 @@ function MyEventContext({ children }) {
     setIsLoggedIn,
     setUserData,
     checkUser,
+    allEvents,
+    setAllEvents
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>

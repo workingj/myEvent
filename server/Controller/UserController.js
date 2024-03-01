@@ -56,6 +56,7 @@ export const updateUser = asyncHandler(async (req, res, next) => {
     body,
     params: { id },
   } = req;
+  console.log(req.body);
 
   const found = await User.findById(id);
   if (!found) throw new ErrorResponse(`User ${id} does not exist`, 404);

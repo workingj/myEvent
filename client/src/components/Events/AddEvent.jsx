@@ -4,52 +4,70 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SpinnerDotted } from "spinners-react";
 import axios from "axios";
+import { useAuth } from "../../Context/MyEventContext";
 
 function AddEvent({ handleButtonClick}) {
-  const [allEnents, setAllEvents] = useState([]);
+  const { allEvents, setAllEvents, userData } = useAuth();
+  // const [allEvents, setAllEvents] = useState([]);
   const [latestEventNR, setLatestEventNR] = useState(0);
   const [isImage, setIsImage] = useState(false);
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/events");
-        const responseData = response.data;
-        if (responseData.success && Array.isArray(responseData.data)) {
-          setAllEvents(responseData.data);
-        } else {
-          console.error("Invalid response format:", responseData);
-        }
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
-    fetchEvents();
-  }, []);
-  const latestEvent = () => {
-    if (allEnents.length === 0) {
-      return 1;
-    }
-    const latestEvent = allEnents.reduce((acc, event) => {
-      if (event.eventNR > acc) {
-        return event.eventNR;
-      }
-      return acc;
-    }, 0);
-    return latestEvent + 1;
-  };
-  useEffect(() => {
-    setLatestEventNR(latestEvent());
-    console.log(latestEventNR);
-  }, [allEnents]);
-
+  const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
+// -------------------latest event number---------------------
+const latestEvent = () => {
+  let index=1;
+  if (allEvents&&allEvents.length === 0) {
+    return 1;
+  }
+  const latest = allEvents&&allEvents.reduce((prev, current) =>
+    prev.eventNR > current.eventNR ? prev : current
+  );
+  index = latest.eventNR + 1;
+  setLatestEventNR(index);
+  return index;
+
+};
+// useEffect(() => {
+//   const latest = allEvents &&latestEvent();
+//   allEvents &&setLatestEventNR(latest);
+//   console.log('latest'+latestEventNR);
+// }, [allEvents]);
+
+
+
+//  -------------------get contacts---------------------
+  useEffect(() => {
+    // getContacts();
+    axios
+
+      .get(`${import.meta.env.VITE_API_URL}/contacts`)
+      .then((response) => {
+        console.log(response.data);
+        setContacts(response.data);
+        setLoading(false);
+        // setLatestEventNR(latestEvent);
+        // console.log('latest'+latestEventNR);
+       
+      })
+      .catch((error) => {
+        console.error("Server Error", error);
+        setError("Error fetching data");
+        setLoading(false);
+      }
+      );
+  }, []);
+
+ 
+
   const [event, setEvent] = useState({
     actionDate: "",
     title: "",
     text: "",
     image: "",
-    eventNR: 2,
-    user: "65dc93f865137995cc7ea9a5",
+    eventNR: latestEventNR,
+    user:  userData._id,
   });
 
   const navigate = useNavigate();
@@ -57,7 +75,7 @@ function AddEvent({ handleButtonClick}) {
     e.preventDefault();
     setSending(true);
     try {
-      const response = await axios.post("http://localhost:8000/events", event);
+      const response = await axios.post("http://localhost:8000/events/create", event);
       console.log(response);
       if (response.status === 201) {
         setEvent({
@@ -66,9 +84,10 @@ function AddEvent({ handleButtonClick}) {
           text: "",
           image: "",
           eventNR: latestEventNR,
-          user: "65dc93f865137995cc7ea9a5",
+          user: userData._id,
         });
         setSending(false);
+     
         navigate("/myevents");
       }
     } catch (error) {

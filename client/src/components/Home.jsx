@@ -7,7 +7,7 @@ import Dashboard from "./Global/Dashboard";
 import { DataContext } from "../Context/MyEventContext";
 import Overview from "./Global/Overview";
 import { toast } from "react-toastify";
-import Settings from "./Global/Settings"
+import Settings from "./Global/Settings";
 
 // Placeholder Data for Profile Component
 const User = {

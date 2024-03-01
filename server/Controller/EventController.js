@@ -3,7 +3,7 @@ import asyncHandler from '../utils/AsyncHandler.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 
 // @desc    Get all events
-// @route   GET /v1/events
+// @route   GET /events
 // @access  Public
 export const getEvents = asyncHandler(async (req, res, next) => {
   const {user}=req.body
@@ -14,7 +14,7 @@ export const getEvents = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Get single event
-// @route   GET /v1/events/:id
+// @route   GET /events/:id
 // @access  Public
 export const getEvent = asyncHandler(async (req, res, next) => {
   const event = await Event.findById(req.params.id);

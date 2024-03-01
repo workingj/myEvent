@@ -7,6 +7,8 @@ const eventRouter = Router();
 eventRouter.route('/')
     .post(eventController.getEvents)
     .post(eventController.createEvent);
+    eventRouter.route('/create')
+    .post(eventController.createEvent);
 
 eventRouter.route('/:id')
     .get(eventController.getEvent)

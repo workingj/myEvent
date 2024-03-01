@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import validator from 'validator';
-
+import validator from "validator";
+import { toast } from "react-toastify";
+import axios from "axios";
 import "./Styles/settings.css";
+import { useAuth } from "../../Context/MyEventContext";
 
 function Settings() {
+  const {userData } = useAuth();
   const [data, setData] = useState({
-    first_name: "Issa",
-    last_name: "alali",
-    email: "issa@exp.com",
-    avater: "defaultAvatar.svg",
-    birthdate: "12/12/1990",
+    // firstName: "Issa",
+    // lastName: "alali",
+    // email: "issa@exp.com",
+    // avater: "defaultAvatar.svg",
+    // birthDate: "12/12/1990",
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    email: userData.email,
+    avater: userData.avatar,
+    birthDate: userData.birthDate,
   });
   const [isEditMode, setIsEditMode] = useState(false);
   const [errors, setErrors] = useState({});
+  console.log(userData);
   // -------------------format date--------------
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -23,29 +32,34 @@ function Settings() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!validator.isAlpha(data.first_name)) {
-      newErrors.first_name = "Please enter a valid name";
+    if (!validator.isAlpha(data.firstName)) {
+      newErrors.firstName = "Please enter a valid first name";
     }
 
-    if (!validator.isAlpha(data.last_name)) {
-      newErrors.last_name = "Please enter a valid name";
+    if (!validator.isAlpha(data.lastName)) {
+      newErrors.lastName = "Please enter a valid last name";
     }
 
     if (!validator.isEmail(data.email)) {
       newErrors.email = "Please enter a valid email";
     }
 
-    if (!validator.isDate(data.birthdate)) {
-      newErrors.birthdate = "Please enter a valid date";
+    if (!validator.isDate(data.birthDate)) {
+      newErrors.birthDate = "Please enter a valid date";
     }
 
     if (!validator.isURL(data.avater)) {
       newErrors.avater = "Please enter a valid URL";
     }
+    // if (Object.keys(newErrors).length === 0) {
+    //   toast.success("Form is valid");
+    // } 
+   
+
 
     setErrors({ ...newErrors });
 
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   };
   // -------------------handle button--------------
 
@@ -54,10 +68,9 @@ function Settings() {
     const spanButton = document.getElementById(span);
     const savebtn = document.getElementById("save");
     const cancelbtn = document.getElementById("cancel");
-     
+   
 
     if (isEditMode) {
-    
       idInbox.readOnly = true;
       idInbox.style.backgroundColor = "lightgray";
       spanButton.innerHTML = "Edit";
@@ -66,13 +79,12 @@ function Settings() {
       // cancelbtn.style.display = "visible";
     } else {
       idInbox.readOnly = false;
+      idInbox.disabled = false;
       idInbox.focus();
       spanButton.innerHTML = "Save";
       idInbox.style.backgroundColor = "white";
       setIsEditMode(true);
     }
-    
-    
   };
   // -------------------avatar change--------------
   const handleAvatarChange = (e) => {
@@ -82,11 +94,50 @@ function Settings() {
   // -------------------form submit--------------
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    if(isEditMode) {
+      toast.error("Please save  the changes");
+      return;
+    }
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length > 0) 
+    toast.error(
+      Object.values(newErrors).map((value) => value).join(" "
+      )
+
+
+
+);
+    else {
+    const VITE_API_URL=import.meta.env.VITE_API_URL
+   
+
+
+    try {
+   
+
+        axios
+          .put(`${VITE_API_URL}/user/${userData._id}`, data)
+          .then((res) => {
+            console.log(res);
+
+            toast.success("Profile updated successfully");
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Profile not updated");
+          });
+      
+    } catch (error) {
+      console.log(error);
+    }
+
 
     console.log("Form submitted:", data);
+  }
+  
   };
-// ------------ validate form----------------
- 
+
+
   return (
     <div className="settings">
       <h1>Settings your Profile</h1>
@@ -97,44 +148,51 @@ function Settings() {
        "
         >
           <div>
-            <label htmlFor="first_name">First Name</label>
+            <label htmlFor="firstName">First Name</label>
             <input
               type="text"
-              id="first_name"
-              name="first_name"
-              value={data.first_name}
-              className={`border ${errors.first_name ? 'border-red-500' : 'border-gray-300'} rounded-md p-2 m-2 w-72 bg-gray-100`}
+              id="firstName"
+              name="firstName"
+              value={data.firstName}
+              className={`border ${
+                errors.firstName ? "border-red-500" : "border-gray-300"
+              } rounded-md p-2 m-2 w-72 bg-gray-100`}
               onChange={(e) => {
-                setData({ ...data, first_name: e.target.value }, () => validateForm());
+                setData({ ...data, firstName: e.target.value }
+              
+                );
               }}
               readOnly
-            />
+              disabled
               
+            />
+
             {/* edit button */}
             <span
               id="span-first-name"
               className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
-              onClick={() => handleButton("first_name", "span-first-name")}
+              onClick={() => handleButton("firstName", "span-first-name")}
             >
               Edit
             </span>
           </div>
           <br />
           <div>
-            <label htmlFor="last_name">Last Name</label>
+            <label htmlFor="lastName">Last Name</label>
             <input
               type="text"
-              id="last_name"
-              name="last_name"
-              value={data.last_name}
+              id="lastName"
+              name="lastName"
+              value={data.lastName}
               className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-              onChange={(e) => setData({ ...data, last_name: e.target.value })}
+              onChange={(e) => setData({ ...data, lastName: e.target.value })}
               readOnly
+              disabled
             />
             <span
               className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
               id="span-last-name"
-              onClick={() => handleButton("last_name", "span-last-name")}
+              onClick={() => handleButton("lastName", "span-last-name")}
             >
               Edit
             </span>
@@ -151,6 +209,7 @@ function Settings() {
               className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
               onChange={(e) => setData({ ...data, email: e.target.value })}
               readOnly
+              disabled
             />
             <span
               className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
@@ -162,20 +221,21 @@ function Settings() {
           </div>
           <br />
           <div>
-            <label htmlFor="birthdate">Birthdate</label>
+            <label htmlFor="birthDate">birthDate</label>
             <input
               type="date"
-              id="birthdate"
-              name="birthdate"
-              value={formatDate(data.birthdate)}
+              id="birthDate"
+              name="birthDate"
+              value={formatDate(data.birthDate)}
               className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-              onChange={(e) => setData({ ...data, birthdate: e.target.value })}
+              onChange={(e) => setData({ ...data, birthDate: e.target.value })}
               readOnly
+              disabled
             />
             <span
               className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
-              id="span-birthdate"
-              onClick={() => handleButton("birthdate", "span-birthdate")}
+              id="span-birthDate"
+              onClick={() => handleButton("birthDate", "span-birthDate")}
             >
               Edit
             </span>
@@ -187,9 +247,10 @@ function Settings() {
               type="file"
               id="avater"
               name="avater"
+           
               className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
               onChange={(e) => handleAvatarChange(e)}
-              readOnly
+              
             />
           </div>
           <br />

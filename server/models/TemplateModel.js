@@ -4,6 +4,7 @@ export const templateSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, "Title is required"],
+    unique: true,
   },
   author: {
     type: String,
@@ -17,6 +18,7 @@ export const templateSchema = new mongoose.Schema({
   type: {
     type: String,
     required: [true, "Type is required"],
+    unique: true,
   },
   templatenumber: {
     type: Number,

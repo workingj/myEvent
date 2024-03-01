@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { DataContext } from "../../Context/MyEventContext";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import axios from 'axios';
 
+
+ 
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
@@ -12,6 +14,7 @@ const Navbar = () => {
   const { isLoggedIn, setIsLoggedIn, userData } = useAuth();
   console.log("Login??", userData);
   
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -20,6 +23,8 @@ const Navbar = () => {
         { withCredentials: true }
       );
       setIsLoggedIn(false);
+      navigate("/");
+
     } catch (error) {
       toast.error("Error logging out");
     }

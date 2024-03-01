@@ -8,7 +8,7 @@
   padding: 0;
   font-family: "Roboto", sans-serif;
 }
-.containerHome{
+.containerHome {
   max-width: 100%;
 
   margin: 0 auto;
@@ -80,9 +80,98 @@ body {
   color: black;
   border: 1px solid black;
   border-radius: 15px;
-  padding: 0.1rem 2rem;
+  padding: 0.1rem 0;
+  width: 6rem;
+  text-align: center;
+  margin: 0 0.5rem;
 }
 .editBtn:hover {
   background-color: #fcd133ff;
   color: black;
+}
+.deleteBtn {
+  text-decoration: underline;
+  color: black;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 0.1rem 0;
+  width: 6rem;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+.deleteBtn:hover {
+  color: black;
+  background-color: #f78f9dff;
+}
+.okBtn {
+  text-decoration: underline;
+  color: black;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 0.1rem 0;
+  width: 6rem;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+.okBtn:hover {
+  color: black;
+  background-color: #99f78f;
+}
+.cancelBtn {
+  text-decoration: underline;
+  color: black;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 0.1rem 0;
+  width: 6rem;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+.cancelBtn:hover {
+  color: black;
+  background-color: #f78f9dff;
+}
+
+.popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3d3d3daa;
+}
+.popupInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  position: absolute;
+  top: 8rem;
+  background-color: #eeeeee;
+  padding: 4rem 2rem 3rem 2rem;
+  gap: 2rem;
+  /* left: 25%; */
+  border-radius: 10px;
+  border: 2px solid #fff;
+}
+.popupInner span {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+.popupInner span b {
+  display: inline-block;
+  width: 8rem;
+}
+.popupInner form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.popupInner h3 {
+  font-size: 2rem;
 }

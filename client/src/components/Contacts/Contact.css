@@ -72,3 +72,20 @@ img {
 .vSpace {
   line-height: 0.8rem;
 }
+.vCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.hCenter {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.addContactBtn {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}

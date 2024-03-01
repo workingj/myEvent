@@ -10,9 +10,21 @@
     "**/package-lock.json": true,
     "**/node_modules": true,
     "**/.eslintrc.cjs": true,
-    "**/vite.config.js": true,
+    "**/vite.config.js": true
     // "**/.gitignore": true,
     // "**/tailwind.config.js": true,
     // "**/postcss.config.js": true
-  }
+  },
+  "workbench.colorCustomizations": {
+    // Can customize each aspect
+    "[One Dark Pro]": {
+      // Optional
+      "tab.activeBorder": "#0A84FF" // Active Tab Highlighting
+    }
+    "tab.activeBorder": "#a0c979",
+   
+     "tab.activeBackground": "#140955",
+
+  },
+  
 }

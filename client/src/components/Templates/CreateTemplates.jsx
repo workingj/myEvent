@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { SpinnerDiamond } from "spinners-react";
 
-function CreateTemplates() {
+function CreateTemplate() {
   const [sending, setSending] = useState(false);
   const [postData, setPostData] = useState({
     title: "",
@@ -145,4 +145,4 @@ function CreateTemplates() {
   );
 }
 
-export default CreateTemplates;
+export default CreateTemplate;

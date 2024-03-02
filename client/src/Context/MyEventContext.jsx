@@ -14,6 +14,8 @@ function MyEventContext({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
   const [allEvents, setAllEvents] = useState([]);
+  const [contacts, setContacts] = useState([]);
+ 
 
   const checkUser = async () => {
     try {
@@ -40,7 +42,7 @@ function MyEventContext({ children }) {
         checkUser();
       }
     },[])
-  
+ 
 
 
 
@@ -53,7 +55,9 @@ function MyEventContext({ children }) {
     setUserData,
     checkUser,
     allEvents,
-    setAllEvents
+    setAllEvents,
+    contacts, setContacts
+    
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>

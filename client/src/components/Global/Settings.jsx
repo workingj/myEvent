@@ -5,6 +5,8 @@ import axios from "axios";
 import "./Styles/settings.css";
 import { useAuth } from "../../Context/MyEventContext";
 
+
+
 function Settings() {
   const {userData } = useAuth();
   const [data, setData] = useState({
@@ -21,12 +23,13 @@ function Settings() {
   });
   const [isEditMode, setIsEditMode] = useState(false);
   const [errors, setErrors] = useState({});
+  const [activeSave, setActiveSave] = useState(false);
   console.log(userData);
   // -------------------format date--------------
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split("T")[0];
-  };
+  }; 
 
   // validate form
   const validateForm = () => {
@@ -44,9 +47,9 @@ function Settings() {
       newErrors.email = "Please enter a valid email";
     }
 
-    if (!validator.isDate(data.birthDate)) {
-      newErrors.birthDate = "Please enter a valid date";
-    }
+    // if (!validator.isDate(data.birthDate)   ) {
+    //   newErrors.birthDate = "Please enter a valid date";
+    // }
 
     if (!validator.isURL(data.avater)) {
       newErrors.avater = "Please enter a valid URL";
@@ -68,6 +71,7 @@ function Settings() {
     const spanButton = document.getElementById(span);
     const savebtn = document.getElementById("save");
     const cancelbtn = document.getElementById("cancel");
+    setActiveSave(true);
    
 
     if (isEditMode) {
@@ -175,6 +179,8 @@ function Settings() {
             >
               Edit
             </span>
+            <br />
+            <span className="text-red-500">{errors.firstName}</span>
           </div>
           <br />
           <div>
@@ -196,6 +202,8 @@ function Settings() {
             >
               Edit
             </span>
+            <br />
+            <span className="text-red-500">{errors.lastName}</span>
           </div>
 
           <br />
@@ -218,6 +226,8 @@ function Settings() {
             >
               Edit
             </span>
+            <br />
+            <span className="text-red-500">{errors.email}</span>
           </div>
           <br />
           <div>
@@ -239,6 +249,9 @@ function Settings() {
             >
               Edit
             </span>
+            <br />
+            <span className="text-red-500">{errors.birthDate}</span>
+
           </div>
           <br />
           <div>
@@ -252,7 +265,10 @@ function Settings() {
               onChange={(e) => handleAvatarChange(e)}
               
             />
+            <br />
+            <span className="text-red-500">{errors.avater}</span>
           </div>
+
           <br />
           <div
             className="flex justify-center gap-4 m-4  
@@ -263,6 +279,8 @@ function Settings() {
               type="submit"
               className="bg-blue-500 text-white text-sm rounded-md 
             border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2"
+              disabled={!activeSave}
+              
             >
               Save
             </button>
@@ -271,7 +289,20 @@ function Settings() {
               type="reset"
               className="bg-red-500 text-white text-sm rounded-md 
             border-solid border-2 border-red-500 py-1 px-1 hover:bg-red-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4"
-              onClick={() => window.location.reload()}
+              onClick={() => 
+                setData({
+                  firstName: userData.firstName,
+                  lastName: userData.lastName,
+                  email: userData.email,
+                  avater: userData.avatar,
+                  birthDate: userData.birthDate,
+                })
+              
+
+
+              
+
+              }
             >
               Cancel
             </button>

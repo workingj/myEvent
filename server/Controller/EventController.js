@@ -32,12 +32,9 @@ export const getEvent = asyncHandler(async (req, res, next) => {
 // @route   POST /events
 // @access  Private
 export const createEvent = asyncHandler(async (req, res, next) => {
-  const { actionDate, title, text, image, eventNR, user
+  const { actionDate, title, text, image, eventNR, user, contact
    } = req.body;
-   const existingEvent = await Event.findOne
-    ({ eventNR });
-  if (existingEvent)
-    throw new ErrorResponse('An event with this eventNR already exists', 409);
+   
 
   const event = await Event.create(
     {
@@ -46,7 +43,9 @@ export const createEvent = asyncHandler(async (req, res, next) => {
       text,
       image,
       eventNR,
-      user
+      user,
+      contact
+
     }
   );
 

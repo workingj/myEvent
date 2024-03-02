@@ -45,7 +45,7 @@ const Navbar = () => {
         </div>
 
         <ul className="flex items-center space-x-4 flex-grow ">
-          <Link to="/">
+          <Link to="/home">
             <li className="basis-1/4 hover:text-orange-300 text-white font-oleo font-bold py-2 px-4 ">
               My Events
             </li>

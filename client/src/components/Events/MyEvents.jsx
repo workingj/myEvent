@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/MyEventContext";
+import { SpinnerDotted } from "spinners-react";
 
 function MyEvents({ handleButtonClick }) {
   // const [allEvents, setAllEvents] = useState([]);
@@ -81,6 +82,32 @@ function MyEvents({ handleButtonClick }) {
       [e.target.name]: e.target.value,
     });
   };
+  // handle delete event
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/events/${id}`
+      );
+      if (response.data.success) {
+        setAllEvents(allEvents.filter((event) => event._id !== id));
+      } else {
+        console.error("Invalid response format:", response.data);
+      }
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
+  };
+
+  // click edit button as pop up
+
+
+
+
+
+
+ 
+  
+
 
   return (
     <>
@@ -147,10 +174,20 @@ function MyEvents({ handleButtonClick }) {
                   </td>
                   <td className="border px-4 py-2">
                     <div className="flex justify-center items-center gap-2">
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => {
+                          // handleButtonClick("editEvent", event);
+                          // navigate(`/myevents/editevent/${event._id}`);
+                          navigate(`/myevents/edit/${event._id}`);
+                        }}
+                      
+                      >
                         Edit
                       </button>
-                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => handleDelete(event._id)}
+                                              
+                      >
                         Delete
                       </button>
                     </div>

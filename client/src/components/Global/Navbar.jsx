@@ -56,7 +56,7 @@ const Navbar = () => {
         "
         >
           <div className="space-x-4">
-            <Link to="/">
+            <Link to="/home">
               <button className="" onClick={() => setOverview(true)}>
                 Home
               </button>

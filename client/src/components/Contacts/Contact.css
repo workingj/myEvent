@@ -45,7 +45,7 @@
   font-size: 3rem;
   font-weight: bold;
 }
-img {
+.ContactCard img {
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
@@ -88,4 +88,12 @@ img {
 .addContactBtn {
   border: 1px solid #ccc;
   border-radius: 10px;
+}
+.addContactBtn:hover {
+  border: 1px solid #666;
+  background-color: #fcd133ff;
+}
+.addContactBtn:hover > svg > path {
+  fill: #eee;
+  stroke: #666;
 }

@@ -152,7 +152,7 @@ body {
   position: absolute;
   top: 8rem;
   background-color: #eeeeee;
-  padding: 4rem 2rem 3rem 2rem;
+  padding: 2rem 2rem 3rem 2rem;
   gap: 2rem;
   /* left: 25%; */
   border-radius: 10px;
@@ -174,4 +174,8 @@ body {
 }
 .popupInner h3 {
   font-size: 2rem;
+}
+
+.popupInner input[type="date"] {
+  width: 63%;
 }

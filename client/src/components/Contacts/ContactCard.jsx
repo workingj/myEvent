@@ -1,8 +1,12 @@
 import React, { useRef, useState } from "react";
 import defaultAvatar from "../../assets/defaultAvatar.svg";
 
-export default function ContactCard({ Contact, editHandler, deleteHandler }) {
-  let date = new Date(Contact.dates.birthday);
+export default function ContactCard({
+  Contact: contact,
+  handleEdit,
+  handleDelete,
+}) {
+  let date = new Date(contact.dates.birthday);
   date = `
     ${date.getDate().toString().padStart(2, "0")}.${date
     .getMonth()
@@ -11,23 +15,23 @@ export default function ContactCard({ Contact, editHandler, deleteHandler }) {
 
   return (
     <div name="ContactCard" className="ContactCard">
-      <DefaultAvatar Contact={Contact} />
+      <DefaultAvatar Contact={contact} />
       <h3 className="cName">
-        {Contact.firstName} {Contact.lastName}
+        {contact.firstName} {contact.lastName}
       </h3>
-      <span className="cData">{Contact.email}</span>
+      <span className="cData">{contact.email}</span>
       <span className="vSpace">&nbsp;</span>
       <span className="cBirthday">{date}</span>
       <span className="cData">
-        {Contact.zipcode} {Contact.city}
+        {contact.zipcode} {contact.city}
       </span>
-      <span className="cData">{Contact.street}</span>
+      <span className="cData">{contact.street}</span>
       <span className="vSpace">&nbsp;</span>
       <span>
-        <button className="editBtn" onClick={editHandler}>
+        <button className="editBtn" onClick={() => handleEdit(contact)}>
           Edit
         </button>
-        <button className="deleteBtn" onClick={deleteHandler}>
+        <button className="deleteBtn" onClick={() => handleDelete(contact)}>
           Delete
         </button>
       </span>

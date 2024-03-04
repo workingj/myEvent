@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function AddContactCard({ addHandler }) {
+export default function AddContactCard({ handleAdd }) {
   return (
     <div name="ContactCard" className="ContactCard">
       <div className="vCenter">
-        <button className="addContactBtn" onClick={addHandler}>
+        <button className="addContactBtn" onClick={handleAdd}>
           <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
             <path
               id="lineAB"

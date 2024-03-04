@@ -20,8 +20,8 @@ const EventModel = new mongoose.Schema({
   },
   eventNR: {
     type: Number,
-    required: [true, 'Event NR is required'],
-    unique: true,
+   
+    
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

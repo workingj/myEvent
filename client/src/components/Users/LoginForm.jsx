@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
-import { toast } from "react-toastify";
+ import {toast } from "react-toastify";
+ import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,12 @@ function LoginForm() {
   const { setIsLoggedIn, checkUser } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.body.classList.add("bg-white");
+    return () => {
+      document.body.classList.remove("bg-white");
+    };
+  }, []); 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -28,7 +35,7 @@ function LoginForm() {
         toast.success("Successfully logedin!");
         checkUser();
         setIsLoggedIn(true);
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       
@@ -37,43 +44,45 @@ function LoginForm() {
     }
   };
   return (
-    <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
-      <div className="p-4">
-        <h2 className="text-21 font-semibold mb-4">Login</h2>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <p className="block mb-2">Email:</p>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="border rounded-full w-full p-2"
-            />
-          </div>
-          <div className="mb-4">
-            <p className="block mb-2">Password:</p>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="border rounded-full w-full p-2"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-black hover:bg-gray-600 rounded-full p-2 mt-2 text-white font-bold"
-          >
-            Login
-          </button>
-          <p className="mt-4">
-            {" "}
-            Not registered yet?{" "}
-            <Link to="/user/register" className=" underline">
-              Register here
-            </Link>
-          </p>
-        </form>
+    <div className="w-screen h-screen  bg-black bg-opacity-30">
+      <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
+        <div className="p-4">
+          <h2 className="text-21 font-semibold mb-4">Login</h2>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <p className="block mb-2">Email:</p>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border rounded-full w-full p-2"
+              />
+            </div>
+            <div className="mb-4">
+              <p className="block mb-2">Password:</p>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="border rounded-full w-full p-2"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-black hover:bg-gray-600 rounded-full p-2 mt-2 text-white font-bold"
+            >
+              Login
+            </button>
+            <p className="mt-4">
+              {" "}
+              Not registered yet?{" "}
+              <Link to="/user/register" className=" underline">
+                Register here
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

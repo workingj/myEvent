@@ -10,14 +10,20 @@ import Navbar from "./components/Global/Navbar.jsx";
 import LoginForm from "./components/Users/LoginForm.jsx";
 import RegisterForm from "./components/Users/RegisterForm.jsx";
 import Privacy from "./components/Global/Privacy.jsx";
+ import { ToastContainer } from "react-toastify";
+ import "react-toastify/dist/ReactToastify.css";
+import Overview from "./components/Global/Overview.jsx";
+import LandingPage from "./components/LandingPage.jsx";
+// import Templates from "./components/Templates/Template.jsx";
 
 export default function App() {
   return (
     <>
       <Navbar />
-
+      <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/home" element={<Home />} />
         <Route path="/user/login" element={<LoginForm />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/user/register" element={<RegisterForm />} />
@@ -27,6 +33,7 @@ export default function App() {
         <Route path="/myevents/addevent" element={<AddEvent />} />
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/contacts" element={<Contacts />} />
+        {/* <Route path="/admin/templates" element={<Templates />} /> */}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

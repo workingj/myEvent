@@ -3,8 +3,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import CreateTemplate from "./CreateTemplates";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
- import { toast } from "react-toastify";
+// import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Template() {
   const [templateData, setTemplateData] = useState([]);
@@ -13,47 +13,49 @@ function Template() {
   const [selectedOption, setSelectedOption] = useState("title");
   const [showCreateTemplate, setshowCreateTemplate] = useState(false);
   const [showMainComponent, setshowMainComponent] = useState(true);
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [toEditData, setToEditData] = useState({});
 
   const onDelete = async (id) => {
-    // const id = req.params._id;
     try {
-       console.log('Delete from template',id);
-    const response = await axios.delete(
-      `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
-      { withCredentials: true }
-    );
-   if (response.data) {
-     toast.success("Successfully Deleted!");
-     setshowMainComponent(false);
-     navigate("/admin/templates")
-     setshowMainComponent(true);
-   } else {
-     toast.error("Delete was not successfull !!");
-      
-   }
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
+        { withCredentials: true }
+      );
+      if (response.data) {
+        toast.success("Successfully Deleted!");
+        setTemplateData(templateData.filter((e) => e._id !== id));
+      } else {
+        toast.error("Delete was not successfull !!");
+      }
     } catch (error) {
       setError(error.response.data.message);
       toast.error("Login failed!");
     }
-  }
+  };
 
-   const handleshowCreateTemplate = () => {
-     setshowCreateTemplate(!showCreateTemplate);
-     setshowMainComponent(!showMainComponent);
-   };
+  const handleshowCreateTemplate = () => {
+    setshowCreateTemplate(!showCreateTemplate);
+    setshowMainComponent(!showMainComponent);
+  };
+
+  const onEdit = async (e) => {
+    console.log("object in edit", toEditData);
+    console.log("object in edit title", toEditData.title);
+    handleshowCreateTemplate();
+
+  };
 
   function searchData() {
-    console.log("searched data in func", searchedData);
-    console.log("from serch data", selectedOption);
     setTemplateData(
-     featchedData.filter(
-       (item) =>
-         item[selectedOption]?.toLowerCase().includes(searchedData.toLowerCase())
-       // item.toLowerCase().includes(searchedData.toLowerCase())
-     )
-   );
+      featchedData.filter(
+        (item) =>
+          item[selectedOption]
+            ?.toLowerCase()
+            .includes(searchedData.toLowerCase())
+        // item.toLowerCase().includes(searchedData.toLowerCase())
+      )
+    );
   }
 
   const fetchData = async () => {
@@ -86,7 +88,6 @@ function Template() {
     if (token) {
       fetchData();
     }
-    console.log("From Templates in Effect result.data", templateData);
   }, []);
 
   useEffect(() => {
@@ -94,7 +95,6 @@ function Template() {
     if (token) {
       searchData();
     }
-    console.log("From Templates in 2.Effect result.data", searchedData);
   }, [searchedData, setSearchedData]);
 
   return showMainComponent ? (
@@ -194,19 +194,33 @@ function Template() {
                   >
                     {e.title}
                   </th>
-                  <td className="px-6 py-4">{e.content}</td>
+                  <td className="px-6 py-4"><img src={e.images} alt={e.title} width="25%" height="100%"/>{e.content}</td>
                   <td className="px-6 py-4">{e.type}</td>
                   <td className="px-6 py-4 text-sm">
                     <a
                       href="#"
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
+                      onClick={() => {
+                        setToEditData({
+                          title: e.title,
+                          content: e.content,
+                          images: e.images,
+                          type: e.type,
+                          id:e._id,
+                          updateFlag:true
+                        }),
+                          onEdit();
+                      }}
                     >
                       Edit
                     </a>
                     <a
                       href="#"
                       className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
-                      onClick={() => onDelete(e._id)}
+                      onClick={() => {
+                        onDelete(e._id);
+                        setToEditData({});
+                      }}
                     >
                       Delete
                     </a>
@@ -219,7 +233,18 @@ function Template() {
       </div>
     </div>
   ) : (
-    <div>{showCreateTemplate && <CreateTemplate />}</div>
+    <div>
+      {showCreateTemplate && (
+        <CreateTemplate
+          title={toEditData.title}
+          content={toEditData.content}
+          images={toEditData.images}
+            type={toEditData.type}
+            id={toEditData.id}
+            updateFlag={toEditData.updateFlag}
+        />
+      )}
+    </div>
   );
 }
 

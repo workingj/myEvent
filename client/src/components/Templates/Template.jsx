@@ -1,7 +1,103 @@
 import React from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import CreateTemplate from "./CreateTemplates";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+ import { toast } from "react-toastify";
 
 function Template() {
-  return (
+  const [templateData, setTemplateData] = useState([]);
+  const [searchedData, setSearchedData] = useState("");
+  const [featchedData, setFeatchedData] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("title");
+  const [showCreateTemplate, setshowCreateTemplate] = useState(false);
+  const [showMainComponent, setshowMainComponent] = useState(true);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+  const onDelete = async (id) => {
+    // const id = req.params._id;
+    try {
+       console.log('Delete from template',id);
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
+      { withCredentials: true }
+    );
+   if (response.data) {
+     toast.success("Successfully Deleted!");
+     setshowMainComponent(false);
+     navigate("/admin/templates")
+     setshowMainComponent(true);
+   } else {
+     toast.error("Delete was not successfull !!");
+      
+   }
+    } catch (error) {
+      setError(error.response.data.message);
+      toast.error("Login failed!");
+    }
+  }
+
+   const handleshowCreateTemplate = () => {
+     setshowCreateTemplate(!showCreateTemplate);
+     setshowMainComponent(!showMainComponent);
+   };
+
+  function searchData() {
+    console.log("searched data in func", searchedData);
+    console.log("from serch data", selectedOption);
+    setTemplateData(
+     featchedData.filter(
+       (item) =>
+         item[selectedOption]?.toLowerCase().includes(searchedData.toLowerCase())
+       // item.toLowerCase().includes(searchedData.toLowerCase())
+     )
+   );
+  }
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/admin/templates`,
+        { withCredentials: true }
+      );
+      if (response.data) {
+        setFeatchedData(response.data);
+        console.log("From Templates if result.data", response.data);
+        setTemplateData(response.data);
+      } else {
+        setFeatchedData([]);
+      }
+    } catch (error) {
+      setFeatchedData([]);
+    }
+  };
+
+  const handleChange = (e) => {
+    setSearchedData(e.target.value);
+  };
+  const handleChangeSelect = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      fetchData();
+    }
+    console.log("From Templates in Effect result.data", templateData);
+  }, []);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      searchData();
+    }
+    console.log("From Templates in 2.Effect result.data", searchedData);
+  }, [searchedData, setSearchedData]);
+
+  return showMainComponent ? (
     <div className="container mt-20 mx-auto max-w-6xl rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
       <div className="p-4">
         <h2 className="text-2xl font-semibold mb-4">Templates</h2>
@@ -9,10 +105,7 @@ function Template() {
 
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
           <div className="pb-4 ml-2">
-            <label htmlFor="table-search" className="sr-only">
-              Search
-            </label>
-            <div className="relative mt-1">
+            <div className="relative mt-1 flex items-center">
               <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
                   className="w-4 h-4  "
@@ -30,12 +123,32 @@ function Template() {
                   />
                 </svg>
               </div>
+
               <input
+                value={searchedData}
+                onChange={handleChange}
                 type="text"
                 id="table-search"
-                className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className=" pt-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 h-10 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search for items"
               />
+              <select
+                name="select"
+                id="select"
+                className=" mx-2 pt-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-40 h-10 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={handleChangeSelect}
+              >
+                <option value="title">Title</option>
+                <option value="content">Content</option>
+                <option value="type">Type</option>
+              </select>
+              <button
+                type="submit"
+                className="bg-black hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+                onClick={handleshowCreateTemplate}
+              >
+                Create a new Template
+              </button>
             </div>
           </div>
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -67,41 +180,46 @@ function Template() {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center"></div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+              {templateData.map((e) => (
+                <tr
+                  key={e._id}
+                  className="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
-                  Birth Day
-                </th>
-                <td className="px-6 py-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                  id.
-                </td>
-                <td className="px-6 py-4">Gradulation</td>
-                <td className="px-6 py-4 text-sm">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
+                  <td className="w-4 p-4">
+                    <div className="flex items-center"></div>
+                  </td>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
                   >
-                    Edit
-                  </a>
-                  <a
-                    href="#"
-                    className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
-                  >
-                    Delete
-                  </a>
-                </td>
-              </tr>
+                    {e.title}
+                  </th>
+                  <td className="px-6 py-4">{e.content}</td>
+                  <td className="px-6 py-4">{e.type}</td>
+                  <td className="px-6 py-4 text-sm">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
+                    >
+                      Edit
+                    </a>
+                    <a
+                      href="#"
+                      className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
+                      onClick={() => onDelete(e._id)}
+                    >
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
     </div>
+  ) : (
+    <div>{showCreateTemplate && <CreateTemplate />}</div>
   );
 }
 

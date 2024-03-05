@@ -83,6 +83,7 @@ export const deleteUser = asyncHandler(async (req, res, next) => {
 //Login
 export const login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(req.body);
   const isUserExist = await User.findOne({ email }).select("+password");
   if (!isUserExist) throw new Error("Email doest not exist", 404);
   const match = await bcrypt.compare(password, isUserExist.password);

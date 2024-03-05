@@ -3,13 +3,17 @@ import { useAuth } from '../../Context/MyEventContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-function EditeEvent() {
-  const { id } = useParams();
+function EditeEvent({handleCancel, id}) {
+  // const { id } = useParams();
   const {  allEvents, userData, contacts
   } = useAuth();
+  console.log('id: '+id)
   const event = allEvents&&allEvents.find((event) => event._id === id);
   const [editeEvent, setEditeEvent] = useState(event);
-  const name=contacts&&contacts.find((contact) => contact._id === editeEvent.contact);
+  const name = contacts && editeEvent && contacts.find((contact) => contact._id === editeEvent.contact);
+
+
+  
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const navigate = useNavigate();
@@ -44,8 +48,9 @@ function EditeEvent() {
     return date.toISOString().split("T")[0];
   };
   return (
-    <div className="w-screen h-screen  bg-black bg-opacity-30">
+    <div className="popup">
       <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
+      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
         <div className="p-4">
           <h2 className="text-21 font-semibold mb-4">Edite Event</h2>
           {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -87,15 +92,21 @@ function EditeEvent() {
                 className="border rounded-full w-full p-2"
               />
             </div>
+            <span className="hCenter">
           
               <button
                 type="submit"
-                className="bg-black hover:bg-gray-600 rounded-full p-2 mt-2 text-white font-bold"
+                className="okBtn"
               >
                 Save
               </button>
+              <button className="cancelBtn" onClick={(e) => handleCancel(e)}>
+            Cancel
+          </button>
+            </span>
             </form>
 
+            </div>
             </div>
             </div>
 

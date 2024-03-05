@@ -1,17 +1,17 @@
 {
   "files.exclude": {
-    // "**/.git": true,
-    // "**/.svn": true,
-    // "**/.hg": true,
-    // "**/CVS": true,
-    // "**/.DS_Store": true,
-    // "**/Thumbs.db": true,
-    // ".vscode": true,
-    // "**/package-lock.json": true,
-    // "**/node_modules": true,
-    // "**/.eslintrc.cjs": true,
-    // "**/vite.config.js": true
-    // "**/.gitignore": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".vscode": true,
+    "**/package-lock.json": true,
+    "**/node_modules": true,
+    "**/.eslintrc.cjs": true,
+    "**/vite.config.js": true,
+    "**/.gitignore": true,
     // "**/tailwind.config.js": true,
     // "**/postcss.config.js": true
   },
@@ -21,9 +21,9 @@
       // Optional
       "tab.activeBorder": "#0A84FF" // Active Tab Highlighting
     }
-    "tab.activeBorder": "#a0c979",
+    // "tab.activeBorder": "#a0c979",
    
-     "tab.activeBackground": "#140955",
+    //  "tab.activeBackground": "#140955",
 
   },
   

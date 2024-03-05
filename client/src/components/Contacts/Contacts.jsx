@@ -1,24 +1,12 @@
 import ContactCard from "./ContactCard";
 import AddContactCard from "./AddContactCard";
 import "./Contact.css";
+import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
-
-// Placeholder data for contactCard Component
-const Contact = {
-  email: "email@provider.net",
-  firstName: "Firstname",
-  lastName: "Lastname",
-  city: "Homestadt",
-  street: "Knownstreet 7",
-  dates: {
-    birthday: "06.11.1998",
-    marriage: "06.11.1998",
-  },
-};
+import validator from "validator";
 
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
@@ -50,7 +38,6 @@ export default function Contacts() {
   function handleAdd() {
     setAddPopup(true);
   }
-  console.log(userData._id);
 
   useEffect(() => {
     axios
@@ -59,8 +46,6 @@ export default function Contacts() {
       })
       .then((res) => {
         setContacts(res.data.data);
-        console.log("get Contacts:", res.data.data);
-
         setLoading(false);
       })
       .catch((error) => {
@@ -260,18 +245,24 @@ function ContactForm({ contact, handleCancel, handleOk, userID }) {
   );
 
   return (
-    <form action="">
+    <form
+      onSubmit={(e) => {
+        handleOk(e, cTemp);
+
+        // handleCancel(e);
+      }}
+    >
       <span>
-        <b>Email:</b>
+        <label htmlFor="email">Email:</label>
         <input
-          type="text"
+          type="email"
           name="email"
           value={cTemp ? cTemp.email : ""}
           onChange={(e) => setCTemp({ ...cTemp, email: e.target.value })}
         />
       </span>
       <span>
-        <b>First Name:</b>
+        <label htmlFor="firstName">First Name:</label>
         <input
           type="text"
           name="firstName"
@@ -281,7 +272,7 @@ function ContactForm({ contact, handleCancel, handleOk, userID }) {
         />
       </span>
       <span>
-        <b>Last Name:</b>
+        <label htmlFor="lastName">Last Name:</label>
         <input
           type="text"
           name="lastName"
@@ -291,7 +282,7 @@ function ContactForm({ contact, handleCancel, handleOk, userID }) {
         />
       </span>
       <span>
-        <b>Zipcode:</b>
+        <label htmlFor="zipcode">Zipcode:</label>
         <input
           type="text"
           name="zipcode"
@@ -300,7 +291,7 @@ function ContactForm({ contact, handleCancel, handleOk, userID }) {
         />
       </span>
       <span>
-        <b>City:</b>
+        <label htmlFor="city">City:</label>
         <input
           type="text"
           name="city"
@@ -309,7 +300,7 @@ function ContactForm({ contact, handleCancel, handleOk, userID }) {
         />
       </span>
       <span>
-        <b>Street:</b>
+        <label htmlFor="street">Street:</label>
         <input
           type="text"
           name="street"
@@ -321,29 +312,27 @@ function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <strong>Dates</strong>
       </span>
       <hr />
-      <span>
-        <b>Birthday:</b>
-        <input
-          type="date"
-          name="birthday"
-          onChange={(e) =>
-            setCTemp({
-              ...cTemp,
-              dates: { ...cTemp.dates, birthday: e.target.value },
-            })
-          }
-          value={
-            cTemp
-              ? cTemp.dates.birthday
-                ? cTemp.dates.birthday.slice(0, 10)
-                : ""
+      <label>Birthday:</label>
+      <input
+        type="date"
+        name="birthday"
+        onChange={(e) =>
+          setCTemp({
+            ...cTemp,
+            dates: { ...cTemp.dates, birthday: e.target.value },
+          })
+        }
+        value={
+          cTemp
+            ? cTemp.dates.birthday
+              ? cTemp.dates.birthday.slice(0, 10)
               : ""
-          }
-          required
-        />
-      </span>
+            : ""
+        }
+        required
+      />
       <span>
-        <b>Marriage:</b>
+        <label>Marriage:</label>
         <input
           type="date"
           name="marriage"
@@ -364,14 +353,7 @@ function ContactForm({ contact, handleCancel, handleOk, userID }) {
       </span>
       <span className="vSpace"></span>
       <span className="hCenter">
-        <button
-          type="submit"
-          className="okBtn"
-          onClick={(e) => {
-            handleOk(e, cTemp);
-            handleCancel(e);
-          }}
-        >
+        <button type="submit" className="okBtn">
           Ok
         </button>
         <button className="cancelBtn" onClick={(e) => handleCancel(e)}>

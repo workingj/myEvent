@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import validator from "validator";
-import { toast } from "react-toastify";
-import axios from "axios";
 import "./Styles/settings.css";
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
-
-
+import validateForm from '../../validator/formvalidator.js'
 
 function Settings() {
-  const {userData } = useAuth();
+  const { userData } = useAuth();
   const [data, setData] = useState({
     // firstName: "Issa",
     // lastName: "alali",
@@ -29,41 +27,8 @@ function Settings() {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split("T")[0];
-  }; 
-
-  // validate form
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!validator.isAlpha(data.firstName)) {
-      newErrors.firstName = "Please enter a valid first name";
-    }
-
-    if (!validator.isAlpha(data.lastName)) {
-      newErrors.lastName = "Please enter a valid last name";
-    }
-
-    if (!validator.isEmail(data.email)) {
-      newErrors.email = "Please enter a valid email";
-    }
-
-    // if (!validator.isDate(data.birthDate)   ) {
-    //   newErrors.birthDate = "Please enter a valid date";
-    // }
-
-    if (!validator.isURL(data.avater)) {
-      newErrors.avater = "Please enter a valid URL";
-    }
-    // if (Object.keys(newErrors).length === 0) {
-    //   toast.success("Form is valid");
-    // } 
-   
-
-
-    setErrors({ ...newErrors });
-
-    return newErrors;
   };
+
   // -------------------handle button--------------
 
   const handleButton = (idName, span) => {
@@ -72,7 +37,6 @@ function Settings() {
     const savebtn = document.getElementById("save");
     const cancelbtn = document.getElementById("cancel");
     setActiveSave(true);
-   
 
     if (isEditMode) {
       idInbox.readOnly = true;
@@ -98,27 +62,23 @@ function Settings() {
   // -------------------form submit--------------
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if(isEditMode) {
+    if (isEditMode) {
       toast.error("Please save  the changes");
       return;
     }
-    const newErrors = validateForm();
-    if (Object.keys(newErrors).length > 0) 
-    toast.error(
-      Object.values(newErrors).map((value) => value).join(" "
-      )
-
-
-
-);
+    const newErrors = validateForm(data);
+    setErrors(newErrors);
+    
+    if (Object.keys(newErrors).length > 0)
+      toast.error(
+        Object.values(newErrors)
+          .map((value) => value)
+          .join(" ")
+      );
     else {
-    const VITE_API_URL=import.meta.env.VITE_API_URL
-   
+      const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-
-    try {
-   
-
+      try {
         axios
           .put(`${VITE_API_URL}/user/${userData._id}`, data)
           .then((res) => {
@@ -130,17 +90,13 @@ function Settings() {
             console.log(err);
             toast.error("Profile not updated");
           });
-      
-    } catch (error) {
-      console.log(error);
+      } catch (error) {
+        console.log(error);
+      }
+
+      console.log("Form submitted:", data);
     }
-
-
-    console.log("Form submitted:", data);
-  }
-  
   };
-
 
   return (
     <div className="settings">
@@ -162,13 +118,10 @@ function Settings() {
                 errors.firstName ? "border-red-500" : "border-gray-300"
               } rounded-md p-2 m-2 w-72 bg-gray-100`}
               onChange={(e) => {
-                setData({ ...data, firstName: e.target.value }
-              
-                );
+                setData({ ...data, firstName: e.target.value });
               }}
               readOnly
               disabled
-              
             />
 
             {/* edit button */}
@@ -251,7 +204,6 @@ function Settings() {
             </span>
             <br />
             <span className="text-red-500">{errors.birthDate}</span>
-
           </div>
           <br />
           <div>
@@ -260,10 +212,8 @@ function Settings() {
               type="file"
               id="avater"
               name="avater"
-           
               className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
               onChange={(e) => handleAvatarChange(e)}
-              
             />
             <br />
             <span className="text-red-500">{errors.avater}</span>
@@ -280,7 +230,6 @@ function Settings() {
               className="bg-blue-500 text-white text-sm rounded-md 
             border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2"
               disabled={!activeSave}
-              
             >
               Save
             </button>
@@ -289,7 +238,7 @@ function Settings() {
               type="reset"
               className="bg-red-500 text-white text-sm rounded-md 
             border-solid border-2 border-red-500 py-1 px-1 hover:bg-red-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4"
-              onClick={() => 
+              onClick={() =>
                 setData({
                   firstName: userData.firstName,
                   lastName: userData.lastName,
@@ -297,11 +246,6 @@ function Settings() {
                   avater: userData.avatar,
                   birthDate: userData.birthDate,
                 })
-              
-
-
-              
-
               }
             >
               Cancel

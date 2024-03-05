@@ -13,7 +13,7 @@ function ShowAll() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.post('http://localhost:8000/events', {
+        const response = await axios.post('http://localhost:8000/user/events', {
           user,
         });
         const responseData = response.data;

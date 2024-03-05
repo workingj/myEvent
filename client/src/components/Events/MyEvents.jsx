@@ -46,7 +46,7 @@ function MyEvents({ handleButtonClick }) {
     const fetchEvents = async () => {
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_API_URL}/events`,
+          `${import.meta.env.VITE_API_URL}/user/events`,
           {
             user: userData._id,
           }
@@ -86,7 +86,7 @@ function MyEvents({ handleButtonClick }) {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/events/${id}`
+        `${import.meta.env.VITE_API_URL}/user/events/${id}`
       );
       if (response.data.success) {
         setAllEvents(allEvents.filter((event) => event._id !== id));

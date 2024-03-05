@@ -17,7 +17,7 @@ function EditeEvent() {
     e.preventDefault();
     setSending(true);
     try {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/events/${id}
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/user/events/${id}
       `, editeEvent);
       
       console.log(response);

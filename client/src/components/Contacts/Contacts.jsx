@@ -2,8 +2,10 @@ import ContactCard from "./ContactCard";
 import AddContactCard from "./AddContactCard";
 import "./Contact.css";
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useAuth } from "../../Context/MyEventContext";
 
 // Placeholder data for contactCard Component
 const Contact = {
@@ -26,6 +28,7 @@ export default function Contacts() {
   const [deletePopup, setDeletePopup] = useState(false);
   const [addPopup, setAddPopup] = useState(false);
   const contactCache = useRef();
+  const { userData } = useAuth();
 
   function handleEdit(contact) {
     contactCache.current = contact;
@@ -47,16 +50,21 @@ export default function Contacts() {
   function handleAdd() {
     setAddPopup(true);
   }
+  console.log(userData._id);
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/user/contacts`)
+      .post(`${import.meta.env.VITE_API_URL}/user/contacts/allforuser`, {
+        user: userData._id,
+      })
       .then((res) => {
-        setContacts(res.data);
+        setContacts(res.data.data);
+        console.log("get Contacts:", res.data.data);
+
         setLoading(false);
       })
       .catch((error) => {
-        console.error(error.stack);
+        console.error("ERR getContacts:", error.stack);
         setLoading(false);
         setError(true);
       });
@@ -87,62 +95,23 @@ export default function Contacts() {
             handleCancel={handleCancel}
           />
         )}
-        {addPopup && <AddPopup handleCancel={handleCancel} />}
+        {addPopup && (
+          <AddPopup handleCancel={handleCancel} userID={userData._id} />
+        )}
       </div>
     </>
   );
 }
 
-function AddPopup({ handleCancel }) {
+function AddPopup({ handleCancel, userID }) {
+  const navigate = useNavigate();
+
   // Add new contact
   const handleAddOk = async (e, contact) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/user/contacts/`,
-        {
-          email: contact.email,
-          firstName: contact.firstName,
-          lastName: contact.lastName,
-          zipcode: contact.zipcode,
-          city: contact.city,
-          street: contact.street,
-          dates: contact.dates,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 201) {
-        toast.success("Contact successfully created!");
-        navigate("/contacts");
-      }
-    } catch (error) {
-      toast.error(error.response.data.error || "Could not create Contact!");
-    }
-  };
-
-  return (
-    <div className="popup" onClick={(e) => handleCancel(e)}>
-      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
-        <h3>Add Contact</h3>
-        <ContactForm
-          contact={undefined}
-          handleCancel={handleCancel}
-          handleOk={handleAddOk}
-        />
-      </div>
-    </div>
-  );
-}
-
-function EditPopup({ contact, handleCancel }) {
-  // Edit existing contact
-  const handleEditOk = async (e, contact) => {
-    e.preventDefault();
-    try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/user/contacts/${contact._id}`,
         {
           email: contact.email,
           firstName: contact.firstName,
@@ -158,8 +127,55 @@ function EditPopup({ contact, handleCancel }) {
         }
       );
       if (response.status === 201) {
+        toast.success("Contact successfully created!");
+        navigate("/home/contacts");
+      }
+    } catch (error) {
+      console.error("ERR form handle Ok", error);
+      toast.error(error.response.data.message || "Could not create Contact!");
+    }
+  };
+
+  return (
+    <div className="popup" onClick={(e) => handleCancel(e)}>
+      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
+        <h3>Add Contact</h3>
+        <ContactForm
+          contact={undefined}
+          handleCancel={handleCancel}
+          handleOk={handleAddOk}
+          userID={userID}
+        />
+      </div>
+    </div>
+  );
+}
+
+function EditPopup({ contact, handleCancel }) {
+  const navigate = useNavigate();
+
+  // Edit existing contact
+  const handleEditOk = async (e, contact) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/user/contacts/${contact._id}`,
+        {
+          email: contact.email,
+          firstName: contact.firstName,
+          lastName: contact.lastName,
+          zipcode: contact.zipcode,
+          city: contact.city,
+          street: contact.street,
+          dates: contact.dates,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 201) {
         toast.success("Successfully Updated.");
-        navigate("/contacts");
+        navigate("user/contacts");
       }
     } catch (error) {
       toast.error(error.response.data.error || "Could not Update Contact!");
@@ -181,6 +197,8 @@ function EditPopup({ contact, handleCancel }) {
 }
 
 function DeletePopup({ contact, handleCancel }) {
+  const navigate = useNavigate();
+
   // Delete contact
   const handleDeleteOk = async (contact) => {
     try {
@@ -192,7 +210,7 @@ function DeletePopup({ contact, handleCancel }) {
       );
       if (response.status === 201) {
         toast.success("Contact successfully deleted!");
-        navigate("/contacts");
+        navigate("user/contacts");
       }
     } catch (error) {
       toast.error(error.response.data.error || "Could not delete Contact!");
@@ -222,7 +240,7 @@ function DeletePopup({ contact, handleCancel }) {
   );
 }
 
-function ContactForm({ contact, handleCancel, handleOk }) {
+function ContactForm({ contact, handleCancel, handleOk, userID }) {
   const [cTemp, setCTemp] = useState(
     contact
       ? contact // if contact is undefined create an empty contact object
@@ -237,6 +255,7 @@ function ContactForm({ contact, handleCancel, handleOk }) {
             birthday: "",
             marriage: "",
           },
+          user: userID,
         }
   );
 

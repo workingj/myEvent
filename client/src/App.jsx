@@ -34,7 +34,7 @@ export default function App() {
         <Route path="/myevents/addevent" element={<AddEvent />} />
         <Route path="/myevents/edit/:id" element={<EditeEvent />} />
         <Route path="/user/profile" element={<Profile />} />
-        <Route path="/user/contacts" element={<Contacts />} />
+        <Route path="/home/contacts" element={<Contacts />} />
         <Route path="/admin/templates" element={<Template />} />
 
         <Route path="*" element={<NotFound />} />

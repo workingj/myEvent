@@ -43,7 +43,7 @@ function AddEvent({ handleButtonClick }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/events/create",
+        "http://localhost:8000/user/events/create",
         event
       );
       console.log(response);

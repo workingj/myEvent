@@ -59,7 +59,7 @@ function AddEvent({ handleButtonClick }) {
         });
         setSending(false);
 
-        navigate("/myevents");
+        navigate("/home");
       }
     } catch (error) {
       console.error(error);

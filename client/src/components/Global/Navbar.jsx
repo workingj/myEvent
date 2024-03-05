@@ -12,7 +12,7 @@ const Navbar = () => {
   const [searchText, setSearchText] = useState("");
   const { setOverview } = useContext(DataContext);
   const { isLoggedIn, setIsLoggedIn, userData } = useAuth();
-  console.log("Login??", userData);
+
   
   const navigate = useNavigate();
   const handleLogout = async () => {

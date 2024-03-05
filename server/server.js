@@ -22,8 +22,9 @@ app.use(cookieParser());
 
 // ROUTES
 app.use('/user', userRouter);
-app.use('/contacts', contactRouter);
-app.use('/events', eventRouter);
+app.use('/user/contacts', contactRouter);
+app.use('/user/events', eventRouter);
+// app.use('/user/templates', eventRouter);
 app.use('/admin/templates', adminTemplateRouter);
 
 // ERROR HANDLER

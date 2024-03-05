@@ -12,10 +12,7 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
           zipcode: "",
           city: "",
           street: "",
-          dates: {
-            birthday: "",
-            marriage: "",
-          },
+          dates: [],
           user: userID,
         }
   );
@@ -24,7 +21,7 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
     <form
       onSubmit={(e) => {
         handleOk(e, cTemp);
-        
+
         // handleCancel(e);
       }}
     >
@@ -88,25 +85,24 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <strong>Dates</strong>
       </span>
       <hr />
-      <label>Birthday:</label>
-      <input
-        type="date"
-        name="birthday"
-        onChange={(e) =>
-          setCTemp({
-            ...cTemp,
-            dates: { ...cTemp.dates, birthday: e.target.value },
-          })
-        }
-        value={
-          cTemp
-            ? cTemp.dates.birthday
-              ? cTemp.dates.birthday.slice(0, 10)
-              : ""
-            : ""
-        }
-        required
-      />
+      {cTemp.dates[0] &&
+        cTemp.dates.map((date,i) => {
+          <>
+            <label>{date.title}</label>
+            <input
+              type="date"
+              name={date.title}
+              onChange={(e) =>
+                console.log(i)
+                // setCTemp({
+                //   ...cTemp,
+                //   dates: { ...cTemp.dates, birthday: e.target.value },
+                // })
+              }
+              value={date.value}
+            />
+          </>;
+        })}
       <span>
         <label>Marriage:</label>
         <input

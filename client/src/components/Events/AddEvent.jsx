@@ -6,58 +6,23 @@ import { SpinnerDotted } from "spinners-react";
 import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
 
-function AddEvent({ handleButtonClick}) {
-  const { allEvents, setAllEvents, userData } = useAuth();
-  // const [allEvents, setAllEvents] = useState([]);
+function AddEvent({ handleButtonClick }) {
+  const {contacts, setContacts, allEvents, setAllEvents, userData } = useAuth();
   const [latestEventNR, setLatestEventNR] = useState(0);
+
   const [isImage, setIsImage] = useState(false);
-  const [contacts, setContacts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [contacts, setContacts] = useState([]);
+
   const [sending, setSending] = useState(false);
-// -------------------latest event number---------------------
-const latestEvent = () => {
-  let index=1;
-  if (allEvents&&allEvents.length === 0) {
-    return 1;
-  }
-  const latest = allEvents&&allEvents.reduce((prev, current) =>
-    prev.eventNR > current.eventNR ? prev : current
-  );
-  index = latest.eventNR + 1;
-  setLatestEventNR(index);
-  return index;
+  // -------------------latest event number---------------------
 
-};
-// useEffect(() => {
-//   const latest = allEvents &&latestEvent();
-//   allEvents &&setLatestEventNR(latest);
-//   console.log('latest'+latestEventNR);
-// }, [allEvents]);
-
-
-
-//  -------------------get contacts---------------------
   useEffect(() => {
-    // getContacts();
-    axios
-
-      .get(`${import.meta.env.VITE_API_URL}/contacts`)
-      .then((response) => {
-        console.log(response.data);
-        setContacts(response.data);
-        setLoading(false);
-        // setLatestEventNR(latestEvent);
-        // console.log('latest'+latestEventNR);
-       
-      })
-      .catch((error) => {
-        console.error("Server Error", error);
-        setError("Error fetching data");
-        setLoading(false);
-      }
-      );
-  }, []);
+    const latestEvent = allEvents.length;
+    allEvents && setLatestEventNR(latestEvent);
+  }, [allEvents]);
+  useEffect(() => {
+    allEvents && console.log(latestEventNR);
+  }, [allEvents]);
 
  
 
@@ -67,15 +32,20 @@ const latestEvent = () => {
     text: "",
     image: "",
     eventNR: latestEventNR,
-    user:  userData._id,
+    user: userData._id,
+    contact: "",
   });
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
+
     try {
-      const response = await axios.post("http://localhost:8000/events/create", event);
+      const response = await axios.post(
+        "http://localhost:8000/events/create",
+        event
+      );
       console.log(response);
       if (response.status === 201) {
         setEvent({
@@ -85,9 +55,10 @@ const latestEvent = () => {
           image: "",
           eventNR: latestEventNR,
           user: userData._id,
+          contact: "",
         });
         setSending(false);
-     
+
         navigate("/myevents");
       }
     } catch (error) {
@@ -120,6 +91,27 @@ const latestEvent = () => {
       <div className="p-4">
         <h2 className="text-2xl font-semibold mb-4">Create an Event</h2>
         <form onSubmit={handleSubmit}>
+          {/* choose a contact */}
+          <div className="mb-4">
+            <p className="block mb-2">Choose a contact:</p>
+            <select
+              name="contact"
+              value={event.contact}
+              onChange={handleChange}
+              className="border rounded w-full p-2"
+            >
+              <option value="">Choose a contact</option>
+              {Array.isArray(contacts) &&
+                contacts.map((contact) => (
+                  <option key={contact._id} value={contact._id} onChange={(e) => setEvent({...event, contact: e.target.value})}
+                  >
+                    {contact.firstName}
+                  </option>
+                ))}
+            </select>
+          </div>
+         
+
           <div className="mb-4">
             <p className="block mb-2">Action Date:</p>
             <input

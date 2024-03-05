@@ -14,6 +14,7 @@ import Privacy from "./components/Global/Privacy.jsx";
  import "react-toastify/dist/ReactToastify.css";
 import Overview from "./components/Global/Overview.jsx";
 import LandingPage from "./components/LandingPage.jsx";
+import EditeEvent from "./components/Events/EditeEvent.jsx";
 import Template from "./components/Templates/Template.jsx";
 
 export default function App() {
@@ -29,8 +30,9 @@ export default function App() {
         <Route path="/user/register" element={<RegisterForm />} />
 
         <Route path="/myevents" element={<MyEvents />} />
-        <Route path="/myevents/showall" element={<ShowAll />} />
+        {/* <Route path="/myevents/showall" element={<ShowAll />} /> */}
         <Route path="/myevents/addevent" element={<AddEvent />} />
+        <Route path="/myevents/edit/:id" element={<EditeEvent />} />
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/contacts" element={<Contacts />} />
         <Route path="/admin/templates" element={<Template />} />

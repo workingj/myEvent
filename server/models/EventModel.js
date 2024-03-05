@@ -19,13 +19,15 @@ const EventModel = new mongoose.Schema({
     default: 'defaultImage.png',
   },
   eventNR: {
-    type: Number,
-   
-    
+    type: Number, 
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+  },
+  contact: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Contact',
   },
 });
 

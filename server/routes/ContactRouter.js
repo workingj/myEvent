@@ -5,7 +5,11 @@ const contactRouter = Router();
 
 contactRouter.route('/')
     .post(contactController.createContact)
-    .get(contactController.getAllContacts);
+    .get(contactController.getContact)
+    
+    contactRouter.route('/allforuser')
+    .post(contactController.getAllContactsForUser);
+
 
 contactRouter.route('/:id')
     .get(contactController.getContact)

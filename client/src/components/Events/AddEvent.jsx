@@ -1,13 +1,13 @@
-import React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SpinnerDotted } from "spinners-react";
-import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
 
 function AddEvent({ handleButtonClick }) {
-  const {contacts, setContacts, allEvents, setAllEvents, userData } = useAuth();
+  const { contacts, setContacts, allEvents, setAllEvents, userData } =
+    useAuth();
   const [latestEventNR, setLatestEventNR] = useState(0);
 
   const [isImage, setIsImage] = useState(false);
@@ -23,8 +23,6 @@ function AddEvent({ handleButtonClick }) {
   useEffect(() => {
     allEvents && console.log(latestEventNR);
   }, [allEvents]);
-
- 
 
   const [event, setEvent] = useState({
     actionDate: "",
@@ -103,14 +101,18 @@ function AddEvent({ handleButtonClick }) {
               <option value="">Choose a contact</option>
               {Array.isArray(contacts) &&
                 contacts.map((contact) => (
-                  <option key={contact._id} value={contact._id} onChange={(e) => setEvent({...event, contact: e.target.value})}
+                  <option
+                    key={contact._id}
+                    value={contact._id}
+                    onChange={(e) =>
+                      setEvent({ ...event, contact: e.target.value })
+                    }
                   >
                     {contact.firstName}
                   </option>
                 ))}
             </select>
           </div>
-         
 
           <div className="mb-4">
             <p className="block mb-2">Action Date:</p>

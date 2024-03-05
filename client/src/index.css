@@ -157,15 +157,7 @@ body {
   /* left: 25%; */
   border-radius: 10px;
   border: 2px solid #fff;
-}
-.popupInner span {
-  display: block;
-  width: 100%;
-  text-align: left;
-}
-.popupInner span b {
-  display: inline-block;
-  width: 8rem;
+  min-width: 20rem;
 }
 .popupInner form {
   display: flex;
@@ -175,7 +167,25 @@ body {
 .popupInner h3 {
   font-size: 2rem;
 }
-
+.popupInner span {
+  display: block;
+  width: 100%;
+  text-align: left;
+  /* border: 1px solid red; */
+}
+.popupInner label {
+  display: inline-block;
+  width: 7rem;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  text-align: left;
+}
+.popupInner input[type="text"] {
+  display: inline;
+  width: auto;
+  margin: auto;
+}
 .popupInner input[type="date"] {
   width: 63%;
 }

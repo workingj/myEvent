@@ -12,7 +12,7 @@ const Navbar = () => {
   const [searchText, setSearchText] = useState("");
   const { setOverview } = useContext(DataContext);
   const { isLoggedIn, setIsLoggedIn, userData } = useAuth();
-  console.log("Login??", userData);
+
   
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -38,7 +38,7 @@ const Navbar = () => {
   return (
     <nav className="h-30 rounded-t-lg flex justify-between items-center flex-grow bg-gray-200 px-5 py-5 ps-12">
       <div className="flex items-center space-x-4 flex-grow">
-        <div className="rounded-full bg-white w-12 h-12 overflow-hidden flex justify-center">
+        <div className="w-12 h-12 overflow-hidden flex justify-center">
           <Link to="/">
             <img src="/src/assets/favicon.svg" alt="SharedTravelLogo" />
           </Link>

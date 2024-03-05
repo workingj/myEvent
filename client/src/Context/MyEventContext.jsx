@@ -21,11 +21,10 @@ function MyEventContext({ children }) {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/profile`, { withCredentials: true }
       );
-      console.log("in provider befor if", response.data);
       if (response.data && response.data._id) {
         setIsLoggedIn(true);
         setUserData(response.data);
-           console.log("From checkUser if result.data", response.data);
+
       } else {
         setIsLoggedIn(false);
         setUserData([]);

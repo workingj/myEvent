@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { SpinnerDiamond } from "spinners-react";
 
-function CreateTemplates() {
+function CreateTemplate() {
   const [sending, setSending] = useState(false);
   const [postData, setPostData] = useState({
     title: "",
@@ -19,6 +19,7 @@ function CreateTemplates() {
       document.body.classList.add("bg-white");
       return () => {
         document.body.classList.remove("bg-white");
+        navigate("/admin/templates");
       };
     }, []); 
   
@@ -44,7 +45,7 @@ function CreateTemplates() {
           type: "",
         });
         setSending(false);
-        navigate("/admin/templates");
+        navigate(`${import.meta.env.VITE_API_URL}/admin/templates`);
         toast.success("Successfully created!");
       }
     } catch (error) {
@@ -53,6 +54,11 @@ function CreateTemplates() {
     }
   };
 
+  const handleCancelButtonClick = () => {
+     navigate(`${import.meta.env.VITE_API_URL}/admin/templates`);
+    //  setShowComponent(false);
+     // Add additional cancel logic here if needed
+   };
   const handleChange = (e) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
@@ -134,9 +140,16 @@ function CreateTemplates() {
             </div>
             <button
               type="submit"
-              className="bg-blue-400 hover:bg-blue-600 p-4 rounded-full text-white font-bold"
+              className="bg-blue-400 hover:bg-blue-600 p-4 m-2 rounded-full text-white font-bold"
             >
               Submit
+            </button>
+            <button
+              
+              className="bg-gray-400 hover:bg-blue-600 p-4 rounded-full text-white font-bold m-2"
+              onClick={handleCancelButtonClick}
+            >
+              Cancel
             </button>
           </form>
         </div>
@@ -145,4 +158,4 @@ function CreateTemplates() {
   );
 }
 
-export default CreateTemplates;
+export default CreateTemplate;

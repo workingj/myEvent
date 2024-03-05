@@ -25,7 +25,7 @@ function MyEvents({ handleButtonClick }) {
     // getContacts();
     axios
 
-      .post(`${import.meta.env.VITE_API_URL}/contacts/allforuser`, {
+      .post(`${import.meta.env.VITE_API_URL}/user/contacts/allforuser`, {
         user: userData._id,
       })
       .then((response) => {

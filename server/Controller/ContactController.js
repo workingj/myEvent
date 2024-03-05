@@ -30,9 +30,9 @@ export const getAllContacts = asyncHandler(async (req, res, next) => {
 // ------------------ get all contacct for one User---------------------
 
 export const getAllContactsForUser = asyncHandler(async (req, res, next) => {
-    const {user}=req.body
+    const { user } = req.body
     const contacts = await Contact.find
-    ({user:user});
+        ({ user: user });
     if (!contacts) throw new ErrorResponse(`No contacts found`, 404);
 
     res.status(200).json({ success: true, data: contacts });

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as userController from '../Controller/UserController.js';
 import verifyToken from "../middelwares/verifyToken.js";
-import upload from '../services/Upload.js';
+import upload from '../services/Uploade.js';
 
 const userRouter = Router();
 

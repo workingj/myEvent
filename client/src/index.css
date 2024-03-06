@@ -150,7 +150,7 @@ body {
   justify-content: center;
   font-size: 1rem;
   position: absolute;
-  top: 8rem;
+  top: 5vh;
   background-color: #eeeeee;
   padding: 2rem 2rem 3rem 2rem;
   gap: 2rem;
@@ -158,6 +158,9 @@ body {
   border-radius: 10px;
   border: 2px solid #fff;
   min-width: 20rem;
+  max-height: 90vh;
+  overflow: scroll;
+  scroll-behavior: auto;
 }
 .popupInner form {
   display: flex;
@@ -185,7 +188,9 @@ body {
   display: inline;
   width: auto;
   margin: auto;
+  cursor: pointer;
 }
 .popupInner input[type="date"] {
   width: 63%;
+  cursor: pointer;
 }

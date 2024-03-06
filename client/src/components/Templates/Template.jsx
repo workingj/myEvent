@@ -3,8 +3,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import CreateTemplate from "./CreateTemplates";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
- import { toast } from "react-toastify";
+// import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Template() {
   const [templateData, setTemplateData] = useState([]);
@@ -13,49 +13,64 @@ function Template() {
   const [selectedOption, setSelectedOption] = useState("title");
   const [showCreateTemplate, setshowCreateTemplate] = useState(false);
   const [showMainComponent, setshowMainComponent] = useState(true);
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [toEditData, setToEditData] = useState({});
+  const [showImage, setshowImage] = useState(false);
+  const [imageToShow, setImageToShow] = useState("");
+
 
   const onDelete = async (id) => {
-    // const id = req.params._id;
+    const userResponse = window.prompt("Do you want to proceed? Type 'yes' to confirm.");
+
+if (userResponse && userResponse.toLowerCase() === 'yes') {
+
+  console.log("User confirmed!");
+
     try {
-       console.log('Delete from template',id);
-    const response = await axios.delete(
-      `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
-      { withCredentials: true }
-    );
-   if (response.data) {
-     toast.success("Successfully Deleted!");
-     setshowMainComponent(false);
-     navigate("/admin/templates")
-     setshowMainComponent(true);
-   } else {
-     toast.error("Delete was not successfull !!");
-      
-   }
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
+        { withCredentials: true }
+      );
+      if (response.data) {
+        toast.success("Successfully Deleted!");
+        setTemplateData(templateData.filter((e) => e._id !== id));
+      } else {
+        toast.error("Delete was not successfull !!");
+      }
     } catch (error) {
       setError(error.response.data.message);
       toast.error("Login failed!");
     }
+  } else {
+  
+    console.log("User canceled or entered an invalid response.");
   }
+  };
 
-   const handleshowCreateTemplate = () => {
-     setshowCreateTemplate(!showCreateTemplate);
-     setshowMainComponent(!showMainComponent);
-   };
+  const handleshowCreateTemplate = () => {
+    setshowCreateTemplate(!showCreateTemplate);
+    setshowMainComponent(!showMainComponent);
+  };
+
+  const onEdit = async (e) => {
+    handleshowCreateTemplate();
+  };
 
   function searchData() {
-    console.log("searched data in func", searchedData);
-    console.log("from serch data", selectedOption);
     setTemplateData(
-     featchedData.filter(
-       (item) =>
-         item[selectedOption]?.toLowerCase().includes(searchedData.toLowerCase())
-       // item.toLowerCase().includes(searchedData.toLowerCase())
-     )
-   );
+      featchedData.filter(
+        (item) =>
+          item[selectedOption]
+            ?.toLowerCase()
+            .includes(searchedData.toLowerCase())
+        // item.toLowerCase().includes(searchedData.toLowerCase())
+      )
+    );
   }
-
+  function onShowImage(e) {
+    setImageToShow(e.target.src);
+    setshowImage(!showImage);
+  }
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -86,7 +101,6 @@ function Template() {
     if (token) {
       fetchData();
     }
-    console.log("From Templates in Effect result.data", templateData);
   }, []);
 
   useEffect(() => {
@@ -94,16 +108,34 @@ function Template() {
     if (token) {
       searchData();
     }
-    console.log("From Templates in 2.Effect result.data", searchedData);
   }, [searchedData, setSearchedData]);
 
   return showMainComponent ? (
     <div className="container mt-20 mx-auto max-w-6xl rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
+        
       <div className="p-4">
         <h2 className="text-2xl font-semibold mb-4">Templates</h2>
         {/* Table */}
-
+        
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+          {showImage && (
+            <div
+              onClick={(e) => {
+                setImageToShow("");
+                setshowImage(!showImage);
+                e.stopPropagation();
+              }}
+              id="showimage"
+              className="popup z-10 "
+            >
+              <img
+                src={imageToShow}
+                alt="image"
+                width="500rem"
+                height="250rem"
+              />
+            </div>
+          )}
           <div className="pb-4 ml-2">
             <div className="relative mt-1 flex items-center">
               <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -168,6 +200,9 @@ function Template() {
                   Template Title
                 </th>
                 <th scope="col" className="px-6 py-3">
+                  Image
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Content
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -194,19 +229,45 @@ function Template() {
                   >
                     {e.title}
                   </th>
-                  <td className="px-6 py-4">{e.content}</td>
+                  <td className="px-6 py-4">
+                    <img
+                      className=" hover:scale-110 text-xs"
+                      src={e.images}
+                      alt="No Image"
+                      width="100rem"
+                      height="100rem"
+                      onClick={e.images !== "" ? onShowImage : setError}
+                    />
+                  </td>
+                  <td>
+                    <p className="text-justify">{e.content}</p>
+                  </td>
                   <td className="px-6 py-4">{e.type}</td>
                   <td className="px-6 py-4 text-sm">
                     <a
                       href="#"
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
+                      onClick={() => {
+                        setToEditData({
+                          title: e.title,
+                          content: e.content,
+                          images: e.images,
+                          type: e.type,
+                          id: e._id,
+                          updateFlag: true,
+                        }),
+                          onEdit();
+                      }}
                     >
                       Edit
                     </a>
                     <a
                       href="#"
                       className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
-                      onClick={() => onDelete(e._id)}
+                      onClick={() => {
+                        onDelete(e._id);
+                        setToEditData({});
+                      }}
                     >
                       Delete
                     </a>
@@ -219,7 +280,18 @@ function Template() {
       </div>
     </div>
   ) : (
-    <div>{showCreateTemplate && <CreateTemplate />}</div>
+    <div>
+      {showCreateTemplate && (
+        <CreateTemplate
+          title={toEditData.title}
+          content={toEditData.content}
+          images={toEditData.images}
+          type={toEditData.type}
+          id={toEditData.id}
+          updateFlag={toEditData.updateFlag}
+        />
+      )}
+    </div>
   );
 }
 

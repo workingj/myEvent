@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // ROUTES
+app.use('/test', contactRouter);
 app.use('/user', userRouter);
 app.use('/user/contacts', contactRouter);
 app.use('/user/events', eventRouter);

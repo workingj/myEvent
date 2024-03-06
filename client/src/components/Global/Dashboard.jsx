@@ -31,6 +31,14 @@ function Dashboard() {
         <li>
           <button
             className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
+            onClick={() => navigate("/admin/templates")}
+          >
+            Templates
+          </button>
+        </li>
+        <li>
+          <button
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
             onClick={() => navigate("/user/settings")}
           >
             Settings

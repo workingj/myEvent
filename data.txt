@@ -1,3 +1,4 @@
+MONGO_URI=mongodb+srv://admin:adminjfi@jfi.kpwvxa8.mongodb.net/
 JWT_SECRET=secret
 CLOUD_NAME=duaxo0f43
 API_KEY=747746837179275

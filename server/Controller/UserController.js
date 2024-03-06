@@ -110,6 +110,57 @@ export const logout = asyncHandler(async (req, res, next) => {
   res.send({ status: "success" });
 });
 
+
+// Change Password
+// export const changePassword = asyncHandler(async (req, res, next) => {
+//   const
+//     { oldPassword, newPassword, confirmPassword} = req.body;
+//     const { id } = req.params;
+//     console.log(req.body);
+//   if (newPassword !== confirmPassword)
+//     throw new ErrorResponse("Password does not match", 400);
+//   const user =
+//     await User.findById(id);
+//   if (!user) throw new ErrorResponse(`User ${id} does not exist`, 404);
+//   const match = await bcrypt.compare(oldPassword, user.password);
+//   if (!match) throw new ErrorResponse("Old Password is not correct", 401);
+//   try {
+//     const hash = await bcrypt.hash(newPassword, 10);
+//     await User.findByIdAndUpdate(id, { password: hash });
+//     res.send({ status: "success" });
+//   } catch (error) {
+ 
+//     throw new ErrorResponse("Error updating password", 500);
+//   }
+  
+// }
+// );
+export const changePassword = asyncHandler(async (req, res, next) => {
+  const { oldPassword, newPassword} = req.body;
+  const { id } = req.params;
+  console.log(req.body);
+  console.log(req.params);
+  const user = await User.findById(id).select("+password");
+  if (!user) throw new ErrorResponse(`User ${id} does not exist`, 404);
+  //  bcrypt.hash(password, 10);
+  const match = await bcrypt.compare(oldPassword, user.password);
+
+  if (!match) {
+    throw new ErrorResponse("Password does not match", 401);
+  }
+  
+
+  
+  const hash = await bcrypt.hash(newPassword, 10);
+  await User.findByIdAndUpdate(id, {
+    password: hash,
+  });
+  res.send({ status: "success" });
+}
+);
+
+
+
 // get Image from Cloudinary by user id
 export const getImage = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);

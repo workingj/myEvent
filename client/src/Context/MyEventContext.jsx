@@ -16,6 +16,7 @@ function MyEventContext({ children }) {
   const [allEvents, setAllEvents] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [images, setImages] = useState('');
+  const [changImage, setChangImage] = useState(false);
  
 
   const checkUser = async () => {
@@ -35,6 +36,22 @@ function MyEventContext({ children }) {
       setUserData([]);
     }
 };
+
+
+// fetch Images
+
+useEffect(() => {
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
+  axios
+    .get(`${VITE_API_URL}/user/image/${userData&&userData._id}`)
+    .then((res) => {
+      console.log(res.data);
+      setImages(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, [changImage,userData]);
 
     useEffect(() => {
       const token = Cookies.get('token');
@@ -57,7 +74,8 @@ function MyEventContext({ children }) {
     allEvents,
     setAllEvents,
     contacts, setContacts,
-    images, setImages
+    images, setImages,
+    setChangImage,changImage
     
   };
 

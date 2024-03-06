@@ -7,7 +7,7 @@ import validateForm from "../../validator/formvalidator.js";
 import ChangePassword from "./ChangePassword.jsx";
 
 function Settings() {
-  const { userData ,images, setImages} = useAuth();
+  const { userData ,images, setImages,setChangImage,changImage} = useAuth();
   const [data, setData] = useState({
     // firstName: "Issa",
     // lastName: "alali",
@@ -26,22 +26,7 @@ function Settings() {
   const [changePasswordPopup, setChangePasswordPopup] = useState(false);
   const [file, setFile] = useState(null);
   
-  const [changImage, setChangImage] = useState(false);
 
-  // fetch Images
-
-  useEffect(() => {
-    const VITE_API_URL = import.meta.env.VITE_API_URL;
-    axios
-      .get(`${VITE_API_URL}/user/image/${userData._id}`)
-      .then((res) => {
-        console.log(res.data);
-        setImages(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [changImage]);
 
   // cancle button
   const handleCancel = (e) => {

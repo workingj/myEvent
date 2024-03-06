@@ -3,7 +3,7 @@ import { useAuth } from '../../Context/MyEventContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-function EditeEvent({handleCancel, id}) {
+function EditeEvent({handleCancel, id,setEditPopup}) {
   // const { id } = useParams();
   const {  allEvents, userData, contacts
   } = useAuth();
@@ -36,6 +36,7 @@ function EditeEvent({handleCancel, id}) {
           contact: "",
         });
         setSending(false);
+        setEditPopup(false)
         navigate("/myevents");
       }
     } catch (error) {
@@ -57,7 +58,8 @@ function EditeEvent({handleCancel, id}) {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <p className="block mb-2">
-                <span className="font-bold">Contact:</span> {`${name&&name.firstName} ${name&&name.lastName}`}
+                <span className="font-bold">Contact: <b className="text-black"> {` ${name&&name.firstName} ${name&&name.lastName}`}</b></span>
+                
               </p>
               <p className="block mb-2">Title:</p>
               <input
@@ -97,6 +99,8 @@ function EditeEvent({handleCancel, id}) {
               <button
                 type="submit"
                 className="okBtn"
+                disabled={sending}
+                
               >
                 Save
               </button>

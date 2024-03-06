@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../Context/MyEventContext";
 import { SpinnerDotted } from "spinners-react";
+import EditeEvents from "./EditeEvent.jsx";
+import EditeEvent from "./EditeEvent.jsx";
+import AddEvent from "./AddEvent.jsx";
+
 
 function MyEvents({ handleButtonClick }) {
   // const [allEvents, setAllEvents] = useState([]);
   const { contacts, setContacts, allEvents, setAllEvents, userData } =
     useAuth();
   const [filteredEvents, setFilteredEvents] = useState([]);
+  const [editPopup, setEditPopup] = useState(false);
+  const [deletePopup, setDeletePopup] = useState(false);
+  const [addPopup, setAddPopup] = useState(false);
+  const [eventId, setEventId] = useState("");
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const formatDate = (dateString) => {
@@ -16,10 +25,27 @@ function MyEvents({ handleButtonClick }) {
     return date.toISOString().split("T")[0];
   };
   useEffect(() => {
-    if (allEvents.length > 0) {
+    if (allEvents.length >= 0) {
       setFilteredEvents(allEvents);
     }
-  }, [allEvents]);
+  }, [allEvents,addPopup,editPopup,deletePopup]);
+
+  const hadleEditPopup = (event) => {
+    setEditPopup(true);
+  };
+
+  const handleDeletePopup = (event) => {
+    setDeletePopup(true);
+  };
+
+  const handleCancel = (e) => {
+    e.stopPropagation();
+    editPopup && setEditPopup(false);
+    deletePopup && setDeletePopup(false);
+    addPopup && setAddPopup(false);
+  };
+
+
   //  -------------------get contacts---------------------
   useEffect(() => {
     // getContacts();
@@ -63,7 +89,7 @@ function MyEvents({ handleButtonClick }) {
       }
     };
     fetchEvents();
-  }, []);
+  }, [addPopup,editPopup,deletePopup]);
 
   const navigate = useNavigate();
   const [event, setEvent] = useState({
@@ -107,16 +133,25 @@ function MyEvents({ handleButtonClick }) {
 
  
   
-
+// m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full
+// container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
 
   return (
     <>
       {/* add cards for events */}
-      <div className="container mt-5 text-center flex justify-center items-center flex-col gap-5">
+      <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+        <h2>My Events</h2>
+      <div className=" container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
+
+    ">
         <div
           className=" cursor-pointer height-20 bg-blue-200 p-5 rounded-lg shadow-lg hover:bg-blue-300"
           onClick={
-            () => handleButtonClick("addEvent")
+            () =>
+            //  handleButtonClick("addEvent")
+            {
+              setAddPopup(true);
+            }
 
             // navigate("/myevents/addevent")
           }
@@ -159,6 +194,7 @@ function MyEvents({ handleButtonClick }) {
         <table className="table-auto">
           <thead>
             <tr>
+              <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Title</th>
               <th className="px-4 py-2">Date</th>
               <th className="px-4 py-2">Action</th>
@@ -168,6 +204,11 @@ function MyEvents({ handleButtonClick }) {
             {filteredEvents &&
               filteredEvents.map((event) => (
                 <tr key={event._id}>
+                  <td className="border px-4 py-2">
+                    {contacts &&
+                      contacts.find((contact) => contact._id === event.contact)
+                        .firstName}
+                  </td>
                   <td className="border px-4 py-2">{event.title}</td>
                   <td className="border px-4 py-2">
                     {formatDate(event.actionDate)}{" "}
@@ -178,14 +219,19 @@ function MyEvents({ handleButtonClick }) {
                         onClick={() => {
                           // handleButtonClick("editEvent", event);
                           // navigate(`/myevents/editevent/${event._id}`);
-                          navigate(`/myevents/edit/${event._id}`);
+                         
+                          //  navigate(`/myevents/edit/${event._id}`);
+                          setEventId(event._id);
+                          setEditPopup(true);
                         }}
                       
                       >
                         Edit
                       </button>
                       <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => handleDelete(event._id)}
+                        onClick={() => 
+                        {  setEventId(event._id);
+                          setDeletePopup(true)}}
                                               
                       >
                         Delete
@@ -196,6 +242,45 @@ function MyEvents({ handleButtonClick }) {
               ))}
           </tbody>
         </table>
+        {addPopup && (
+          <AddEvent handleCancel={handleCancel} setAddPopup={setAddPopup}
+           />
+        )}
+
+
+
+        {editPopup && (
+        <EditeEvent 
+        id={eventId} handleCancel={handleCancel} setEditPopup={setEditPopup}
+         />
+      )}
+      {deletePopup && (
+        <div className="popup">
+          <div className="popupInner" onClick={(e) => e.stopPropagation()}>
+            <h2>Do you want to delete this event?</h2>
+            <div className="flex justify-center items-center gap-2">
+              <button
+                onClick={() => {
+                  handleDelete(eventId);
+                  setDeletePopup(false);
+                }}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setDeletePopup(false)}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+          
+        
+      </div>
       </div>
     </>
   );

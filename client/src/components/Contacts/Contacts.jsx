@@ -1,24 +1,13 @@
 import ContactCard from "./ContactCard";
 import AddContactCard from "./AddContactCard";
 import "./Contact.css";
+import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
-
-// Placeholder data for contactCard Component
-const Contact = {
-  email: "email@provider.net",
-  firstName: "Firstname",
-  lastName: "Lastname",
-  city: "Homestadt",
-  street: "Knownstreet 7",
-  dates: {
-    birthday: "06.11.1998",
-    marriage: "06.11.1998",
-  },
-};
+import validator from "validator";
+import { AddPopup, EditPopup, DeletePopup } from "./ContactPopup.jsx";
 
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
@@ -50,7 +39,6 @@ export default function Contacts() {
   function handleAdd() {
     setAddPopup(true);
   }
-  console.log(userData._id);
 
   useEffect(() => {
     axios
@@ -59,8 +47,6 @@ export default function Contacts() {
       })
       .then((res) => {
         setContacts(res.data.data);
-        console.log("get Contacts:", res.data.data);
-
         setLoading(false);
       })
       .catch((error) => {
@@ -72,6 +58,7 @@ export default function Contacts() {
 
   return (
     <>
+    <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
       <h2>CONTACTS</h2>
       <div className="Contacts">
         <AddContactCard handleAdd={handleAdd} />
@@ -99,285 +86,7 @@ export default function Contacts() {
           <AddPopup handleCancel={handleCancel} userID={userData._id} />
         )}
       </div>
+      </div>
     </>
-  );
-}
-
-function AddPopup({ handleCancel, userID }) {
-  const navigate = useNavigate();
-
-  // Add new contact
-  const handleAddOk = async (e, contact) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/user/contacts/`,
-        {
-          email: contact.email,
-          firstName: contact.firstName,
-          lastName: contact.lastName,
-          zipcode: contact.zipcode,
-          city: contact.city,
-          street: contact.street,
-          dates: contact.dates,
-          user: contact.user,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 201) {
-        toast.success("Contact successfully created!");
-        navigate("/home/contacts");
-      }
-    } catch (error) {
-      console.error("ERR form handle Ok", error);
-      toast.error(error.response.data.message || "Could not create Contact!");
-    }
-  };
-
-  return (
-    <div className="popup" onClick={(e) => handleCancel(e)}>
-      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
-        <h3>Add Contact</h3>
-        <ContactForm
-          contact={undefined}
-          handleCancel={handleCancel}
-          handleOk={handleAddOk}
-          userID={userID}
-        />
-      </div>
-    </div>
-  );
-}
-
-function EditPopup({ contact, handleCancel }) {
-  const navigate = useNavigate();
-
-  // Edit existing contact
-  const handleEditOk = async (e, contact) => {
-    e.preventDefault();
-    try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/user/contacts/${contact._id}`,
-        {
-          email: contact.email,
-          firstName: contact.firstName,
-          lastName: contact.lastName,
-          zipcode: contact.zipcode,
-          city: contact.city,
-          street: contact.street,
-          dates: contact.dates,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 201) {
-        toast.success("Successfully Updated.");
-        navigate("user/contacts");
-      }
-    } catch (error) {
-      toast.error(error.response.data.error || "Could not Update Contact!");
-    }
-  };
-
-  return (
-    <div className="popup" onClick={(e) => handleCancel(e)}>
-      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
-        <h3>Edit Contact</h3>
-        <ContactForm
-          contact={contact}
-          handleCancel={handleCancel}
-          handleOk={handleEditOk}
-        />
-      </div>
-    </div>
-  );
-}
-
-function DeletePopup({ contact, handleCancel }) {
-  const navigate = useNavigate();
-
-  // Delete contact
-  const handleDeleteOk = async (contact) => {
-    try {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/user/contacts/${contact._id}`,
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 201) {
-        toast.success("Contact successfully deleted!");
-        navigate("user/contacts");
-      }
-    } catch (error) {
-      toast.error(error.response.data.error || "Could not delete Contact!");
-    }
-  };
-
-  return (
-    <div className="popup" onClick={(e) => handleCancel(e)}>
-      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
-        <h3>Delete Contact ?</h3>
-        <span className="hCenter">
-          <button
-            className="okBtn"
-            onClick={(e) => {
-              handleDeleteOk(contact);
-              handleCancel(e);
-            }}
-          >
-            Ok
-          </button>
-          <button className="cancelBtn" onClick={(e) => handleCancel(e)}>
-            Cancel
-          </button>
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function ContactForm({ contact, handleCancel, handleOk, userID }) {
-  const [cTemp, setCTemp] = useState(
-    contact
-      ? contact // if contact is undefined create an empty contact object
-      : {
-          email: "",
-          firstName: "",
-          lastName: "",
-          zipcode: "",
-          city: "",
-          street: "",
-          dates: {
-            birthday: "",
-            marriage: "",
-          },
-          user: userID,
-        }
-  );
-
-  return (
-    <form action="">
-      <span>
-        <b>Email:</b>
-        <input
-          type="text"
-          name="email"
-          value={cTemp ? cTemp.email : ""}
-          onChange={(e) => setCTemp({ ...cTemp, email: e.target.value })}
-        />
-      </span>
-      <span>
-        <b>First Name:</b>
-        <input
-          type="text"
-          name="firstName"
-          value={cTemp ? cTemp.firstName : ""}
-          onChange={(e) => setCTemp({ ...cTemp, firstName: e.target.value })}
-          required
-        />
-      </span>
-      <span>
-        <b>Last Name:</b>
-        <input
-          type="text"
-          name="lastName"
-          value={cTemp ? cTemp.lastName : ""}
-          onChange={(e) => setCTemp({ ...cTemp, lastName: e.target.value })}
-          required
-        />
-      </span>
-      <span>
-        <b>Zipcode:</b>
-        <input
-          type="text"
-          name="zipcode"
-          value={cTemp ? cTemp.zipcode : ""}
-          onChange={(e) => setCTemp({ ...cTemp, zipcode: e.target.value })}
-        />
-      </span>
-      <span>
-        <b>City:</b>
-        <input
-          type="text"
-          name="city"
-          value={cTemp ? cTemp.city : ""}
-          onChange={(e) => setCTemp({ ...cTemp, city: e.target.value })}
-        />
-      </span>
-      <span>
-        <b>Street:</b>
-        <input
-          type="text"
-          name="street"
-          onChange={(e) => setCTemp({ ...cTemp, street: e.target.value })}
-          value={cTemp ? cTemp.street : ""}
-        />
-      </span>
-      <span className="hCenter">
-        <strong>Dates</strong>
-      </span>
-      <hr />
-      <span>
-        <b>Birthday:</b>
-        <input
-          type="date"
-          name="birthday"
-          onChange={(e) =>
-            setCTemp({
-              ...cTemp,
-              dates: { ...cTemp.dates, birthday: e.target.value },
-            })
-          }
-          value={
-            cTemp
-              ? cTemp.dates.birthday
-                ? cTemp.dates.birthday.slice(0, 10)
-                : ""
-              : ""
-          }
-          required
-        />
-      </span>
-      <span>
-        <b>Marriage:</b>
-        <input
-          type="date"
-          name="marriage"
-          onChange={(e) =>
-            setCTemp({
-              ...cTemp,
-              dates: { ...cTemp.dates, marriage: e.target.value },
-            })
-          }
-          value={
-            cTemp
-              ? cTemp.dates.marriage
-                ? cTemp.dates.marriage.slice(0, 10)
-                : ""
-              : ""
-          }
-        />
-      </span>
-      <span className="vSpace"></span>
-      <span className="hCenter">
-        <button
-          type="submit"
-          className="okBtn"
-          onClick={(e) => {
-            handleOk(e, cTemp);
-            handleCancel(e);
-          }}
-        >
-          Ok
-        </button>
-        <button className="cancelBtn" onClick={(e) => handleCancel(e)}>
-          Cancel
-        </button>
-      </span>
-    </form>
   );
 }

@@ -1,13 +1,13 @@
-import React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SpinnerDotted } from "spinners-react";
-import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
 
-function AddEvent({ handleButtonClick }) {
-  const {contacts, setContacts, allEvents, setAllEvents, userData } = useAuth();
+function AddEvent({handleCancel,setAddPopup}) {
+  const { contacts, setContacts, allEvents, setAllEvents, userData } =
+    useAuth();
   const [latestEventNR, setLatestEventNR] = useState(0);
 
   const [isImage, setIsImage] = useState(false);
@@ -23,8 +23,6 @@ function AddEvent({ handleButtonClick }) {
   useEffect(() => {
     allEvents && console.log(latestEventNR);
   }, [allEvents]);
-
- 
 
   const [event, setEvent] = useState({
     actionDate: "",
@@ -42,10 +40,8 @@ function AddEvent({ handleButtonClick }) {
     setSending(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/user/events/create",
-        event
-      );
+      const response = await axios.post( `${import.meta.env.VITE_API_URL}/user/events/create`, event);
+      
       console.log(response);
       if (response.status === 201) {
         setEvent({
@@ -58,8 +54,9 @@ function AddEvent({ handleButtonClick }) {
           contact: "",
         });
         setSending(false);
+        setAddPopup(false);
 
-        navigate("/home");
+        navigate("/myevents");
       }
     } catch (error) {
       console.error(error);
@@ -87,8 +84,13 @@ function AddEvent({ handleButtonClick }) {
   }
 
   return (
-    <div className="container mx-auto max-w-md mt-20 rounded-xl shadow-xl shadow-gray-500">
-      <div className="p-4">
+    <div className="popup 
+    ">
+      <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  
+      ">
+      <div className=" w-full container
+      " onClick={(e) => e.stopPropagation()}>
+        <div className="p-4">
         <h2 className="text-2xl font-semibold mb-4">Create an Event</h2>
         <form onSubmit={handleSubmit}>
           {/* choose a contact */}
@@ -103,14 +105,18 @@ function AddEvent({ handleButtonClick }) {
               <option value="">Choose a contact</option>
               {Array.isArray(contacts) &&
                 contacts.map((contact) => (
-                  <option key={contact._id} value={contact._id} onChange={(e) => setEvent({...event, contact: e.target.value})}
+                  <option
+                    key={contact._id}
+                    value={contact._id}
+                    onChange={(e) =>
+                      setEvent({ ...event, contact: e.target.value })
+                    }
                   >
                     {contact.firstName}
                   </option>
                 ))}
             </select>
           </div>
-         
 
           <div className="mb-4">
             <p className="block mb-2">Action Date:</p>
@@ -152,14 +158,23 @@ function AddEvent({ handleButtonClick }) {
               className="border rounded w-full p-2"
             />
           </div>
+          <span className="hCenter">
           <button
             type="submit"
             className="bg-blue-500 text-white rounded p-2 mt-4"
           >
             ADD EVENT
           </button>
+          <button className=" bg-red-500 text-white rounded p-2 mt-4 ml-4
+          " onClick={(e) => handleCancel(e)}>
+            Cancel
+          </button>
+          </span>
         </form>
       </div>
+    </div>
+    </div>
+  
     </div>
   );
 }

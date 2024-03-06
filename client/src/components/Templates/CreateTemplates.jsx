@@ -4,25 +4,25 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { SpinnerDiamond } from "spinners-react";
 
-function CreateTemplate() {
+function CreateTemplate({
+  title: title,
+  content: content,
+  images: images,
+  type: type,
+  updateFlag:updateFlag,
+  id:id
+}) {
   const [sending, setSending] = useState(false);
   const [postData, setPostData] = useState({
-    title: "",
-    content: "",
-    templatenumber: "",
-    type:"",
-    images: "",
+
+    title: title,
+    content: content,
+    type: type,
+    images: images,
   });
 
 
-    useEffect(() => {
-      document.body.classList.add("bg-white");
-      return () => {
-        document.body.classList.remove("bg-white");
-        navigate("/admin/templates");
-      };
-    }, []); 
-  
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -41,7 +41,6 @@ function CreateTemplate() {
           title: "",
           content: "",
           imeges: "",
-          templatenumber: "",
           type: "",
         });
         setSending(false);
@@ -53,15 +52,60 @@ function CreateTemplate() {
       toast.error(error.response.data.message);
     }
   };
+  
+
+  const handleUpdate = async (e) => {
+    // setPostData({ ...postData, [e.target.name]: e.target.value });
+    // handleChange();
+    // e.preventDefault();
+    setSending(true);
+    try {
+      const result = await axios.put(
+        `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
+        postData,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log('Results.status after update',result.status);
+      if (result.status === 200) {
+        setPostData({
+          title: "",
+          content: "",
+          imeges: "",
+          type: "",
+        });
+        setSending(false);
+        navigate(`${import.meta.env.VITE_API_URL}/admin/templates`);
+        toast.success("Successfully updated!");
+      }
+    } catch (error) {
+      setSending(false);
+      toast.error(error.response.data.message);
+    }
+  };
 
   const handleCancelButtonClick = () => {
-     navigate(`${import.meta.env.VITE_API_URL}/admin/templates`);
+    navigate(`${import.meta.env.VITE_API_URL}/admin/templates`);
     //  setShowComponent(false);
-     // Add additional cancel logic here if needed
-   };
+    // Add additional cancel logic here if needed
+  };
   const handleChange = (e) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
+
+
+
+  useEffect(() => {
+    document.body.classList.add("bg-white");console.log('id',id);
+    return () => {
+      document.body.classList.remove("bg-white");
+      navigate("/admin/templates");
+    };
+    
+  }, []);
+
+
 
   if (sending) {
     return (
@@ -74,8 +118,8 @@ function CreateTemplate() {
         />
       </div>
     );
-    
   }
+
   return (
     <div className="w-screen h-screen  bg-black bg-opacity-30">
       <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
@@ -83,7 +127,7 @@ function CreateTemplate() {
           <h2 className="text-2xl font-semibold mb-4">Create a new Template</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <p className="mb-2 text-xl"></p>
+              <p className="mb-2 text-sm">{updateFlag == true ? 'Title' : ''}</p>
               <input
                 placeholder="Title"
                 type="text"
@@ -94,7 +138,7 @@ function CreateTemplate() {
               />
             </div>
             <div className="mb-4">
-              <p className="mb-2 text-xl"></p>
+              <p className="mb-2 text-sm">{updateFlag == true ? 'Content' : ''}</p>
               <textarea
                 placeholder="Content"
                 name="content"
@@ -106,18 +150,7 @@ function CreateTemplate() {
               ></textarea>
             </div>
             <div className="mb-4">
-              <p className="mb-2 text-xl"></p>
-              <input
-                placeholder="Template Number (tag)"
-                type="text"
-                name="templatenumber"
-                value={postData.templatenumber}
-                onChange={handleChange}
-                className="border rounded-full w-full p-2"
-              />
-            </div>
-            <div className="mb-4">
-              <p className="mb-2 text-xl"></p>
+              <p className="mb-2 text-sm">{updateFlag == true ? 'Type' : ''}</p>
               <input
                 placeholder="Type (Birth Date, Marriage,...)"
                 type="text"
@@ -128,7 +161,7 @@ function CreateTemplate() {
               />
             </div>
             <div className="mb-4">
-              <p className="mb-2 text-xl"></p>
+              <p className="mb-2 text-sm">{updateFlag == true ? 'Image URLs' : ''}</p>
               <input
                 placeholder="Image-URL"
                 type="text"
@@ -138,14 +171,19 @@ function CreateTemplate() {
                 className="border rounded-full w-full p-2"
               />
             </div>
-            <button
+            {updateFlag !== true ? <button
               type="submit"
               className="bg-blue-400 hover:bg-blue-600 p-4 m-2 rounded-full text-white font-bold"
             >
               Submit
-            </button>
+            </button> :
+              <button
+                onClick={handleUpdate}
+                className="bg-blue-400 hover:bg-blue-600 p-4 m-2 rounded-full text-white font-bold"
+              >
+                Update
+              </button>}
             <button
-              
               className="bg-gray-400 hover:bg-blue-600 p-4 rounded-full text-white font-bold m-2"
               onClick={handleCancelButtonClick}
             >

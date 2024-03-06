@@ -119,6 +119,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
           <button
             className="btn"
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               setAddDatePopup(true);
             }}

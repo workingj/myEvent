@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as userController from '../Controller/UserController.js';
 import verifyToken from "../middelwares/verifyToken.js";
+import upload from '../services/Uploade.js';
 
 const userRouter = Router();
 
@@ -24,5 +25,8 @@ userRouter
 //Logout
 
 userRouter.post("/logout", verifyToken, userController.logout);
+
+//Upload image
+userRouter.post("/upload", verifyToken, upload.single("image"), userController.uploadImage);
 
 export default userRouter;

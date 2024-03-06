@@ -100,7 +100,7 @@ function Settings() {
 
   return (
     <div className="settings">
-      <h1>Settings your Profile</h1>
+      <h2>Settings your Profile</h2>
       <div>
         <form
           onSubmit={(e) => handleFormSubmit(e)}

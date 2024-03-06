@@ -58,6 +58,7 @@ export default function Contacts() {
 
   return (
     <>
+    <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
       <h2>CONTACTS</h2>
       <div className="Contacts">
         <AddContactCard handleAdd={handleAdd} />
@@ -84,6 +85,7 @@ export default function Contacts() {
         {addPopup && (
           <AddPopup handleCancel={handleCancel} userID={userData._id} />
         )}
+      </div>
       </div>
     </>
   );

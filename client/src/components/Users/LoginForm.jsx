@@ -1,9 +1,9 @@
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
- import {toast } from "react-toastify";
- import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ function LoginForm() {
     return () => {
       document.body.classList.remove("bg-white");
     };
-  }, []); 
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,7 +38,6 @@ function LoginForm() {
         navigate("/home");
       }
     } catch (error) {
-      
       setError(error.response.data.message);
       toast.error("Login failed!");
     }

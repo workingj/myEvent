@@ -67,7 +67,7 @@ const Navbar = () => {
           </div>
           {isLoggedIn ? (
             <div className=" flex items-center space-x-4 gap-4  justify-end ">
-              <Link to="/" className="cursor-pointer hover:opacity-80">
+              <Link to="/forteam" className="cursor-pointer hover:opacity-80">
                 For team
               </Link>
               <button

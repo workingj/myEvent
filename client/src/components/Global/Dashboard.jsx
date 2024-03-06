@@ -1,11 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function Dashboard({ handleButtonClick }) {
+function Dashboard() {
+  const navigate = useNavigate();
+
   return (
-    <div
-      className="dashboard mt-5 flex flex-col items-center justify-center  p-4 rounded-md shadow-md mx-auto max-w-md w-82 h-96
-        "
-    >
+    <div className="dashboard mt-5 flex flex-col items-center justify-center  p-4 rounded-md shadow-md mx-auto max-w-md w-82 h-96
+        ">
       <h2>Dashboard</h2>
 
       <ul>
@@ -14,7 +15,7 @@ function Dashboard({ handleButtonClick }) {
           <button
             className="btn-left my-2 hover:bg-blue-200 text-blue-500
                 "
-            onClick={() => handleButtonClick("myEvents")}
+                onClick={() => navigate("/myevents")}
           >
             My Events
           </button>
@@ -22,7 +23,7 @@ function Dashboard({ handleButtonClick }) {
         <li>
           <button
             className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
-            onClick={() => handleButtonClick("contacts")}
+            onClick={() => navigate("/home/contacts")}
           >
             Contacts
           </button>
@@ -30,7 +31,15 @@ function Dashboard({ handleButtonClick }) {
         <li>
           <button
             className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
-            onClick={() => handleButtonClick("settings")}
+            onClick={() => navigate("/admin/templates")}
+          >
+            Templates
+          </button>
+        </li>
+        <li>
+          <button
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
+            onClick={() => navigate("/user/settings")}
           >
             Settings
           </button>
@@ -41,3 +50,46 @@ function Dashboard({ handleButtonClick }) {
 }
 
 export default Dashboard;
+
+
+// function Dashboard({ handleButtonClick }) {
+//   return (
+//     <div
+//       className="dashboard mt-5 flex flex-col items-center justify-center  p-4 rounded-md shadow-md mx-auto max-w-md w-82 h-96
+//         "
+//     >
+//       <h2>Dashboard</h2>
+
+//       <ul>
+//         {/* Buttons */}
+//         <li>
+//           <button
+//             className="btn-left my-2 hover:bg-blue-200 text-blue-500
+//                 "
+//             onClick={() => handleButtonClick("myEvents")}
+//           >
+//             My Events
+//           </button>
+//         </li>
+//         <li>
+//           <button
+//             className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
+//             onClick={() => handleButtonClick("contacts")}
+//           >
+//             Contacts
+//           </button>
+//         </li>
+//         <li>
+//           <button
+//             className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
+//             onClick={() => handleButtonClick("settings")}
+//           >
+//             Settings
+//           </button>
+//         </li>
+//       </ul>
+//     </div>
+//   );
+// }
+
+// export default Dashboard;

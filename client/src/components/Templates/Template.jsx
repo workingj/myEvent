@@ -5,8 +5,10 @@ import CreateTemplate from "./CreateTemplates";
 import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../../Context/MyEventContext";
 
 function Template() {
+  const { userData } = useAuth();
   const [templateData, setTemplateData] = useState([]);
   const [searchedData, setSearchedData] = useState("");
   const [featchedData, setFeatchedData] = useState([]);
@@ -174,13 +176,13 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                 <option value="content">Content</option>
                 <option value="type">Type</option>
               </select>
-              <button
+              {userData.role === 'admin' &&<button
                 type="submit"
                 className="bg-black hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
                 onClick={handleshowCreateTemplate}
               >
                 Create a new Template
-              </button>
+              </button>}
             </div>
           </div>
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -209,9 +211,9 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                   Type
                 </th>
 
-                <th scope="col" className="px-6 py-3 text-center">
+                {userData.role === 'admin' && <th scope="col" className="px-6 py-3 text-center">
                   Action
-                </th>
+                </th>}
               </tr>
             </thead>
             <tbody>
@@ -236,7 +238,7 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                       alt="No Image"
                       width="100rem"
                       height="100rem"
-                      onClick={e.images !== "" ? onShowImage : setError}
+                      onClick={e.images  && onShowImage }
                     />
                   </td>
                   <td>
@@ -244,7 +246,7 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                   </td>
                   <td className="px-6 py-4">{e.type}</td>
                   <td className="px-6 py-4 text-sm">
-                    <a
+                    {userData.role === 'admin' && <a
                       href="#"
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
                       onClick={() => {
@@ -260,8 +262,9 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                       }}
                     >
                       Edit
-                    </a>
-                    <a
+                    </a> 
+                    }
+                    {userData.role === 'admin' && <a
                       href="#"
                       className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
                       onClick={() => {
@@ -270,7 +273,7 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                       }}
                     >
                       Delete
-                    </a>
+                    </a>}
                   </td>
                 </tr>
               ))}

@@ -22,7 +22,6 @@ export const templateSchema = new mongoose.Schema({
   },
   images: {
     type: String,
-    requires: [true, "Image is required"],
   },
 });
 

@@ -164,6 +164,7 @@ export function AddDatePopup({ closePopup, contact, setContact }) {
             className="okBtn"
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
               const D = new Date();
               const data = contact;
               data.dates.push({

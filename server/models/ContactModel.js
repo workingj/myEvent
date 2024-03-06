@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 
+const dateSchema = new mongoose.Schema({
+    name: String, date: Date
+});
+
 const contactSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -28,10 +32,7 @@ const contactSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    dates: {
-        type: Map,
-        of: Date,
-    },
+    dates: [{ title: String, value: Date }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

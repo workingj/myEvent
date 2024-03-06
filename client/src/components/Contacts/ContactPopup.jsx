@@ -45,7 +45,7 @@ export function AddPopup({ handleCancel, userID }) {
       <div className="popupInner" onClick={(e) => e.stopPropagation()}>
         <h3>Add Contact</h3>
         <ContactForm
-          contact={undefined}
+          contactInput={undefined}
           handleCancel={handleCancel}
           handleOk={handleAddOk}
           userID={userID}
@@ -91,7 +91,7 @@ export function EditPopup({ contact, handleCancel }) {
       <div className="popupInner" onClick={(e) => e.stopPropagation()}>
         <h3>Edit Contact</h3>
         <ContactForm
-          contact={contact}
+          contactInput={contact}
           handleCancel={handleCancel}
           handleOk={handleEditOk}
         />
@@ -100,7 +100,7 @@ export function EditPopup({ contact, handleCancel }) {
   );
 }
 
-export function DeletePopup({ contact, handleCancel }) {
+export function DateTitlePopup({ contact, handleCancel }) {
   const navigate = useNavigate();
 
   // Delete contact
@@ -136,6 +136,47 @@ export function DeletePopup({ contact, handleCancel }) {
             Ok
           </button>
           <button className="cancelBtn" onClick={(e) => handleCancel(e)}>
+            Cancel
+          </button>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export function AddDatePopup({ closePopup, contact, setContact }) {
+  const [title, setTitle] = useState("");
+
+  return (
+    <div className="popup layer2" onClick={(e) => closePopup()}>
+      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
+        <h3>Choose title</h3>
+        <span className="hCenter">
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            autoFocus
+          />
+        </span>
+        <span className="hCenter">
+          <button
+            className="okBtn"
+            onClick={(e) => {
+              e.stopPropagation();
+              const D = new Date();
+              const data = contact;
+              data.dates.push({
+                title: title,
+                value: D.toISOString().split("T")[0],
+              });
+              setContact(data);
+              closePopup();
+            }}
+          >
+            Ok
+          </button>
+          <button className="cancelBtn" onClick={(e) => closePopup()}>
             Cancel
           </button>
         </span>

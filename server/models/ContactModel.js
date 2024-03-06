@@ -32,7 +32,7 @@ const contactSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    dates:[{title: String, date: Date}],
+    dates: [{ title: String, value: Date }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

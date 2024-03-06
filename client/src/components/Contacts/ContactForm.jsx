@@ -1,10 +1,13 @@
 import "./Contact.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AddDatePopup } from "./ContactPopup.jsx";
 
-export function ContactForm({ contact, handleCancel, handleOk, userID }) {
-  const [cTemp, setCTemp] = useState(
-    contact
-      ? contact // if contact is undefined create an empty contact object
+export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
+  const [load, setLoad] = useState(false);
+  const [addDatePopup, setAddDatePopup] = useState();
+  const [contact, setContact] = useState(
+    contactInput
+      ? contactInput // if contact is undefined create an empty contact object
       : {
           email: "",
           firstName: "",
@@ -12,7 +15,7 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
           zipcode: "",
           city: "",
           street: "",
-          dates: [],
+          dates: [{ title: "", value: "" }],
           user: userID,
         }
   );
@@ -20,9 +23,8 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
   return (
     <form
       onSubmit={(e) => {
-        handleOk(e, cTemp);
-
-        // handleCancel(e);
+        handleOk(e, contact);
+        handleCancel(e);
       }}
     >
       <span>
@@ -30,8 +32,8 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <input
           type="email"
           name="email"
-          value={cTemp ? cTemp.email : ""}
-          onChange={(e) => setCTemp({ ...cTemp, email: e.target.value })}
+          value={contact ? contact.email : ""}
+          onChange={(e) => setContact({ ...contact, email: e.target.value })}
         />
       </span>
       <span>
@@ -39,8 +41,10 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <input
           type="text"
           name="firstName"
-          value={cTemp ? cTemp.firstName : ""}
-          onChange={(e) => setCTemp({ ...cTemp, firstName: e.target.value })}
+          value={contact ? contact.firstName : ""}
+          onChange={(e) =>
+            setContact({ ...contact, firstName: e.target.value })
+          }
           required
         />
       </span>
@@ -49,8 +53,8 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <input
           type="text"
           name="lastName"
-          value={cTemp ? cTemp.lastName : ""}
-          onChange={(e) => setCTemp({ ...cTemp, lastName: e.target.value })}
+          value={contact ? contact.lastName : ""}
+          onChange={(e) => setContact({ ...contact, lastName: e.target.value })}
           required
         />
       </span>
@@ -59,8 +63,8 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <input
           type="text"
           name="zipcode"
-          value={cTemp ? cTemp.zipcode : ""}
-          onChange={(e) => setCTemp({ ...cTemp, zipcode: e.target.value })}
+          value={contact ? contact.zipcode : ""}
+          onChange={(e) => setContact({ ...contact, zipcode: e.target.value })}
         />
       </span>
       <span>
@@ -68,8 +72,8 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <input
           type="text"
           name="city"
-          value={cTemp ? cTemp.city : ""}
-          onChange={(e) => setCTemp({ ...cTemp, city: e.target.value })}
+          value={contact ? contact.city : ""}
+          onChange={(e) => setContact({ ...contact, city: e.target.value })}
         />
       </span>
       <span>
@@ -77,52 +81,52 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
         <input
           type="text"
           name="street"
-          onChange={(e) => setCTemp({ ...cTemp, street: e.target.value })}
-          value={cTemp ? cTemp.street : ""}
+          onChange={(e) => setContact({ ...contact, street: e.target.value })}
+          value={contact ? contact.street : ""}
         />
       </span>
       <span className="hCenter">
         <strong>Dates</strong>
       </span>
       <hr />
-      {cTemp.dates[0] &&
-        cTemp.dates.map((date,i) => {
-          <>
-            <label>{date.title}</label>
-            <input
-              type="date"
-              name={date.title}
-              onChange={(e) =>
-                console.log(i)
-                // setCTemp({
-                //   ...cTemp,
-                //   dates: { ...cTemp.dates, birthday: e.target.value },
-                // })
-              }
-              value={date.value}
-            />
-          </>;
-        })}
-      <span>
-        <label>Marriage:</label>
-        <input
-          type="date"
-          name="marriage"
-          onChange={(e) =>
-            setCTemp({
-              ...cTemp,
-              dates: { ...cTemp.dates, marriage: e.target.value },
-            })
-          }
-          value={
-            cTemp
-              ? cTemp.dates.marriage
-                ? cTemp.dates.marriage.slice(0, 10)
-                : ""
-              : ""
-          }
-        />
-      </span>
+      <div id="Dates">
+        {contact.dates[0] &&
+          contact.dates.map((date) => {
+            return (
+              <span>
+                <label htmlFor={date.title}>{date.title}</label>
+                <input
+                  type="date"
+                  name={date.title}
+                  value={date.value.slice(0, 10)}
+                  onChange={(e) => {
+                    const data = contact;
+
+                    data.dates.map((dataDate) => {
+                      console.log(dataDate.value, e.target.value);
+                      dataDate.title == date.title &&
+                        (dataDate.value = e.target.value);
+                    });
+
+                    setContact(data);
+                    setLoad(!load);
+                  }}
+                />
+              </span>
+            );
+          })}
+        <span className="hCenter">
+          <button
+            className="btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              setAddDatePopup(true);
+            }}
+          >
+            Add Date
+          </button>
+        </span>
+      </div>
       <span className="vSpace"></span>
       <span className="hCenter">
         <button type="submit" className="okBtn">
@@ -132,6 +136,15 @@ export function ContactForm({ contact, handleCancel, handleOk, userID }) {
           Cancel
         </button>
       </span>
+      {addDatePopup && (
+        <AddDatePopup
+          closePopup={(e) => {
+            setAddDatePopup(false);
+          }}
+          contact={contact}
+          setContact={setContact}
+        />
+      )}
     </form>
   );
 }

@@ -15,8 +15,17 @@ function Template() {
   const [showMainComponent, setshowMainComponent] = useState(true);
   const [error, setError] = useState("");
   const [toEditData, setToEditData] = useState({});
+  const [showImage, setshowImage] = useState(false);
+  const [imageToShow, setImageToShow] = useState("");
+
 
   const onDelete = async (id) => {
+    const userResponse = window.prompt("Do you want to proceed? Type 'yes' to confirm.");
+
+if (userResponse && userResponse.toLowerCase() === 'yes') {
+
+  console.log("User confirmed!");
+
     try {
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
@@ -32,6 +41,10 @@ function Template() {
       setError(error.response.data.message);
       toast.error("Login failed!");
     }
+  } else {
+  
+    console.log("User canceled or entered an invalid response.");
+  }
   };
 
   const handleshowCreateTemplate = () => {
@@ -40,10 +53,7 @@ function Template() {
   };
 
   const onEdit = async (e) => {
-    console.log("object in edit", toEditData);
-    console.log("object in edit title", toEditData.title);
     handleshowCreateTemplate();
-
   };
 
   function searchData() {
@@ -57,7 +67,10 @@ function Template() {
       )
     );
   }
-
+  function onShowImage(e) {
+    setImageToShow(e.target.src);
+    setshowImage(!showImage);
+  }
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -99,11 +112,30 @@ function Template() {
 
   return showMainComponent ? (
     <div className="container mt-20 mx-auto max-w-6xl rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
+        
       <div className="p-4">
         <h2 className="text-2xl font-semibold mb-4">Templates</h2>
         {/* Table */}
-
+        
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+          {showImage && (
+            <div
+              onClick={(e) => {
+                setImageToShow("");
+                setshowImage(!showImage);
+                e.stopPropagation();
+              }}
+              id="showimage"
+              className="popup z-10 "
+            >
+              <img
+                src={imageToShow}
+                alt="image"
+                width="500rem"
+                height="250rem"
+              />
+            </div>
+          )}
           <div className="pb-4 ml-2">
             <div className="relative mt-1 flex items-center">
               <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -168,6 +200,9 @@ function Template() {
                   Template Title
                 </th>
                 <th scope="col" className="px-6 py-3">
+                  Image
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Content
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -194,7 +229,19 @@ function Template() {
                   >
                     {e.title}
                   </th>
-                  <td className="px-6 py-4"><img src={e.images} alt={e.title} width="25%" height="100%"/>{e.content}</td>
+                  <td className="px-6 py-4">
+                    <img
+                      className=" hover:scale-110 text-xs"
+                      src={e.images}
+                      alt="No Image"
+                      width="100rem"
+                      height="100rem"
+                      onClick={e.images !== "" ? onShowImage : setError}
+                    />
+                  </td>
+                  <td>
+                    <p className="text-justify">{e.content}</p>
+                  </td>
                   <td className="px-6 py-4">{e.type}</td>
                   <td className="px-6 py-4 text-sm">
                     <a
@@ -206,8 +253,8 @@ function Template() {
                           content: e.content,
                           images: e.images,
                           type: e.type,
-                          id:e._id,
-                          updateFlag:true
+                          id: e._id,
+                          updateFlag: true,
                         }),
                           onEdit();
                       }}
@@ -239,9 +286,9 @@ function Template() {
           title={toEditData.title}
           content={toEditData.content}
           images={toEditData.images}
-            type={toEditData.type}
-            id={toEditData.id}
-            updateFlag={toEditData.updateFlag}
+          type={toEditData.type}
+          id={toEditData.id}
+          updateFlag={toEditData.updateFlag}
         />
       )}
     </div>

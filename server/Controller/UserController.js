@@ -109,3 +109,21 @@ export const logout = asyncHandler(async (req, res, next) => {
   res.clearCookie("token");
   res.send({ status: "success" });
 });
+
+// get Image from Cloudinary by user id
+export const getImage = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) throw new ErrorResponse(`User ${req.params.id} does not exist`, 404);
+  res.json(user.avatar);
+}
+);
+// upload Image to Cloudinary by user id
+export const uploadImage = asyncHandler(async (req, res, next) => {
+  const user =
+    await User.findByIdAndUpdate(req.params.id, { avatar: req.file.path }, {
+      new: true,
+    });
+  if (!user) throw new ErrorResponse(`User ${req.params.id} does not exist`, 404);
+  res.json(user.avatar);
+}
+);

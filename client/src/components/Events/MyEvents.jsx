@@ -5,6 +5,7 @@ import { useAuth } from "../../Context/MyEventContext";
 import { SpinnerDotted } from "spinners-react";
 import EditeEvents from "./EditeEvent.jsx";
 import EditeEvent from "./EditeEvent.jsx";
+import AddEvent from "./AddEvent.jsx";
 
 
 function MyEvents({ handleButtonClick }) {
@@ -14,6 +15,7 @@ function MyEvents({ handleButtonClick }) {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [editPopup, setEditPopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
+  const [addPopup, setAddPopup] = useState(false);
   const [eventId, setEventId] = useState("");
 
   const [loading, setLoading] = useState(true);
@@ -26,7 +28,7 @@ function MyEvents({ handleButtonClick }) {
     if (allEvents.length >= 0) {
       setFilteredEvents(allEvents);
     }
-  }, [allEvents]);
+  }, [allEvents,addPopup,editPopup,deletePopup]);
 
   const hadleEditPopup = (event) => {
     setEditPopup(true);
@@ -40,6 +42,7 @@ function MyEvents({ handleButtonClick }) {
     e.stopPropagation();
     editPopup && setEditPopup(false);
     deletePopup && setDeletePopup(false);
+    addPopup && setAddPopup(false);
   };
 
 
@@ -86,7 +89,7 @@ function MyEvents({ handleButtonClick }) {
       }
     };
     fetchEvents();
-  }, []);
+  }, [addPopup,editPopup,deletePopup]);
 
   const navigate = useNavigate();
   const [event, setEvent] = useState({
@@ -130,16 +133,25 @@ function MyEvents({ handleButtonClick }) {
 
  
   
-
+// m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full
+// container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
 
   return (
     <>
       {/* add cards for events */}
-      <div className="container mt-5 text-center flex justify-center items-center flex-col gap-5">
+      <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+        <h2>My Events</h2>
+      <div className=" container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
+
+    ">
         <div
           className=" cursor-pointer height-20 bg-blue-200 p-5 rounded-lg shadow-lg hover:bg-blue-300"
           onClick={
-            () => handleButtonClick("addEvent")
+            () =>
+            //  handleButtonClick("addEvent")
+            {
+              setAddPopup(true);
+            }
 
             // navigate("/myevents/addevent")
           }
@@ -182,6 +194,7 @@ function MyEvents({ handleButtonClick }) {
         <table className="table-auto">
           <thead>
             <tr>
+              <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Title</th>
               <th className="px-4 py-2">Date</th>
               <th className="px-4 py-2">Action</th>
@@ -191,6 +204,11 @@ function MyEvents({ handleButtonClick }) {
             {filteredEvents &&
               filteredEvents.map((event) => (
                 <tr key={event._id}>
+                  <td className="border px-4 py-2">
+                    {contacts &&
+                      contacts.find((contact) => contact._id === event.contact)
+                        .firstName}
+                  </td>
                   <td className="border px-4 py-2">{event.title}</td>
                   <td className="border px-4 py-2">
                     {formatDate(event.actionDate)}{" "}
@@ -224,9 +242,16 @@ function MyEvents({ handleButtonClick }) {
               ))}
           </tbody>
         </table>
+        {addPopup && (
+          <AddEvent handleCancel={handleCancel} setAddPopup={setAddPopup}
+           />
+        )}
+
+
+
         {editPopup && (
         <EditeEvent 
-        id={eventId} handleCancel={handleCancel}  
+        id={eventId} handleCancel={handleCancel} setEditPopup={setEditPopup}
          />
       )}
       {deletePopup && (
@@ -255,6 +280,7 @@ function MyEvents({ handleButtonClick }) {
       )}
           
         
+      </div>
       </div>
     </>
   );

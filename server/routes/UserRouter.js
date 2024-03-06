@@ -19,6 +19,8 @@ userRouter.route('/login')
 
 userRouter
     .get("/profile", verifyToken, userController.getUser);
+// change Passweord
+userRouter.put("/changepassword/:id", userController.changePassword);
     
 
 
@@ -28,5 +30,6 @@ userRouter.post("/logout", verifyToken, userController.logout);
 
 //Upload image
 userRouter.post("/upload", verifyToken, upload.single("image"), userController.uploadImage);
+userRouter.get("/image/:id", userController.getImage);
 
 export default userRouter;

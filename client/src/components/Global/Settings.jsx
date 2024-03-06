@@ -1,9 +1,11 @@
 import "./Styles/settings.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
-import validateForm from '../../validator/formvalidator.js'
+import validateForm from "../../validator/formvalidator.js";
+import ChangePassword from "./ChangePassword.jsx";
+
 
 function Settings() {
   const { userData } = useAuth();
@@ -22,7 +24,33 @@ function Settings() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [errors, setErrors] = useState({});
   const [activeSave, setActiveSave] = useState(false);
-  console.log(userData);
+  const [changePasswordPopup, setChangePasswordPopup] = useState(false);
+  const [file, setFile] = useState(null);
+  const [images, setImages] = useState([]);
+
+
+
+// fetch Images	
+
+  useEffect(() => {
+    const VITE_API_URL = import.meta.env.VITE_API_URL;
+    axios
+      .get(`${VITE_API_URL}/user/image/${userData._id}`)
+      .then((res) => {
+        console.log(res.data);
+        setImages(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // cancle button
+  const handleCancel = (e) => {
+    e.stopPropagation();
+    setChangePasswordPopup(false);
+  };
+
   // -------------------format date--------------
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -36,6 +64,7 @@ function Settings() {
     const spanButton = document.getElementById(span);
     const savebtn = document.getElementById("save");
     const cancelbtn = document.getElementById("cancel");
+
     setActiveSave(true);
 
     if (isEditMode) {
@@ -56,9 +85,33 @@ function Settings() {
   };
   // -------------------avatar change--------------
   const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
+    e.preventDefault();
+    setFile(e.target.files[0]);
+    if (!file) {
+      alert('please select an image to upload');
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+    const VITE_API_URL = import.meta.env.VITE_API_URL;
+    try {
+      axios
+        .put(`${VITE_API_URL}/user/upload/${userData._id}`, formData)
+        .then((res) => {
+          console.log(res);
+          toast.success("Avatar updated successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Avatar not updated");
+        });
+    } catch (error) {
+      console.log(error);
+    }
+
   };
+
+   
   // -------------------form submit--------------
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -68,7 +121,7 @@ function Settings() {
     }
     const newErrors = validateForm(data);
     setErrors(newErrors);
-    
+
     if (Object.keys(newErrors).length > 0)
       toast.error(
         Object.values(newErrors)
@@ -218,7 +271,14 @@ function Settings() {
             <br />
             <span className="text-red-500">{errors.avater}</span>
           </div>
-
+          <div>
+            <a
+              className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
+              onClick={() => setChangePasswordPopup(true)}
+            >
+              Change Password
+            </a>
+          </div>
           <br />
           <div
             className="flex justify-center gap-4 m-4  
@@ -252,7 +312,25 @@ function Settings() {
             </button>
           </div>
         </form>
+        <div>
+        {images.length ? (
+          images.map((image, index) => (
+            <img
+              key={index}
+              src={image.url}
+              alt='something'
+              style={{ width: 400, height: 400 }}
+            />
+          ))
+        ) : (
+          <p>No images found</p>
+        )}
       </div>
+      </div>
+      {changePasswordPopup && (
+        <ChangePassword  handleCancel={handleCancel} setChangePasswordPopup={setChangePasswordPopup}
+         />
+      )}
     </div>
   );
 }

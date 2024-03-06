@@ -15,6 +15,7 @@ function MyEventContext({ children }) {
   const [userData, setUserData] = useState({});
   const [allEvents, setAllEvents] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [images, setImages] = useState('');
  
 
   const checkUser = async () => {
@@ -55,7 +56,8 @@ function MyEventContext({ children }) {
     checkUser,
     allEvents,
     setAllEvents,
-    contacts, setContacts
+    contacts, setContacts,
+    images, setImages
     
   };
 

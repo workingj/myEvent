@@ -6,9 +6,8 @@ import { useAuth } from "../../Context/MyEventContext";
 import validateForm from "../../validator/formvalidator.js";
 import ChangePassword from "./ChangePassword.jsx";
 
-
 function Settings() {
-  const { userData } = useAuth();
+  const { userData ,images, setImages} = useAuth();
   const [data, setData] = useState({
     // firstName: "Issa",
     // lastName: "alali",
@@ -26,11 +25,10 @@ function Settings() {
   const [activeSave, setActiveSave] = useState(false);
   const [changePasswordPopup, setChangePasswordPopup] = useState(false);
   const [file, setFile] = useState(null);
-  const [images, setImages] = useState([]);
+  
+  const [changImage, setChangImage] = useState(false);
 
-
-
-// fetch Images	
+  // fetch Images
 
   useEffect(() => {
     const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -43,7 +41,7 @@ function Settings() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [changImage]);
 
   // cancle button
   const handleCancel = (e) => {
@@ -86,19 +84,21 @@ function Settings() {
   // -------------------avatar change--------------
   const handleAvatarChange = (e) => {
     e.preventDefault();
-    setFile(e.target.files[0]);
+   
     if (!file) {
-      alert('please select an image to upload');
+      alert("please select an image to upload");
     }
 
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append("image", file);
     const VITE_API_URL = import.meta.env.VITE_API_URL;
+    console.log("file: ", file);
     try {
       axios
         .put(`${VITE_API_URL}/user/upload/${userData._id}`, formData)
         .then((res) => {
           console.log(res);
+          setChangImage(!changImage)
           toast.success("Avatar updated successfully");
         })
         .catch((err) => {
@@ -108,10 +108,8 @@ function Settings() {
     } catch (error) {
       console.log(error);
     }
-
   };
 
-   
   // -------------------form submit--------------
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -259,18 +257,33 @@ function Settings() {
             <span className="text-red-500">{errors.birthDate}</span>
           </div>
           <br />
+          
           <div>
             <label htmlFor="avater">Avater</label>
             <input
               type="file"
               id="avater"
               name="avater"
-              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-              onChange={(e) => handleAvatarChange(e)}
+              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100 
+              
+              "
+              
+              onChange={(e) => 
+                setFile(e.target.files[0])
+                }
             />
-            <br />
+           
             <span className="text-red-500">{errors.avater}</span>
+            <button
+            onClick={(e) => handleAvatarChange(e)}
+              type="submit"
+              className="bg-blue-500 text-white text-sm rounded-md
+            border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2"
+            >
+              Upload
+            </button>
           </div>
+          <br />
           <div>
             <a
               className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
@@ -312,24 +325,13 @@ function Settings() {
             </button>
           </div>
         </form>
-        <div>
-        {images.length ? (
-          images.map((image, index) => (
-            <img
-              key={index}
-              src={image.url}
-              alt='something'
-              style={{ width: 400, height: 400 }}
-            />
-          ))
-        ) : (
-          <p>No images found</p>
-        )}
-      </div>
+       
       </div>
       {changePasswordPopup && (
-        <ChangePassword  handleCancel={handleCancel} setChangePasswordPopup={setChangePasswordPopup}
-         />
+        <ChangePassword
+          handleCancel={handleCancel}
+          setChangePasswordPopup={setChangePasswordPopup}
+        />
       )}
     </div>
   );

@@ -201,14 +201,15 @@ function MyEvents({ handleButtonClick }) {
             </tr>
           </thead>
           <tbody>
-            {filteredEvents &&
-              filteredEvents.map((event) => (
-                <tr key={event._id}>
-                  <td className="border px-4 py-2">
-                    {contacts &&
-                      contacts.find((contact) => contact._id === event.contact)
-                        .firstName}
-                  </td>
+          {filteredEvents &&
+  filteredEvents.map((event) => (
+    <tr key={event._id}>
+      <td className="border px-4 py-2">
+        {contacts &&
+          contacts.find((contact) => contact._id === event.contact)
+            ? contacts.find((contact) => contact._id === event.contact).firstName
+            : "Unknown Contact"}
+      </td>
                   <td className="border px-4 py-2">{event.title}</td>
                   <td className="border px-4 py-2">
                     {formatDate(event.actionDate)}{" "}

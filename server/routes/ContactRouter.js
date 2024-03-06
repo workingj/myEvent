@@ -5,7 +5,7 @@ const contactRouter = Router();
 
 contactRouter.route('/')
     .post(contactController.createContact)
-    // .get(contactController.getAllContactsForUser)
+// .get(contactController.getAllContactsForUser)
 
 contactRouter.route('/allforuser')
     .post(contactController.getAllContactsForUser);
@@ -16,5 +16,9 @@ contactRouter.route('/:id')
     .delete(contactController.deleteContact)
     .put(contactController.updateContact);
 
+contactRouter.route('/test/')
+    .post(contactController.createContact)
+// .get(contactController.getAllContactsForUser)
+
+
 export default contactRouter;
-// 

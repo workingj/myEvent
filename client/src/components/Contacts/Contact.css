@@ -97,3 +97,18 @@
   fill: #eee;
   stroke: #666;
 }
+#Dates {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+#Dates .btn {
+  background-color: #fff;
+}
+#Dates .btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+.layer2 {
+  z-index: 100;
+}

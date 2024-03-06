@@ -20,6 +20,7 @@ import RigtSide from "./components/RigtSide.jsx";
 import Settings from "./components/Global/Settings.jsx";
 import { useAuth } from "./Context/MyEventContext.jsx";
 import ForTeam from "./components/Global/ForTeam.jsx";
+import ChangePassword from "./components/Global/ChangePassword.jsx";
 
 export default function App() {
   const { isLoggedIn } = useAuth();
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/user/register" element={<RegisterForm />} />
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/settings" element={<Settings />} />
+        <Route path="/home/settings/changepassword" element={<ChangePassword />} />
 
         <Route path="/myevents" element={<MyEvents />} />
         {/* <Route path="/myevents/showall" element={<ShowAll />} /> */}

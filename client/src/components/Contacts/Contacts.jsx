@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import validator from "validator";
-import { AddPopup, EditPopup, DeletePopup } from "./ContactPopup.jsx";
+import { AddPopup, EditPopup, DateTitlePopup } from "./ContactPopup.jsx";
 
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
@@ -77,7 +77,7 @@ export default function Contacts() {
           />
         )}
         {deletePopup && (
-          <DeletePopup
+          <DateTitlePopup
             contact={contactCache.current}
             handleCancel={handleCancel}
           />

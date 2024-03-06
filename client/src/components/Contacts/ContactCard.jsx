@@ -21,7 +21,7 @@ export default function ContactCard({
       </h3>
       <span className="cData">{contact.email}</span>
       <span className="vSpace">&nbsp;</span>
-      <span className="cBirthday">{date}</span>
+      <span className="cBirthday">Dates: {contact.dates.length}</span>
       <span className="cData">
         {contact.zipcode} {contact.city}
       </span>

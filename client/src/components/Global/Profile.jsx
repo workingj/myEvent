@@ -3,17 +3,21 @@ import defaultAvatar from "../../assets/defaultAvatar.svg";
 import { useAuth } from "../../Context/MyEventContext";
 
 export default function Profile({ User }) {
-  const { userData ,images} = useAuth();
+  const { userData, images } = useAuth();
+  console.log(userData);
   return (
     <>
-      <img src={images ? images : defaultAvatar} alt=""    className="rounded-full h-32 w-32 m-4"/>
-      <span className="cName">{User.username}</span>
+      <img
+        src={images ? images : defaultAvatar}
+        alt=""
+        className="rounded-full h-32 w-32 mb-4"
+      />
+      <span className="cName">{userData.username}</span>
       <span className="">
-        {User.firstName} {User.lastName}
+        {userData.firstName} {userData.lastName}
       </span>
-      <span className="cData">{User.email}</span>
-      <span className="vSpace">&nbsp;</span>
-      <button className="editBtn">Edit</button>
+      <span className="">{userData.email}</span>
+      {/* <span className="vSpace">&nbsp;</span> */}
     </>
   );
 }

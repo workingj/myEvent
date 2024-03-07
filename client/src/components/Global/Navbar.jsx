@@ -1,19 +1,15 @@
 import { useContext, useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DataContext } from "../../Context/MyEventContext";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
-import axios from 'axios';
-
-
- 
+import axios from "axios";
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
   const { setOverview } = useContext(DataContext);
   const { isLoggedIn, setIsLoggedIn, userData } = useAuth();
 
-  
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -24,17 +20,11 @@ const Navbar = () => {
       );
       setIsLoggedIn(false);
       navigate("/");
-
     } catch (error) {
       toast.error("Error logging out");
     }
   };
 
-  
-
-
-
-  
   return (
     <nav className="h-30 rounded-t-lg flex justify-between items-center flex-grow bg-gray-200 px-5 py-5 ps-12">
       <div className="flex items-center space-x-4 flex-grow">

@@ -5,43 +5,41 @@ function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="dashboard mt-5 flex flex-col items-center justify-center  p-4 rounded-md shadow-md mx-auto max-w-md w-82 h-96
-        ">
-      <h2>Dashboard</h2>
+    <div className="dashboard mt-5 flex flex-col items-center justify-start pt-8 p-4 rounded-md shadow-md mx-auto max-w-md h-96 w-60">
+      <h3 className="text-2xl mb-6 underline">Dashboard</h3>
 
       <ul>
         {/* Buttons */}
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500
-                "
-                onClick={() => navigate("/myevents")}
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+            onClick={() => navigate("/myevents")}
           >
-            My Events
+            📆 Events
           </button>
         </li>
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
             onClick={() => navigate("/home/contacts")}
           >
-            Contacts
+            📱 Contacts
           </button>
         </li>
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
             onClick={() => navigate("/admin/templates")}
           >
-            Main Templates
+            📄 Templates
           </button>
         </li>
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 "
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
             onClick={() => navigate("/user/settings")}
           >
-            Settings
+            🎛 Settings
           </button>
         </li>
       </ul>
@@ -50,7 +48,6 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
 
 // function Dashboard({ handleButtonClick }) {
 //   return (
@@ -68,7 +65,7 @@ export default Dashboard;
 //                 "
 //             onClick={() => handleButtonClick("myEvents")}
 //           >
-//             My Events
+//             Events
 //           </button>
 //         </li>
 //         <li>

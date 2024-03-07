@@ -21,6 +21,7 @@ import Settings from "./components/Global/Settings.jsx";
 import { useAuth } from "./Context/MyEventContext.jsx";
 import ForTeam from "./components/Global/ForTeam.jsx";
 import ChangePassword from "./components/Global/ChangePassword.jsx";
+import Donate from "./components/Donate/Donate.jsx"
 
 export default function App() {
   const { isLoggedIn } = useAuth();
@@ -48,7 +49,7 @@ export default function App() {
         <Route path="/myevents/edit/:id" element={<EditeEvent />} />
         <Route path="/home/contacts" element={<Contacts />} />
         <Route path="/admin/templates" element={<Template />} />
-
+        <Route path="/donate" element={<Donate />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       
@@ -57,6 +58,7 @@ export default function App() {
   ) : (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/donate" element={<Donate />} />
       <Route path="/user/login" element={<LoginForm />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/user/register" element={<RegisterForm />} />

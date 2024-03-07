@@ -15,7 +15,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
           zipcode: "",
           city: "",
           street: "",
-          dates: [{ title: "", value: "" }],
+          dates: [],
           user: userID,
         }
   );

@@ -17,6 +17,12 @@ function MyEventContext({ children }) {
   const [contacts, setContacts] = useState([]);
   const [images, setImages] = useState('');
   const [changImage, setChangImage] = useState(false);
+  const [template, setTemplate] = useState({
+    title: "",
+    content: "",
+    type: "",
+    image: "",
+  });
  
 
   const checkUser = async () => {
@@ -75,7 +81,8 @@ useEffect(() => {
     setAllEvents,
     contacts, setContacts,
     images, setImages,
-    setChangImage,changImage
+    setChangImage,changImage,
+    template, setTemplate
     
   };
 

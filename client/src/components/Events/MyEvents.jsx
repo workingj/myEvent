@@ -281,7 +281,9 @@ function MyEvents({ handleButtonClick }) {
             />
           )}
           {deletePopup && (
-            <div className="popup">
+            <div className="popup"
+            onClick={handleCancel}
+            >
               <div className="popupInner" onClick={(e) => e.stopPropagation()}>
                 <h2>Do you want to delete this event?</h2>
                 <div className="flex justify-center items-center gap-2">

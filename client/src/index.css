@@ -194,3 +194,29 @@ body {
   width: 63%;
   cursor: pointer;
 }
+.menu{
+  display: none;
+ 
+
+}
+
+
+@media (max-width: 700px) {
+  .navbar, .rightSide {
+    display: none;
+  }
+  .menu{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+   
+    height: 3rem;
+    background-color: #f3333333;
+    z-index: 1;
+  }
+  
+ 
+}

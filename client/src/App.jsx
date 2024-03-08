@@ -21,9 +21,8 @@ import Settings from "./components/Global/Settings.jsx";
 import { useAuth } from "./Context/MyEventContext.jsx";
 import ForTeam from "./components/Global/ForTeam.jsx";
 import ChangePassword from "./components/Global/ChangePassword.jsx";
-import Donate from "./components/Donate/Donate.jsx"
+import Donate from "./components/Donate/Donate.jsx";
 import Paypal from "./components/Donate/Paypal.jsx";
-
 
 export default function App() {
   const { isLoggedIn } = useAuth();
@@ -53,8 +52,8 @@ export default function App() {
             <Route path="/myevents/edit/:id" element={<EditeEvent />} />
             <Route path="/home/contacts" element={<Contacts />} />
             <Route path="/admin/templates" element={<Template />} />
-        <Route path="/donate" element={<Donate />} />
-        <Route path="/paypal" element={<Paypal />} />
+            <Route path="/donate" element={<Donate />} />
+            <Route path="/paypal" element={<Paypal />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
@@ -63,8 +62,8 @@ export default function App() {
       ) : (
         <Routes>
           <Route path="/" element={<LandingPage />} />
-      <Route path="/donate" element={<Donate />} />
-      <Route path="/paypal" element={<Paypal />} />
+          <Route path="/donate" element={<Donate />} />
+          <Route path="/paypal" element={<Paypal />} />
           <Route path="/user/login" element={<LoginForm />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/user/register" element={<RegisterForm />} />
@@ -99,9 +98,28 @@ function TestMail() {
     <>
       <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
         <h2>Test Mail</h2>
-        <div className="Contacts">
-          {mailData && <code>{JSON.stringify(mailData)}</code>}
-        </div>
+        {mailData && (
+          <>
+            <hr />
+            <p>
+              <b>{mailData.message}</b>
+              <br />
+              <span>{mailData.id}</span>
+            </p>
+            {mailData.map((res) => {
+              return (
+                <>
+                <hr />
+                  <p>
+                    <b>{res.message}</b>
+                    <br />
+                    <span>{res.id}</span>
+                  </p>
+                </>
+              );
+            })}
+          </>
+        )}
       </div>
     </>
   );

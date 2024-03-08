@@ -1,3 +1,4 @@
+import { log } from 'console';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
 
@@ -21,8 +22,10 @@ async function sendMail(mailAddr, subject, htmlText) {
     );
 
     const data = await resp.text();
-    console.log("Mail Responde:", data);
-    return data;
+
+    return new Promise((resolve, reject) => {
+        resolve(JSON.parse(data))
+    })
 }
 
 export default sendMail;

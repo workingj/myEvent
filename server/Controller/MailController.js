@@ -5,6 +5,7 @@ import sendMail from "../services/mail.js";
 import Contact from '../models/ContactModel.js';
 import User from '../models/UserModel.js';
 import Event from '../models/EventModel.js';
+import { log } from 'console';
 
 
 
@@ -19,6 +20,9 @@ export const testMail = asyncHandler(async (req, res, next) => {
     console.log("contacts:", contacts.length);
     console.log("users:", users.length);
     console.log("events:", events.length);
+    events.map((event) => {
+        console.log(event.contact);
+    });
     if (!contacts) throw new ErrorResponse(`Contacts do not exist`, 404);
 
 
@@ -31,12 +35,17 @@ export const testMail = asyncHandler(async (req, res, next) => {
 
 
     let data = [];
-    data = sendMail(mailJoe, subject, htmlText);
-    // data.push(sendMail(mailFar, subject, htmlText))
-    // data.push(sendMail(mailIss, subject, htmlText))
-
-    console.log("id:",data.id);
-    console.log("message:",data.message);
-
-    res.status(201).json(data);
+    sendMail(mailJoe, subject, htmlText).then((mres) => {
+        // res.status(201).json(mres);
+        data.push(mres);
+        sendMail(mailFar, subject, htmlText).then((mres) => {
+            data.push(mres);
+            // res.status(201).json(mres);
+        });
+        sendMail(mailIss, subject, htmlText).then((mres) => {
+            data.push(mres);
+            // res.status(201).json(mres);
+            res.status(201).json(data);
+        });
+    });
 });

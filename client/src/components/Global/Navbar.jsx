@@ -39,6 +39,7 @@ const Navbar = () => {
             <li className="basis-1/4 hover:text-orange-300 text-white font-oleo font-bold py-2 px-4 ">
               My Events
             </li>
+            
           </Link>
         </ul>
         <div
@@ -60,6 +61,13 @@ const Navbar = () => {
               <Link to="/forteam" className="cursor-pointer hover:opacity-80">
                 For team
               </Link>
+              <Link to="/donate">
+          <button
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+                     >
+            📄 Donate
+          </button>
+        </Link>
               <button
                 onClick={handleLogout}
                 className="cursor-pointer bg-black hover:bg-gray-600 rounded-full p-1 text-white  "
@@ -88,6 +96,13 @@ const Navbar = () => {
                   Register
                 </button>
               </Link>
+              <Link to="/donate">
+          <button
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+                     >
+            📄 Donate
+          </button>
+        </Link>
             </div>
           )}
         </div>

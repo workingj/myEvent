@@ -30,12 +30,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" h-30 rounded-t-lg flex justify-between items-center flex-grow bg-gray-200 px-5 py-5 ps-12">
+    <nav className=" h-30 rounded-t-lg flex justify-between items-center flex-grow bg-opacity-80 m-auto px-5 py-5 ps-12  rounded-xl shadow-xl shadow-gray-200">
       <div
-        className=" menu bg-black text-white rounded-full p-1 text-white  
+        className=" menu bg-black w-28 text-white rounded-full p-1 text-white  
     "
       >
-        <button onClick={() => setShowMenu(!showMenu)}>
+        <button onClick={() => setShowMenu(!showMenu)} className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">
       
       menu
 
@@ -63,29 +63,27 @@ const Navbar = () => {
         >
           <div className="space-x-4">
             <Link to="/home">
-              <button className="" onClick={() => setOverview(true)}>
+              <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end " onClick={() => setOverview(true)}>
                 Home
               </button>
             </Link>
             <Link to="/privacy">
-              <button className="">Privacy</button>
+              <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">Privacy</button>
             </Link>
           </div>
           {isLoggedIn ? (
             <div className=" flex items-center space-x-4 gap-4  justify-end ">
-              <Link to="/forteam" className="cursor-pointer hover:opacity-80">
+              <Link to="/forteam" className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">
                 For team
               </Link>
               <Link to="/donate">
-          <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
-                     >
-            📄 Donate
+          <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "    >
+             Donate
           </button>
         </Link>
               <button
                 onClick={handleLogout}
-                className="cursor-pointer bg-black hover:bg-gray-600 rounded-full p-1 text-white  "
+                className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
               >
                 LOGOUT
               </button>
@@ -95,27 +93,23 @@ const Navbar = () => {
             <div className="space-x-4">
               <Link to="/user/login">
                 <button
-                  className=" bg-blue-500 text-white text-sm rounded-md
-               border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2
-              "
+                  className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
                 >
                   Sign in
                 </button>
               </Link>
               <Link to="/user/register">
                 <button
-                  className="bg-red-500 text-white text-sm rounded-md
-                border-solid border-2 border-red-500 py-1 px-1 hover:bg-red-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4
-              "
+                 className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
                 >
                   Register
                 </button>
               </Link>
               <Link to="/donate">
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+           className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
                      >
-            📄 Donate
+             Donate
           </button>
         </Link>
             </div>
@@ -134,7 +128,7 @@ const Navbar = () => {
             onChange={handleSearchChange}
           />
           <button
-            className="flex bg-black text-orange-300 text-sm rounded-full border-solid border-2 border-orange-500 py-1 px-1 hover:bg-orange-800 transition duration-300 font-oleo font-bold py-1 px-2 "
+            className="flex bg-black w-28 text-orange-300 text-sm rounded-full border-solid border-2 border-orange-500 py-1 px-1 hover:bg-orange-800 transition duration-300 font-oleo font-bold py-1 px-2 "
             onClick={handleSearchSubmit}
             type="submit"
           >

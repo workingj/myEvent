@@ -12,39 +12,39 @@ function Dashboard() {
         {/* Buttons */}
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+           className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
             onClick={() => navigate("/myevents")}
           >
-            📆 Events
+             Events
           </button>
         </li>
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+            className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
             onClick={() => navigate("/home/contacts")}
           >
-            📱 Contacts
+             Contacts
           </button>
         </li>
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+            className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
             onClick={() => navigate("/admin/templates")}
           >
-            📄 Templates
+             Templates
           </button>
         </li>
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+            className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
             onClick={() => navigate("/user/settings")}
           >
-            🎛 Settings
+             Settings
           </button>
         </li>
         <li>
           <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+            className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
             onClick={() => navigate("/gift/upload")}
           >
            Upload Cards

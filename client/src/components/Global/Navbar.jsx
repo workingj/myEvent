@@ -30,7 +30,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" h-30 rounded-t-lg flex justify-between items-center flex-grow bg-opacity-80 m-auto px-5 py-5 ps-12  rounded-xl shadow-xl shadow-gray-200">
+    <nav className=" h-30 rounded-t-lg flex justify-between items-center flex-grow bg-opacity-80 m-auto px-5 py-5 ps-12  rounded-xl shadow-xl shadow-gray-200 w-full">
       <div
         className=" menu bg-black w-28 text-white rounded-full p-1 text-white  
     "
@@ -50,7 +50,7 @@ const Navbar = () => {
         </div>
 
         <ul className="flex items-center space-x-4 flex-grow ">
-          <Link to="/home">
+          <Link to="/">
             <li className="basis-1/4 hover:text-orange-300 text-white font-oleo font-bold py-2 px-4 ">
               My Events
             </li>
@@ -62,7 +62,7 @@ const Navbar = () => {
         "
         >
           <div className="space-x-4">
-            <Link to="/home">
+            <Link to="/">
               <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end " onClick={() => setOverview(true)}>
                 Home
               </button>
@@ -70,12 +70,15 @@ const Navbar = () => {
             <Link to="/privacy">
               <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">Privacy</button>
             </Link>
+            <Link to="/forteam" >
+              <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "    >
+             Team
+          </button>
+              </Link>
           </div>
           {isLoggedIn ? (
             <div className=" flex items-center space-x-4 gap-4  justify-end ">
-              <Link to="/forteam" className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">
-                For team
-              </Link>
+
               <Link to="/donate">
           <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "    >
              Donate

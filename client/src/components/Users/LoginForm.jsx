@@ -43,7 +43,7 @@ function LoginForm() {
     }
   };
   return (
-    <div className="w-screen h-screen  bg-black bg-opacity-30">
+    <div className="w-screen h-screen  bg-black bg-opacity-30 popup">
       <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
         <div className="p-4">
           <h2 className="text-21 font-semibold mb-4">Login</h2>

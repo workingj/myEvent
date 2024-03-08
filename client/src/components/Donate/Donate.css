@@ -1,0 +1,17 @@
+.green{
+    background-color:blue !important;
+}
+input[type="radio"]:checked+label .click_option{
+    border:2px solid #888888;
+    
+} 
+input[type="radio"]:checked+label .selecting{
+    border:2px solid blue;
+    transform:scale(1.02);
+    color:blue;
+} 
+input[type="radio"]:checked+label{
+    border:2px solid blue;
+    transform:scale(1.02);
+    color:blue;
+}

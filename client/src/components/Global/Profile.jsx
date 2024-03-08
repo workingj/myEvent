@@ -4,7 +4,6 @@ import { useAuth } from "../../Context/MyEventContext";
 
 export default function Profile({ User }) {
   const { userData, images } = useAuth();
-  console.log(userData);
   return (
     <>
       <img

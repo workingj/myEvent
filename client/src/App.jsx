@@ -28,42 +28,75 @@ export default function App() {
     <>
       <Navbar />
       <ToastContainer />
-      {isLoggedIn? (
-     <div className="flex "
-     >
+      {isLoggedIn ? (
+        <div className="flex ">
+          <Routes>
+            <Route path="/home" element={<Overview />} />
+            <Route path="/user/login" element={<LoginForm />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/forteam" element={<ForTeam />} />
+            <Route path="/user/register" element={<RegisterForm />} />
+            <Route path="/user/profile" element={<Profile />} />
+            <Route path="/user/settings" element={<Settings />} />
+            <Route path="/user/mail" element={<TestMail />} />
+            <Route
+              path="/home/settings/changepassword"
+              element={<ChangePassword />}
+            />
 
-     <Routes>
-        <Route path="/home" element={<Overview />} />
-        <Route path="/user/login" element={<LoginForm />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/forteam" element={<ForTeam />} />
-        <Route path="/user/register" element={<RegisterForm />} />
-        <Route path="/user/profile" element={<Profile />} />
-        <Route path="/user/settings" element={<Settings />} />
-        <Route path="/home/settings/changepassword" element={<ChangePassword />} />
+            <Route path="/myevents" element={<MyEvents />} />
+            {/* <Route path="/myevents/showall" element={<ShowAll />} /> */}
+            <Route path="/myevents/addevent" element={<AddEvent />} />
+            <Route path="/myevents/edit/:id" element={<EditeEvent />} />
+            <Route path="/home/contacts" element={<Contacts />} />
+            <Route path="/admin/templates" element={<Template />} />
 
-        <Route path="/myevents" element={<MyEvents />} />
-        {/* <Route path="/myevents/showall" element={<ShowAll />} /> */}
-        <Route path="/myevents/addevent" element={<AddEvent />} />
-        <Route path="/myevents/edit/:id" element={<EditeEvent />} />
-        <Route path="/home/contacts" element={<Contacts />} />
-        <Route path="/admin/templates" element={<Template />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      
-      <RigtSide />
-     </div>
-  ) : (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/user/login" element={<LoginForm />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/user/register" element={<RegisterForm />} />
-      <Route path="/forteam" element={<ForTeam />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  )}
+          <RigtSide />
+        </div>
+      ) : (
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/user/login" element={<LoginForm />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/user/register" element={<RegisterForm />} />
+          <Route path="/forteam" element={<ForTeam />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      )}
+    </>
+  );
+}
+
+import "./components/Contacts/Contact.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+function TestMail() {
+  const [mailData, setMailData] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/mail`)
+      .then((res) => {
+        console.log(res.data);
+        setMailData(res.data);
+      })
+      .catch((error) => {
+        console.error("ERR testing Mail:", error.stack);
+      });
+  }, []);
+
+  return (
+    <>
+      <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+        <h2>Test Mail</h2>
+        <div className="Contacts">
+          {mailData && <code>{JSON.stringify(mailData)}</code>}
+        </div>
+      </div>
     </>
   );
 }

@@ -42,6 +42,14 @@ function Dashboard() {
             🎛 Settings
           </button>
         </li>
+        <li>
+          <button
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-44 text-left"
+            onClick={() => navigate("/user/mail")}
+          >
+            <b>‼️ mail-debug ‼️</b>
+          </button>
+        </li>
       </ul>
     </div>
   );

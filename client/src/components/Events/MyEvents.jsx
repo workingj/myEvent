@@ -22,13 +22,25 @@ function MyEvents({ handleButtonClick }) {
   const [error, setError] = useState(null);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+      return "";
+    }
+
     return date.toISOString().split("T")[0];
   };
+
   useEffect(() => {
     if (allEvents.length >= 0) {
       setFilteredEvents(allEvents);
     }
   }, [allEvents, addPopup, editPopup, deletePopup]);
+
+// fetshing gift api from 
+
+
+  
+
 
   const hadleEditPopup = (event) => {
     setEditPopup(true);
@@ -130,7 +142,7 @@ function MyEvents({ handleButtonClick }) {
 
   return (
     <>
-      {/* add cards for events */}
+      
       <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
         <h2>My Events</h2>
         <div
@@ -139,7 +151,7 @@ function MyEvents({ handleButtonClick }) {
     "
         >
           <div
-            className=" cursor-pointer height-20 bg-blue-200 p-5 rounded-lg shadow-lg hover:bg-blue-300"
+            className=" cursor-pointer height-20 hover:bg-green-300"
             onClick={
               () =>
                 //  handleButtonClick("addEvent")
@@ -150,9 +162,11 @@ function MyEvents({ handleButtonClick }) {
               // navigate("/myevents/addevent")
             }
           >
-            <h2 className="text-xl font-bold text-center text-blue-800 hover:text-blue-900">
+            <h2 className="   hover:bg-green-300 
+             ">
               {/* <img src="../../assets/add.png" alt="add" className="w-10 h-10" /> */}
-              Add Event
+              <img src="./add.jpg" alt="add" className="w-10 h-10" 
+               />
             </h2>
           </div>
 
@@ -217,11 +231,12 @@ function MyEvents({ handleButtonClick }) {
                       <img
                         src={event.image}
                         alt={event.title}
-                        className="w-20 h-20"
+                        className="w-20 h-20 object-cover rounded-xl"
                       />
                     </td>
                     <td className="border px-4 py-2">
-                      {formatDate(event.actionDate)}{" "}
+                      {formatDate(event.actionDate)}
+                      {` @ ${event.time}`}
                     </td>
                     <td className="border px-4 py-2">
                       <div className="flex justify-center items-center gap-2">
@@ -236,7 +251,8 @@ function MyEvents({ handleButtonClick }) {
                             setEditPopup(true);
                           }}
                         >
-                          Edit
+                         Edit
+
                         </button>
                         <button
                           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"

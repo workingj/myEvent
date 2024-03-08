@@ -71,7 +71,9 @@ function Settings() {
     e.preventDefault();
    
     if (!file) {
-      alert("please select an image to upload");
+      toast.error("please select a Card to upload");
+     
+      return;
     }
 
     const formData = new FormData();

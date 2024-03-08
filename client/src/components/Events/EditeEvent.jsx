@@ -34,6 +34,7 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
           eventNR: 0,
           user: userData._id,
           contact: "",
+          time: "",
         });
         setSending(false);
         setEditPopup(false)
@@ -79,11 +80,21 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
               />
             </div>
             <div className="mb-4">
+              <p className="block mb-2">Time:</p>
+              <input
+                type="time"
+                value={editeEvent&&editeEvent.time}
+                onChange={(e) => setEditeEvent({ ...editeEvent, time: e.target.value })}
+                className="border rounded-full w-full p-2"
+              />
+            </div>
+
+            <div className="mb-4">
               <p className="block mb-2">Text:</p>
               <textarea
                 value={editeEvent&&editeEvent.text}
                 onChange={(e) => setEditeEvent({ ...editeEvent, text: e.target.value })}
-                className="border rounded-lg w-full p-2"
+                className="border rounded-lg w-full p-2 h-32 resize-none"
               />
             </div>
             <div className="mb-4">
@@ -100,8 +111,8 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
                 type="submit"
                 className="okBtn"
                 disabled={sending}
-                
-              >
+               
+                >
                 Save
               </button>
               <button className="cancelBtn" onClick={(e) => handleCancel(e)}>

@@ -44,6 +44,15 @@ function Dashboard() {
         </li>
         <li>
           <button
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
+            onClick={() => navigate("/gift/upload")}
+          >
+           Upload Cards
+          </button>
+        </li>
+        
+        <li>
+          <button
             className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-44 text-left"
             onClick={() => navigate("/user/mail")}
           >

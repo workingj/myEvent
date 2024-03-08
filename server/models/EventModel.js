@@ -29,6 +29,10 @@ const EventModel = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Contact',
   },
+  time: {
+    type: String,
+ 
+  },
 });
 
 export default mongoose.model('Event', EventModel);

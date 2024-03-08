@@ -9,6 +9,7 @@ import "./services/mail.js";
 import dotenv from "dotenv";
 import adminTemplateRouter from "./routes/TemplateRouter.js";
 import eventRouter from "./routes/EventRouter.js";
+import giftRouter from "./routes/GiftRouter.js";
 // TEST Mail
 import mailRouter from './routes/MailRouter.js';
 
@@ -31,6 +32,8 @@ app.use('/user/contacts', contactRouter);
 app.use('/user/events', eventRouter);
 // app.use('/user/templates', eventRouter);
 app.use('/admin/templates', adminTemplateRouter);
+// Gifr card Router
+app.use('/giftcards', giftRouter);
 
 // Mail Test Route
 app.use('/mail', mailRouter);

@@ -12,7 +12,7 @@ const User = {
 
 function RigtSide() {
   return (
-    <div className="border border-gray-300 p-4 m-4  rounded-md text-center ">
+    <div className="rightSide border border-gray-300 p-4 m-4  rounded-md text-center ">
     <div className="Profile rounded-md shadow-md mx-auto max-w-md w-82 h-60">
       <Profile User={User} />
     </div>

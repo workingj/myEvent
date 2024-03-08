@@ -37,14 +37,6 @@ function Dashboard() {
         <li>
           <button
             className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
-            onClick={() => navigate("/Donate")}
-          >
-            📄 Donate
-          </button>
-        </li>
-        <li>
-          <button
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 w-28 text-left"
             onClick={() => navigate("/user/settings")}
           >
             🎛 Settings

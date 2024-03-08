@@ -32,7 +32,7 @@ export const getEvent = asyncHandler(async (req, res, next) => {
 // @route   POST /events
 // @access  Private
 export const createEvent = asyncHandler(async (req, res, next) => {
-  const { actionDate, title, text, image, eventNR, user, contact
+  const { actionDate, title, text, image, eventNR, user, contact,time
    } = req.body;
    
 
@@ -44,7 +44,8 @@ export const createEvent = asyncHandler(async (req, res, next) => {
       image,
       eventNR,
       user,
-      contact
+      contact,
+      time
 
     }
   );

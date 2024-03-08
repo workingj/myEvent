@@ -8,6 +8,7 @@ import "./db/db.js";
 import dotenv from "dotenv";
 import adminTemplateRouter from "./routes/TemplateRouter.js";
 import eventRouter from "./routes/EventRouter.js";
+import giftRouter from "./routes/GiftRouter.js";
 dotenv.config();
 
 const app = express();
@@ -27,6 +28,8 @@ app.use('/user/contacts', contactRouter);
 app.use('/user/events', eventRouter);
 // app.use('/user/templates', eventRouter);
 app.use('/admin/templates', adminTemplateRouter);
+// Gifr card Router
+app.use('/giftcards', giftRouter);
 
 // ERROR HANDLER
 app.use(errorHandler);

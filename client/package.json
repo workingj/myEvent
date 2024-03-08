@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.6.7",
     "date-format": "^4.0.14",
+    "i": "^0.3.7",
     "js-cookie": "^3.0.5",
+    "npm": "^10.5.0",
     "react": "^18.2.0",
     "react-confirm": "^0.3.0-7",
     "react-confirm-alert": "^3.0.6",

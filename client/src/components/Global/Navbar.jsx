@@ -4,11 +4,15 @@ import { DataContext } from "../../Context/MyEventContext";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import axios from "axios";
+import Menu from "./Menu";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
   const { setOverview } = useContext(DataContext);
   const { isLoggedIn, setIsLoggedIn, userData } = useAuth();
+  const [showMenu, setShowMenu] = useState(false);
 
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -26,8 +30,18 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="h-30 rounded-t-lg flex justify-between items-center flex-grow bg-gray-200 px-5 py-5 ps-12">
-      <div className="flex items-center space-x-4 flex-grow">
+    <nav className=" h-30 rounded-t-lg flex justify-between items-center flex-grow bg-gray-200 px-5 py-5 ps-12">
+      <div
+        className=" menu bg-black text-white rounded-full p-1 text-white  
+    "
+      >
+        <button onClick={() => setShowMenu(!showMenu)}>
+        <FontAwesomeIcon icon="fa-regular fa-bars" />
+
+        </button>
+      </div>
+      {showMenu && <Menu setShowMenu={setShowMenu} />}
+      <div className="navbar flex items-center space-x-4 flex-grow">
         <div className="w-12 h-12 overflow-hidden flex justify-center">
           <Link to="/">
             <img src="/src/assets/favicon.svg" alt="SharedTravelLogo" />

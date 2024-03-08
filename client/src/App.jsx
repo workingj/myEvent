@@ -21,6 +21,8 @@ import Settings from "./components/Global/Settings.jsx";
 import { useAuth } from "./Context/MyEventContext.jsx";
 import ForTeam from "./components/Global/ForTeam.jsx";
 import ChangePassword from "./components/Global/ChangePassword.jsx";
+import GiftCardTemplates from "./components/Events/GiftCardTemplates.jsx";
+import UploadCards from "./components/Admin/UploadCards.jsx";
 
 export default function App() {
   const { isLoggedIn } = useAuth();
@@ -48,6 +50,9 @@ export default function App() {
         <Route path="/myevents/edit/:id" element={<EditeEvent />} />
         <Route path="/home/contacts" element={<Contacts />} />
         <Route path="/admin/templates" element={<Template />} />
+        <Route path="/
+        " element={<GiftCardTemplates />} />
+        <Route path="/gift/upload" element={<UploadCards/>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

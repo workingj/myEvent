@@ -50,8 +50,11 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
     return date.toISOString().split("T")[0];
   };
   return (
-    <div className="popup">
-      <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
+    <div className="popup fixed inset-0 flex items-center justify-center  bg-gray-500
+    " onClick={
+      handleCancel
+    }>
+      <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500 shadow  bg-white bg-opacity-80">
       <div className="popupInner" onClick={(e) => e.stopPropagation()}>
         <div className="p-4">
           <h2 className="text-21 font-semibold mb-4">Edite Event</h2>

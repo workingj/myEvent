@@ -24,7 +24,7 @@ import ChangePassword from "./components/Global/ChangePassword.jsx";
 import Donate from "./components/Donate/Donate.jsx"
 import Paypal from "./components/Donate/Paypal.jsx";
 
-import GiftCardTemplates from "./components/Events/GiftCardTemplates.jsx";
+
 import UploadCards from "./components/Admin/UploadCards.jsx";
 
 export default function App() {
@@ -54,8 +54,8 @@ export default function App() {
         <Route path="/home/contacts" element={<Contacts />} />
         <Route path="/admin/templates" element={<Template />} />
         <Route path="/donate" element={<Donate />} />
-        <Route path="/paypal" element={<Paypal />} />        <Route path="/
-        " element={<GiftCardTemplates />} />
+        <Route path="/paypal" element={<Paypal />} />     
+
         <Route path="/gift/upload" element={<UploadCards/>} />
 
         <Route path="*" element={<NotFound />} />

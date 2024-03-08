@@ -8,8 +8,15 @@ import ShowTemplets from "./ShowTemplets";
 import ShowGiftCards from "./ShowGiftCards";
 
 function AddEvent({ handleCancel, setAddPopup }) {
-  const { contacts, setContacts, allEvents, setAllEvents, userData ,template, setTemplate} =
-    useAuth();
+  const {
+    contacts,
+    setContacts,
+    allEvents,
+    setAllEvents,
+    userData,
+    template,
+    setTemplate,
+  } = useAuth();
   const [latestEventNR, setLatestEventNR] = useState(0);
 
   const [isImage, setIsImage] = useState(false);
@@ -17,8 +24,9 @@ function AddEvent({ handleCancel, setAddPopup }) {
 
   const [sending, setSending] = useState(false);
   const [templateData, setTemplateData] = useState([]);
-  const [templatePopup, setTemplatePopup] = useState(false);  
+  const [templatePopup, setTemplatePopup] = useState(false);
   const [giftCardsPopup, setGiftCardsPopup] = useState(false);
+  const [giftCards, setGiftCards] = useState([]);
 
   // -------------------latest event number---------------------
 
@@ -38,9 +46,8 @@ function AddEvent({ handleCancel, setAddPopup }) {
     eventNR: latestEventNR,
     user: userData._id,
     contact: "",
-    time: "",	
+    time: "",
   });
-
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -141,7 +148,10 @@ function AddEvent({ handleCancel, setAddPopup }) {
   const handleCancelGiftCards = () => {
     setGiftCardsPopup(false);
   };
-
+  const handleGiftCard = (giftCard) => {
+    setGiftCards(giftCard);
+    console.log("giftCard", giftCard);
+  };
 
   if (sending) {
     return (
@@ -160,6 +170,7 @@ function AddEvent({ handleCancel, setAddPopup }) {
     <div
       className="popup fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center 
     "
+      onClick={(e) => handleCancel(e)}
     >
       <div
         className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  
@@ -223,7 +234,6 @@ function AddEvent({ handleCancel, setAddPopup }) {
                           )
                       )
                     )}
-                    
                 </select>
               </div>
               {/* choose Time */}
@@ -263,39 +273,43 @@ function AddEvent({ handleCancel, setAddPopup }) {
                 />
               </div>
 
-
-
-            <div className="mb-4"
-            >
-              <a className="bg-blue-500 text-white rounded p-2 mt-4 cursor-pointer hover:bg-blue-700"
-              onClick={() => setTemplatePopup(true)}
-              >
-                choose a template
-              </a>
-            </div>
-            {templatePopup && (
-              <ShowTemplets templateData={templateData} setTemplateData={setTemplateData} handleCancelTemplate={handleCancelTemplate}
-              setTemplate={setTemplate} setEvent={setEvent} 
-              />
-            )} 
-             {/*choose gift card  */}
+              <div className="mb-4">
+                <a
+                  className="bg-blue-500 text-white rounded p-2 mt-4 cursor-pointer hover:bg-blue-700"
+                  onClick={() => setTemplatePopup(true)}
+                >
+                  choose a template
+                </a>
+              </div>
+              {templatePopup && (
+                <ShowTemplets
+                  templateData={templateData}
+                  setTemplateData={setTemplateData}
+                  handleCancelTemplate={handleCancelTemplate}
+                  setTemplate={setTemplate}
+                  setEvent={setEvent}
+                />
+              )}
+              {/*choose gift card  */}
               <div className="mb-4">
                 <p className="block mb-2">Choose a gift card:</p>
-                <a className="bg-blue-500 text-white rounded p-2 mt-4 cursor-pointer hover:bg-blue-700"
-                onClick={() => setGiftCardsPopup(true)}
-                
+                <a
+                  className="bg-blue-500 text-white rounded p-2 mt-4 cursor-pointer hover:bg-blue-700"
+                  onClick={() => setGiftCardsPopup(true)}
                 >
-                  Choose gift Card 
+                  Choose gift Card
                 </a>
               </div>
               {giftCardsPopup && (
-                <ShowGiftCards handleCancelGiftCards= {handleCancelGiftCards}
+                <ShowGiftCards
+                  handleCancelGiftCards={handleCancelGiftCards}
+                  setGiftCards={handleGiftCard}
+                  giftCards={giftCards}
                 />
               )}
 
-
               {/* choose Templet */}
-              
+
               <div className="mb-4">
                 <p className="block mb-2">Title:</p>
                 <input
@@ -311,7 +325,7 @@ function AddEvent({ handleCancel, setAddPopup }) {
                 <textarea
                   type="text-area"
                   name="text"
-                  value={template.content&&template.content}
+                  value={template.content && template.content}
                   onChange={handleChange}
                   className="border rounded w-full p-2 col-span-2 h-72"
                 />
@@ -326,16 +340,13 @@ function AddEvent({ handleCancel, setAddPopup }) {
                   className="border rounded w-full p-2"
                 /> */}
                 {template.images && (
-                <div className="flex justify-center items-center">
-              
-                  <img
-                    src={template.images}
-                    alt="template image"
-                    className="w-20 h-20 rounded-full"
-                   
-                  />
-              
-                </div>
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={template.images}
+                      alt="template image"
+                      className="w-20 h-20 rounded-full"
+                    />
+                  </div>
                 )}
               </div>
               <span className="hCenter">

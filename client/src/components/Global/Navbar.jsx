@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import axios from "axios";
 import Menu from "./Menu";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 
 
 const Navbar = () => {
@@ -36,7 +36,8 @@ const Navbar = () => {
     "
       >
         <button onClick={() => setShowMenu(!showMenu)}>
-        <FontAwesomeIcon icon="fa-regular fa-bars" />
+      
+      menu
 
         </button>
       </div>

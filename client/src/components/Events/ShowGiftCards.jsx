@@ -21,7 +21,7 @@ function ShowGiftCards({ handleCancelGiftCards , setGiftCards, giftCards}) {
   };
   return (
     <div className="popup fixed inset-0 flex items-center justify-center"
-    onClick={handleCancelGiftCards}
+    // onClick={handleCancelGiftCards}
     >
       <div className="container mx-auto  bg-white rounded-xl overflow-hidden shadow-lg">
         <div className="p-8">

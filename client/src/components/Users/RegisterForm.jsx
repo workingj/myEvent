@@ -11,6 +11,7 @@ function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  const [error, setError] = useState("");
   
 
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ useEffect(() => {
         );
         if (response.status === 201) {
             toast.success('Successfully registered.')
-            navigate('/home');
+            navigate('/user/login');
         }
     } catch (error) {
       setError(error.response.data.error);

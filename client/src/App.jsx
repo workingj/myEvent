@@ -26,6 +26,7 @@ import Paypal from "./components/Donate/Paypal.jsx";
 
 
 import UploadCards from "./components/Admin/UploadCards.jsx";
+import Footer from "./components/Global/Footer.jsx";
 
 export default function App() {
   const { isLoggedIn } = useAuth();
@@ -75,6 +76,7 @@ export default function App() {
       <Route path="*" element={<NotFound />} />
     </Routes>
   )}
+  <Footer />
     </>
   );
 }

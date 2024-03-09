@@ -38,7 +38,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user",
         trim: true,
-    }
+    },
+    balance: {
+        type: String,
+        default: '0',
+    },
 });
 
 export default mongoose.model('User', userSchema);

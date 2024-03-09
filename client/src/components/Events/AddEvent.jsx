@@ -10,7 +10,6 @@ import ShowGiftCards from "./ShowGiftCards";
 function AddEvent({ handleCancel, setAddPopup }) {
   const {
     contacts,
-    setContacts,
     allEvents,
     setAllEvents,
     userData,
@@ -19,14 +18,20 @@ function AddEvent({ handleCancel, setAddPopup }) {
   } = useAuth();
   const [latestEventNR, setLatestEventNR] = useState(0);
 
-  const [isImage, setIsImage] = useState(false);
-  // const [contacts, setContacts] = useState([]);
 
   const [sending, setSending] = useState(false);
   const [templateData, setTemplateData] = useState([]);
   const [templatePopup, setTemplatePopup] = useState(false);
   const [giftCardsPopup, setGiftCardsPopup] = useState(false);
-  const [giftCards, setGiftCards] = useState([]);
+  const [giftCards, setGiftCards] = useState(
+{    url: "",
+    name: "",
+    price: "",}
+  );
+  const [enough, setEnough] = useState(true);
+  const [isUpadating, setIsUpadating] = useState(false);
+  // const [balance, setBalance] = useState(0);
+ 
 
   // -------------------latest event number---------------------
 
@@ -50,10 +55,64 @@ function AddEvent({ handleCancel, setAddPopup }) {
   });
 
   const navigate = useNavigate();
+
+  // const newBalance=async(x,y)=> {
+  //    setBalance( Number(x) - Number(y));
+  // }
+
+
+  // -------------------handle balance---------------------
+
+const handleBalancel = async() => {
+let b=Number(userData.balance)-Number(giftCards.price);
+
+ if (b < 0) {
+   toast.error("Not enough balance");
+   setEnough(false);
+   setIsUpadating(false);
+ }
+  else {
+ 
+  await axios.put(`${import.meta.env.VITE_API_URL}/user/${userData._id}`, 
+  {balance: b}
+
+  
+  )
+  .then((response) => {
+    console.log(response);
+    if (response.status === 200) {
+      console.log("balance updated");
+      toast.success("balance updated");
+      setEnough(true);
+      setIsUpadating(true);
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+    toast.error("Error updating balance");
+  });
+}
+
+}
+
+
+
+
+  // -------------------create event---------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
     console.log("event", event);
+
+    await handleBalancel();
+    if (isUpadating) { 
+      setSending(false);
+      return;
+      
+    }
+    else {
+
+
 
     try {
       const response = await axios.post(
@@ -80,6 +139,9 @@ function AddEvent({ handleCancel, setAddPopup }) {
         setAllEvents([...allEvents, response.data]);
         setSending(false);
         setAddPopup(false);
+       
+
+        toast.success("Event created successfully");
 
         navigate("/myevents");
       }
@@ -87,7 +149,7 @@ function AddEvent({ handleCancel, setAddPopup }) {
       console.error(error);
       toast.error("Error creating event");
       setSending(false);
-    }
+    }}
   };
   const handleChange = (e) => {
     setEvent({
@@ -167,13 +229,18 @@ function AddEvent({ handleCancel, setAddPopup }) {
   }
 
   return (
+    // <div className="popup fixed inset-0 flex items-center justify-center"
+    // onClick={(e) => handleCancel(e)}
+    // >
+    //   <div className="container mx-auto  bg-white rounded-xl overflow-hidden shadow-lg">
     <div
-      className="popup fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center 
+      className="popup fixed top-0 left-0  h-full bg-gray-900 bg-opacity-50 flex justify-center items-center 
     "
       onClick={(e) => handleCancel(e)}
     >
       <div
-        className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  
+        className=" popupInner
+        container mt-20 mx-auto rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  max-w-xl
       "
       >
         <div
@@ -300,11 +367,24 @@ function AddEvent({ handleCancel, setAddPopup }) {
                   Choose gift Card
                 </a>
               </div>
+              {!enough && (
+                <>
+                <p className="text-red-500">Not enough balance, please add balance to send gift card.
+                </p>
+                <p className="text-red-500">
+                  Do you want to add balance? <a href="/paypal" className="text-blue-500 hover:text-blue-700"
+                  >click hier</a>
+                </p>
+                </>
+
+              )
+              }
               {giftCardsPopup && (
                 <ShowGiftCards
                   handleCancelGiftCards={handleCancelGiftCards}
                   setGiftCards={handleGiftCard}
                   giftCards={giftCards}
+
                 />
               )}
 

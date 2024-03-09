@@ -244,6 +244,29 @@ function Settings() {
             <span className="text-red-500">{errors.birthDate}</span>
           </div>
           <br />
+          {/* show balance */}
+          <div>
+            <label htmlFor="balance">Balance</label>
+            <input
+              type="text"
+              id="balance"
+              name="balance"
+              value={userData.balance +"€"}
+              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+              readOnly
+              disabled
+            />
+          </div>
+          <br />
+          {/* Charge your balance */}
+          <div>
+            <label htmlFor="balance">Charge your balance? </label>
+            <a href="/paypal" className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer">
+              click here
+            </a>
+
+          </div>
+          <br />
           
           <div>
             <label htmlFor="avater">Avater</label>

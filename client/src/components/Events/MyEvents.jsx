@@ -3,7 +3,6 @@ import axios from "axios";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../Context/MyEventContext";
 import { SpinnerDotted } from "spinners-react";
-import EditeEvents from "./EditeEvent.jsx";
 import EditeEvent from "./EditeEvent.jsx";
 import AddEvent from "./AddEvent.jsx";
 
@@ -20,8 +19,12 @@ function MyEvents({ handleButtonClick }) {
   // const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
+
 
     if (isNaN(date.getTime())) {
       return "";
@@ -39,16 +42,7 @@ function MyEvents({ handleButtonClick }) {
 // fetshing gift api from 
 
 
-  
 
-
-  const hadleEditPopup = (event) => {
-    setEditPopup(true);
-  };
-
-  const handleDeletePopup = (event) => {
-    setDeletePopup(true);
-  };
 
   const handleCancel = (e) => {
     e.stopPropagation();
@@ -139,6 +133,7 @@ function MyEvents({ handleButtonClick }) {
 
   // m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full
   // container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
+  
 
   return (
     <>
@@ -199,76 +194,80 @@ function MyEvents({ handleButtonClick }) {
           </div>
 
           {/* table for data */}
-          <table className="table-auto">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Title</th>
-                <th className="px-4 py-2">Content</th>
-                <th className="px-4 py-2">image</th>
-                <th className="px-4 py-2">Date</th>
-                <th className="px-4 py-2">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredEvents &&
-                filteredEvents.map((event) => (
-                  <tr key={event._id}>
-                    <td className="border px-4 py-2">
-                      {contacts &&
-                      contacts.find((contact) => contact._id === event.contact)
-                        ? contacts.find(
-                            (contact) => contact._id === event.contact
-                          ).firstName
-                        : "Unknown Contact"}
-                    </td>
-                    <td className="border px-4 py-2">{event.title}</td>
-                    <td className="border px-4 py-2">
-                    
-                      {event.text}
+          {loading ? (
+            <SpinnerDotted size="100" color="#686769" />
+          ) : (
+            <table className="table-auto"  
+            >
+              <thead>
+                <tr>
+                  <th className="px-4 py-2">Name</th>
+                  <th className="px-4 py-2">Title</th>
+                  <th className="px-4 py-2">Content</th>
+                  <th className="px-4 py-2">image</th>
+                  <th className="px-4 py-2">Date</th>
+                  <th className="px-4 py-2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredEvents &&
+                  filteredEvents.map((event) => (
+                    <tr key={event._id}>
+                      <td className="border px-4 py-2">
+                        {contacts &&
+                        contacts.find((contact) => contact._id === event.contact)
+                          ? contacts.find(
+                              (contact) => contact._id === event.contact
+                            ).firstName
+                          : "Unknown Contact"}
+                      </td>
+                      <td className="border px-4 py-2">{event.title}</td>
+                      <td className="border px-4 py-2">
+                        {event.text}
+                        </td>
+                        <td className="border px-4 py-2">
+                        <img
+                          src={event.image}
+                          alt={event.title}
+                          className="w-20 h-20 object-cover rounded-xl"
+                        />
                       </td>
                       <td className="border px-4 py-2">
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-20 h-20 object-cover rounded-xl"
-                      />
-                    </td>
-                    <td className="border px-4 py-2">
-                      {formatDate(event.actionDate)}
-                      {` @ ${event.time}`}
-                    </td>
-                    <td className="border px-4 py-2">
-                      <div className="flex justify-center items-center gap-2">
-                        <button
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          onClick={() => {
-                            // handleButtonClick("editEvent", event);
-                            // navigate(`/myevents/editevent/${event._id}`);
-
-                            //  navigate(`/myevents/edit/${event._id}`);
-                            setEventId(event._id);
-                            setEditPopup(true);
-                          }}
-                        >
-                         Edit
-
-                        </button>
-                        <button
-                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                          onClick={() => {
-                            setEventId(event._id);
-                            setDeletePopup(true);
-                          }}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+                        {formatDate(event.actionDate)}
+                        {` @ ${event.time}`}
+                      </td>
+                      <td className="border px-4 py-2">
+                        <div className="flex justify-center items-center gap-2">
+                          <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            onClick={() => {
+                              // handleButtonClick("editEvent", event);
+                              // navigate(`/myevents/editevent/${event._id}`);
+  
+                              //  navigate(`/myevents/edit/${event._id}`);
+                              setEventId(event._id);
+                              setEditPopup(true);
+                            }}
+                          >
+                           Edit
+  
+                          </button>
+                          <button
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                            onClick={() => {
+                              setEventId(event._id);
+                              setDeletePopup(true);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
           {addPopup && (
             <AddEvent handleCancel={handleCancel} setAddPopup={setAddPopup} />
           )}

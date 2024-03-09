@@ -14,6 +14,8 @@ export const createUser = asyncHandler(async (req, res, next) => {
     birthDate,
     avatar,
     role,
+  
+
   } = req.body;
   const existingUser = await User.findOne({ email });
   const existingUsername = await User.findOne({ username });
@@ -35,6 +37,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
     birthDate,
     avatar,
     role,
+   
   });
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
@@ -57,15 +60,15 @@ export const updateUser = asyncHandler(async (req, res, next) => {
     params: { id },
   } = req;
   console.log(req.body);
-
-  const found = await User.findById(id);
-  if (!found) throw new ErrorResponse(`User ${id} does not exist`, 404);
-  const updatedPost = await User.findByIdAndUpdate(id, body, {
+  const user = await User.findByIdAndUpdate
+  (id, body, {
     new: true,
+    runValidators: true,
   });
-
-  res.json(updatedPost);
+  if (!user) throw new ErrorResponse(`User ${id} does not exist`, 404);
+  res.json(user);
 });
+
 
 export const deleteUser = asyncHandler(async (req, res, next) => {
   const {

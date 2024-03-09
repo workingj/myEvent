@@ -40,7 +40,11 @@ function ShowGiftCards({ handleCancelGiftCards , setGiftCards, giftCards}) {
                       name="giftcard"
                       value={image._id}
                       onClick={() => {
-                        setGiftCards(image);
+                        setGiftCards({
+                          name: image.name,
+                          price: image.price,
+                          url: image.url,
+                          });
                       }}
                     />
                     <label
@@ -76,7 +80,12 @@ function ShowGiftCards({ handleCancelGiftCards , setGiftCards, giftCards}) {
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
               onClick={() => {
-                setGiftCards([]);
+                setGiftCards({
+                  name: "",
+                  price: 0,
+                  url: "",
+                
+                });
                 handleCancelGiftCards(false);
               }}
             >

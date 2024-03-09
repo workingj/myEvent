@@ -218,7 +218,7 @@ function MyEvents({ handleButtonClick }) {
                         contacts.find((contact) => contact._id === event.contact)
                           ? contacts.find(
                               (contact) => contact._id === event.contact
-                            ).firstName
+                            ).firstName + " " + contacts.find( (contact) => contact._id === event.contact).lastName
                           : "Unknown Contact"}
                       </td>
                       <td className="border px-4 py-2">{event.title}</td>

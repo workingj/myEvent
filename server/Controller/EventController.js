@@ -96,6 +96,26 @@ export const deleteEvent = asyncHandler(async (req, res, next) => {
 });
 
 
+// @desc    del all events for user
+
+export const deleteAllEvents = asyncHandler(async (req, res, next) => {
+  console.log(req.body)
+
+  const {user}=req.body
+
+  const event = await Event.deleteMany({user});
+
+  if (!event) {
+    return next(
+      new ErrorResponse(`Event not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  res.status(200).json({ success: true, data: {} });
+});
+
+
+
 
 
 

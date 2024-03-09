@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import validateForm from "../../validator/formvalidator.js";
 import ChangePassword from "./ChangePassword.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
-  const { userData ,images, setImages,setChangImage,changImage} = useAuth();
+  const {isLoggedIn, setIsLoggedIn, userData ,images, setImages,setChangImage,changImage} = useAuth();
   const [data, setData] = useState({
     // firstName: "Issa",
     // lastName: "alali",
@@ -25,6 +26,24 @@ function Settings() {
   const [activeSave, setActiveSave] = useState(false);
   const [changePasswordPopup, setChangePasswordPopup] = useState(false);
   const [file, setFile] = useState(null);
+  const [deletePopup, setDeletePopup] = useState(false);
+
+  const handleLogout = async () => {
+      try {
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/user/logout`,
+          {},
+          { withCredentials: true }
+        );
+        setIsLoggedIn(false);
+        navigate("/");
+      } catch (error) {
+        toast.error("Error logging out");
+      }
+    };
+  
+
+  const navigate = useNavigate();
   
 
 
@@ -135,6 +154,59 @@ function Settings() {
       console.log("Form submitted:", data);
     }
   };
+//  delete all events
+  const handleDeleteAllEvents = async () => {
+    try {
+      const VITE_API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.delete(`${VITE_API_URL}/user/events/deleteAll`, {
+        data: { user: userData._id }
+      });
+      toast.success("All events deleted successfully");
+    } catch (error) {
+      console.error("error deleting all events", error);
+      toast.error("All events not deleted");
+    }
+  };
+
+  //  delete all contacts 
+  const handleDeleteAllContacts = async () => {
+    try {
+      const VITE_API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.delete(`${VITE_API_URL}/user/contacts/deleteallforuser`, {
+        data: { user: userData._id }
+      });
+      toast.success("All contacts deleted successfully");
+    } catch (error) {
+      console.error("error deleting all contacts", error);
+      toast.error("All contacts not deleted");
+    }
+  };
+  
+
+
+  // delete account
+
+  const handleDeleteAccount = async() => {
+    try {
+      const VITE_API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.delete(`${VITE_API_URL}/user/${userData._id}`);
+      handleDeleteAllEvents();
+      handleDeleteAllContacts();
+      
+      toast.success("Account deleted successfully");
+      handleLogout();
+      setIsLoggedIn(false);
+      
+    
+      window.location = "/";
+    } catch (error) {
+      console.error("error deleting account", error);
+      toast.error("Account not deleted");
+    }
+      
+  }
+
+
 
   return (
     <div className="settings">
@@ -303,6 +375,18 @@ function Settings() {
             </a>
           </div>
           <br />
+          <div>Do you want to delete your account? 
+            <a
+              className="btn-left my-2 hover:bg-red-200 text-red-500 cursor-pointer"
+              onClick={setDeletePopup }
+            >
+              Click here
+            </a>
+          </div>
+         
+           
+          <br />
+
           <div
             className="flex justify-center gap-4 m-4  
           "
@@ -335,6 +419,31 @@ function Settings() {
             </button>
           </div>
         </form>
+        {deletePopup && (
+          <div className="popup">
+            <div className="popupInner 
+            ">
+              <h2>Are you sure you want to delete your account?</h2>
+              <div className="flex justify-center items-center gap-2"
+              >
+              <a
+                className="bg-red-500 text-white text-sm rounded-md 
+            border-solid border-2 border-red-500 py-1 px-1 hover:bg-red-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4 cursor-pointer "
+                onClick={handleDeleteAccount}
+              >
+                Yes
+              </a>
+              <a
+                className="bg-blue-500 text-white text-sm rounded-md 
+            border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4 cursor-pointer"
+                onClick={() => setDeletePopup(false)}
+              >
+                No
+              </a>
+              </div>
+            </div>
+          </div>
+        )}
        
       </div>
       {changePasswordPopup && (

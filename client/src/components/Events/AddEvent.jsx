@@ -82,14 +82,14 @@ let b=Number(userData.balance)-Number(giftCards.price);
     console.log(response);
     if (response.status === 200) {
       console.log("balance updated");
-      toast.success("balance updated");
+      
       setEnough(true);
       setIsUpadating(true);
     }
   })
   .catch((error) => {
     console.error(error);
-    toast.error("Error updating balance");
+   
   });
 }
 
@@ -154,6 +154,22 @@ let b=Number(userData.balance)-Number(giftCards.price);
   const handleChange = (e) => {
     setEvent({
       ...event,
+      [e.target.name]: e.target.value,
+    });
+    setTemplate({
+      ...template,
+      [e.target.name]: e.target.value,
+    });
+    if (e.target.name==='content') {
+      setEvent({
+        ...event,
+        text: e.target.value,
+      });
+    }
+  };
+  const handleChangeTemplate = (e) => {
+    setTemplate({
+      ...template,
       [e.target.name]: e.target.value,
     });
   };
@@ -268,7 +284,7 @@ let b=Number(userData.balance)-Number(giftCards.price);
                         value={contact._id}
                         onChange={handleContactChange}
                       >
-                        {contact.firstName}
+                        {contact.firstName+" "+contact.lastName}
                       </option>
                     ))}
                 </select>
@@ -355,6 +371,7 @@ let b=Number(userData.balance)-Number(giftCards.price);
                   handleCancelTemplate={handleCancelTemplate}
                   setTemplate={setTemplate}
                   setEvent={setEvent}
+
                 />
               )}
               {/*choose gift card  */}
@@ -395,7 +412,7 @@ let b=Number(userData.balance)-Number(giftCards.price);
                 <input
                   type="text"
                   name="title"
-                  value={template.title}
+                  value={template.title&&template.title}
                   onChange={handleChange}
                   className="border rounded w-full p-2"
                 />
@@ -404,11 +421,21 @@ let b=Number(userData.balance)-Number(giftCards.price);
                 <p className="block mb-2">Text:</p>
                 <textarea
                   type="text-area"
-                  name="text"
+                  name="content"
                   value={template.content && template.content}
                   onChange={handleChange}
                   className="border rounded w-full p-2 col-span-2 h-72"
                 />
+                {/*  const [event, setEvent] = useState({
+    actionDate: "",
+    title: "",
+    text: "",
+    image: "",
+    eventNR: latestEventNR,
+    user: userData._id,
+    contact: "",
+    time: "",
+  }); */}
               </div>
               <div className="mb-4">
                 <p className="block mb-2">Image</p>

@@ -9,6 +9,8 @@ contactRouter.route('/')
 
 contactRouter.route('/allforuser')
     .post(contactController.getAllContactsForUser);
+contactRouter.route('/deleteallforuser')
+    .delete(contactController.deleteAllContactsForUser);
 
 
 contactRouter.route('/:id')

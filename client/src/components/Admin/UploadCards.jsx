@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from "react-toastify";
+import { useAuth } from "../../Context/MyEventContext";
 
 function UploadCards() {
   const [file, setFile] = useState(null);
@@ -12,6 +13,8 @@ function UploadCards() {
       price: '',
     }
   );
+  const { isLoggedIn, userData } = useAuth();
+
   const handleUpload = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -50,7 +53,8 @@ function UploadCards() {
     });
   }
 
-  return (
+  return  (
+    isLoggedIn && userData.role ==="admin" ? (
     <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
     <h2>Upload Gift Cards</h2>
     <div
@@ -76,10 +80,6 @@ function UploadCards() {
       onChange={handleChanges}
     />
 
-
-
-
-
     <input type='file' name='file' onChange={(e) => setFile(e.target.files[0])} 
     className='w-1/2 p-2 border border-gray-300 rounded-md cursor-pointer'
     />
@@ -92,6 +92,7 @@ function UploadCards() {
       </div>
       
     </div>
+  ) : (<div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full"></div>)
   )
 }
 

@@ -146,11 +146,7 @@ export function DateTitlePopup({ contact, handleCancel }) {
 
 export function AddDatePopup({ closePopup, contact, setContact }) {
   const [title, setTitle] = useState("");
-  console.log(contact);
   const data = contact;
-
-  data.dates.length == 0 && console.log("NIX");
-  console.log("");
 
   return (
     <div className="popup layer2" onClick={(e) => closePopup()}>
@@ -162,7 +158,7 @@ export function AddDatePopup({ closePopup, contact, setContact }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             autoFocus
-         />
+          />
         </span>
         <span className="hCenter">
           <button

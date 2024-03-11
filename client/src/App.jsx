@@ -21,7 +21,7 @@ import Settings from "./components/Global/Settings.jsx";
 import { useAuth } from "./Context/MyEventContext.jsx";
 import ForTeam from "./components/Global/ForTeam.jsx";
 import ChangePassword from "./components/Global/ChangePassword.jsx";
-import Donate from "./components/Donate/Donate.jsx"
+import Donate from "./components/Donate/Donate.jsx";
 import Paypal from "./components/Donate/Paypal.jsx";
 
 
@@ -34,11 +34,9 @@ export default function App() {
     <>
       <Navbar />
       <ToastContainer />
-      {isLoggedIn? (
-     <div className="flex "
-     >
-
-     <Routes>
+      {isLoggedIn ? (
+        <div className="flex ">
+      <Routes>
         <Route path="/home" element={<Overview />} />
         <Route path="/user/login" element={<LoginForm />} />
         <Route path="/privacy" element={<Privacy />} />

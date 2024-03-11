@@ -9,15 +9,6 @@ import Overview from "./Global/Overview";
 import { toast } from "react-toastify";
 import Settings from "./Global/Settings";
 
-// Placeholder Data for Profile Component
-const User = {
-  username: "Doejohn",
-  email: "john@provider.net",
-  firstName: "John",
-  lastName: "Doe",
-  avatar: "",
-};
-
 function Home() {
   const [myEvents, setMyEvents] = useState(false);
   const [addEvent, setAddEvent] = useState(false);
@@ -60,7 +51,7 @@ function Home() {
       {/* Right side */}
       <div className="border border-gray-300 p-4 m-4  rounded-md text-center ">
         <div className="Profile rounded-md shadow-md mx-auto max-w-md w-82 h-60">
-          <Profile User={User} />
+          <Profile />
         </div>
         <div>
           <Dashboard handleButtonClick={handleButtonClick} />

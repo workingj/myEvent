@@ -13,10 +13,10 @@ function Dashboard() {
           {/* Buttons */}
           <li>
             <button
-             className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+              className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
               onClick={() => navigate("/myevents")}
             >
-               Events
+              Events
             </button>
           </li>
           <li>
@@ -24,7 +24,7 @@ function Dashboard() {
               className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
               onClick={() => navigate("/home/contacts")}
             >
-               Contacts
+              Contacts
             </button>
           </li>
           <li>
@@ -32,15 +32,7 @@ function Dashboard() {
               className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
               onClick={() => navigate("/admin/templates")}
             >
-               Templates
-            </button>
-          </li>
-          <li>
-            <button
-              className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
-              onClick={() => navigate("/user/settings")}
-            >
-               Settings
+              Templates
             </button>
           </li>
           <li>
@@ -48,10 +40,17 @@ function Dashboard() {
               className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
               onClick={() => navigate("/gift/upload")}
             >
-             Upload Cards
+              Upload Cards
             </button>
           </li>
-        
+          <li>
+            <button
+              className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end mt-8"
+              onClick={() => navigate("/user/settings")}
+            >
+              Settings
+            </button>
+          </li>
         </ul>
       </div>
     </div>

@@ -60,7 +60,7 @@ export default function Contacts() {
     <>
     <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
       <h2>CONTACTS</h2>
-      <div className="Contacts">
+      <div className="Container">
         <AddContactCard handleAdd={handleAdd} />
         {contacts.map((contact) => (
           <ContactCard

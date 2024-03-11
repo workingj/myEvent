@@ -8,7 +8,15 @@ import ChangePassword from "./ChangePassword.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Settings() {
-  const {isLoggedIn, setIsLoggedIn, userData ,images, setImages,setChangImage,changImage} = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userData,
+    images,
+    setImages,
+    setChangImage,
+    changImage,
+  } = useAuth();
   const [data, setData] = useState({
     // firstName: "Issa",
     // lastName: "alali",
@@ -21,7 +29,7 @@ function Settings() {
     avater: userData.avatar,
     birthDate: userData.birthDate,
   });
-  const [dataDelete, setDataDelete] = useState({  
+  const [dataDelete, setDataDelete] = useState({
     email: "",
     password: "",
   });
@@ -33,23 +41,20 @@ function Settings() {
   const [deletePopup, setDeletePopup] = useState(false);
 
   const handleLogout = async () => {
-      try {
-        await axios.post(
-          `${import.meta.env.VITE_API_URL}/user/logout`,
-          {},
-          { withCredentials: true }
-        );
-        setIsLoggedIn(false);
-        navigate("/");
-      } catch (error) {
-        toast.error("Error logging out");
-      }
-    };
-  
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/user/logout`,
+        {},
+        { withCredentials: true }
+      );
+      setIsLoggedIn(false);
+      navigate("/");
+    } catch (error) {
+      toast.error("Error logging out");
+    }
+  };
 
   const navigate = useNavigate();
-  
-
 
   // cancle button
   const handleCancel = (e) => {
@@ -92,10 +97,10 @@ function Settings() {
   // -------------------avatar change--------------
   const handleAvatarChange = (e) => {
     e.preventDefault();
-   
+
     if (!file) {
       toast.error("please select a Card to upload");
-     
+
       return;
     }
 
@@ -108,7 +113,7 @@ function Settings() {
         .put(`${VITE_API_URL}/user/upload/${userData._id}`, formData)
         .then((res) => {
           console.log(res);
-          setChangImage(!changImage)
+          setChangImage(!changImage);
           toast.success("Avatar updated successfully");
         })
         .catch((err) => {
@@ -158,13 +163,16 @@ function Settings() {
       console.log("Form submitted:", data);
     }
   };
-//  delete all events
+  //  delete all events
   const handleDeleteAllEvents = async () => {
     try {
       const VITE_API_URL = import.meta.env.VITE_API_URL;
-      const response = await axios.delete(`${VITE_API_URL}/user/events/deleteAll`, {
-        data: { user: userData._id }
-      });
+      const response = await axios.delete(
+        `${VITE_API_URL}/user/events/deleteAll`,
+        {
+          data: { user: userData._id },
+        }
+      );
       toast.success("All events deleted successfully");
     } catch (error) {
       console.error("error deleting all events", error);
@@ -172,31 +180,35 @@ function Settings() {
     }
   };
 
-  //  delete all contacts 
+  //  delete all contacts
   const handleDeleteAllContacts = async () => {
     try {
       const VITE_API_URL = import.meta.env.VITE_API_URL;
-      const response = await axios.delete(`${VITE_API_URL}/user/contacts/deleteallforuser`, {
-        data: { user: userData._id }
-      });
+      const response = await axios.delete(
+        `${VITE_API_URL}/user/contacts/deleteallforuser`,
+        {
+          data: { user: userData._id },
+        }
+      );
       toast.success("All contacts deleted successfully");
     } catch (error) {
       console.error("error deleting all contacts", error);
       toast.error("All contacts not deleted");
     }
   };
-  
-
 
   // delete account
 
-  const handleDeleteAccount = async() => {
+  const handleDeleteAccount = async () => {
     console.log("dataDelete", dataDelete);
     try {
       const VITE_API_URL = import.meta.env.VITE_API_URL;
-      const response = await axios.delete(`${VITE_API_URL}/user/${userData._id}`, {
-        data: dataDelete
-      });
+      const response = await axios.delete(
+        `${VITE_API_URL}/user/${userData._id}`,
+        {
+          data: dataDelete,
+        }
+      );
       if (response.status === 200) {
         console.log("response", response);
         handleDeleteAllEvents();
@@ -205,16 +217,12 @@ function Settings() {
         handleLogout();
         setIsLoggedIn(false);
         window.location = "/";
-        
       }
-   
-    
     } catch (error) {
       console.error("error deleting account", error);
       toast.error("Account not deleted");
     }
-      
-  }
+  };
 
   // const handleDeleteAccount = async () => {
   //   console.log("dataDelete", dataDelete);
@@ -223,7 +231,7 @@ function Settings() {
   //     const response = await axios.delete(`${VITE_API_URL}/user/${userData._id}`, {
   //       data: dataDelete
   //     });
-      
+
   //     if (response.status === 200) {
   //       console.log("response", response);
   //       handleDeleteAllEvents();
@@ -239,95 +247,84 @@ function Settings() {
   //   }
   // };
 
-
-
   return (
-    <div className="settings">
-      <h2>Settings your Profile</h2>
-      <div>
-        <form
-          onSubmit={(e) => handleFormSubmit(e)}
-          className=" formsitting
-       "
-        >
-          <div>
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={data.firstName}
-              className={`border ${
-                errors.firstName ? "border-red-500" : "border-gray-300"
-              } rounded-md p-2 m-2 w-72 bg-gray-100`}
-              onChange={(e) => {
-                setData({ ...data, firstName: e.target.value });
-              }}
-              readOnly
-              disabled
-            />
+    <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+      <h2>Profile Settings</h2>
+      <div className="Container">
+        <form onSubmit={(e) => handleFormSubmit(e)}>
+          <div className="w-1/5 flex flex-col">
+            <span>
+              <label htmlFor="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={data.firstName}
+                className={`border ${
+                  errors.firstName ? "border-red-500" : "border-gray-300"
+                } rounded-md p-2 m-2 w-72 bg-gray-100`}
+                onChange={(e) => {
+                  setData({ ...data, firstName: e.target.value });
+                }}
+                readOnly
+                disabled
+              />
+              {/* edit button */}
+              <button
+                id="span-first-name"
+                className="btn"
+                onClick={() => handleButton("firstName", "span-first-name")}
+              >
+                Edit
+              </button>
+              <span className="text-red-500">{errors.firstName}</span>
+            </span>
 
-            {/* edit button */}
-            <span
-              id="span-first-name"
-              className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
-              onClick={() => handleButton("firstName", "span-first-name")}
-            >
-              Edit
+            <span>
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={data.lastName}
+                className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                onChange={(e) => setData({ ...data, lastName: e.target.value })}
+                readOnly
+                disabled
+              />
+              <button
+                className="btn"
+                id="span-last-name"
+                onClick={() => handleButton("lastName", "span-last-name")}
+              >
+                Edit
+              </button>
+              <span className="text-red-500">{errors.lastName}</span>
             </span>
-            <br />
-            <span className="text-red-500">{errors.firstName}</span>
-          </div>
-          <br />
-          <div>
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={data.lastName}
-              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-              onChange={(e) => setData({ ...data, lastName: e.target.value })}
-              readOnly
-              disabled
-            />
-            <span
-              className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
-              id="span-last-name"
-              onClick={() => handleButton("lastName", "span-last-name")}
-            >
-              Edit
-            </span>
-            <br />
-            <span className="text-red-500">{errors.lastName}</span>
-          </div>
 
-          <br />
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={data.email}
-              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-              onChange={(e) => setData({ ...data, email: e.target.value })}
-              readOnly
-              disabled
-            />
-            <span
-              className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
-              id="span-email"
-              onClick={() => handleButton("email", "span-email")}
-            >
-              Edit
+            <span>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={data.email}
+                className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                onChange={(e) => setData({ ...data, email: e.target.value })}
+                readOnly
+                disabled
+              />
+              <button
+                className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
+                id="span-email"
+                onClick={() => handleButton("email", "span-email")}
+              >
+                Edit
+              </button>
+              <span className="text-red-500">{errors.email}</span>
             </span>
-            <br />
-            <span className="text-red-500">{errors.email}</span>
-          </div>
-          <br />
-          <div>
-            <label htmlFor="birthDate">birthDate</label>
+
+            <label htmlFor="birthDate">Birthday</label>
             <input
               type="date"
               id="birthDate"
@@ -338,41 +335,35 @@ function Settings() {
               readOnly
               disabled
             />
-            <span
+            <button
               className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
               id="span-birthDate"
               onClick={() => handleButton("birthDate", "span-birthDate")}
             >
               Edit
-            </span>
-            <br />
+            </button>
             <span className="text-red-500">{errors.birthDate}</span>
           </div>
-          <br />
-          {/* show balance */}
-          <div>
-            <label htmlFor="balance">Balance</label>
-            <input
-              type="text"
-              id="balance"
-              name="balance"
-              value={userData.balance +"€"}
-              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-              readOnly
-              disabled
-            />
-          </div>
-          <br />
-          {/* Charge your balance */}
-          <div>
-            <label htmlFor="balance">Charge your balance? </label>
-            <a href="/paypal" className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer">
-              click here
-            </a>
 
-          </div>
-          <br />
-          
+           <div className="w-1/5 flex flex-col"></div>
+          <label htmlFor="balance">Balance</label>
+          <input
+            type="text"
+            id="balance"
+            name="balance"
+            value={userData.balance + "€"}
+            className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+            readOnly
+            disabled
+          />
+          <label htmlFor="balance">Charge your balance? </label>
+          <a
+            href="/paypal"
+            className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
+          >
+            click here
+          </a>
+
           <div>
             <label htmlFor="avater">Avater</label>
             <input
@@ -382,15 +373,12 @@ function Settings() {
               className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100 
               
               "
-              
-              onChange={(e) => 
-                setFile(e.target.files[0])
-                }
+              onChange={(e) => setFile(e.target.files[0])}
             />
-           
+
             <span className="text-red-500">{errors.avater}</span>
             <button
-            onClick={(e) => handleAvatarChange(e)}
+              onClick={(e) => handleAvatarChange(e)}
               type="submit"
               className="bg-blue-500 text-white text-sm rounded-md
             border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2"
@@ -408,16 +396,16 @@ function Settings() {
             </a>
           </div>
           <br />
-          <div>Do you want to delete your account? 
+          <div>
+            Do you want to delete your account?
             <a
               className="btn-left my-2 hover:bg-red-200 text-red-500 cursor-pointer"
-              onClick={setDeletePopup }
+              onClick={setDeletePopup}
             >
               Click here
             </a>
           </div>
-         
-           
+
           <br />
 
           <div
@@ -454,35 +442,40 @@ function Settings() {
         </form>
         {deletePopup && (
           <div className="popup">
-            <div className="popupInner 
-            ">
+            <div
+              className="popupInner 
+            "
+            >
               {/* write your Email and password */}
-              <h2>
-                write your Email and password to delete your account
-              </h2>
-              <div className="flex justify-center items-center gap-2 direction-column
-              ">
-               <div>
-               <label htmlFor="email">Email:</label>
-                <input
-
-                  type="email"  
-                  id="email"
-                  name="email"
-                  value={dataDelete.email}
-                  className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-                  onChange={(e) => setDataDelete({ ...dataDelete, email: e.target.value })}
-                />
-                <label htmlFor="password">Password:</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={dataDelete.password}
-                  className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-                  onChange={(e) => setDataDelete({ ...dataDelete, password: e.target.value })}
-                />
-               </div>
+              <h2>write your Email and password to delete your account</h2>
+              <div
+                className="flex justify-center items-center gap-2 direction-column
+              "
+              >
+                <div>
+                  <label htmlFor="email">Email:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={dataDelete.email}
+                    className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                    onChange={(e) =>
+                      setDataDelete({ ...dataDelete, email: e.target.value })
+                    }
+                  />
+                  <label htmlFor="password">Password:</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={dataDelete.password}
+                    className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                    onChange={(e) =>
+                      setDataDelete({ ...dataDelete, password: e.target.value })
+                    }
+                  />
+                </div>
               </div>
               <div className="flex justify-center items-center gap-2">
                 <a
@@ -500,36 +493,17 @@ function Settings() {
                   No
                 </a>
               </div>
-
-              {/* <h2>Are you sure you want to delete your account?</h2>
-              <div className="flex justify-center items-center gap-2"
-              >
-              <a
-                className="bg-red-500 text-white text-sm rounded-md 
-            border-solid border-2 border-red-500 py-1 px-1 hover:bg-red-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4 cursor-pointer "
-                onClick={handleDeleteAccount}
-              >
-                Yes
-              </a>
-              <a
-                className="bg-blue-500 text-white text-sm rounded-md 
-            border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4 cursor-pointer"
-                onClick={() => setDeletePopup(false)}
-              >
-                No
-              </a>
-              </div> */}
             </div>
           </div>
         )}
-       
+
+        {changePasswordPopup && (
+          <ChangePassword
+            handleCancel={handleCancel}
+            setChangePasswordPopup={setChangePasswordPopup}
+          />
+        )}
       </div>
-      {changePasswordPopup && (
-        <ChangePassword
-          handleCancel={handleCancel}
-          setChangePasswordPopup={setChangePasswordPopup}
-        />
-      )}
     </div>
   );
 }

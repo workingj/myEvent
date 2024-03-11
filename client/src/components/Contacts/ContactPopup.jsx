@@ -127,7 +127,7 @@ export function DateTitlePopup({ contact, handleCancel }) {
         <h3>Delete Contact ?</h3>
         <span className="hCenter">
           <button
-            className="okBtn"
+            className="btn okBtn"
             onClick={(e) => {
               handleDeleteOk(contact);
               handleCancel(e);
@@ -135,7 +135,7 @@ export function DateTitlePopup({ contact, handleCancel }) {
           >
             Ok
           </button>
-          <button className="cancelBtn" onClick={(e) => handleCancel(e)}>
+          <button className="btn cancelBtn" onClick={(e) => handleCancel(e)}>
             Cancel
           </button>
         </span>
@@ -162,7 +162,7 @@ export function AddDatePopup({ closePopup, contact, setContact }) {
         </span>
         <span className="hCenter">
           <button
-            className="okBtn"
+            className="btn okBtn"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -177,7 +177,7 @@ export function AddDatePopup({ closePopup, contact, setContact }) {
           >
             Ok
           </button>
-          <button className="cancelBtn" onClick={(e) => closePopup()}>
+          <button className="btn cancelBtn" onClick={(e) => closePopup()}>
             Cancel
           </button>
         </span>

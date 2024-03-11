@@ -1,4 +1,3 @@
-import "./Styles/settings.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -272,7 +271,7 @@ function Settings() {
               {/* edit button */}
               <button
                 id="span-first-name"
-                className="btn"
+                className="btn editBtn"
                 onClick={() => handleButton("firstName", "span-first-name")}
               >
                 Edit
@@ -293,7 +292,7 @@ function Settings() {
                 disabled
               />
               <button
-                className="btn"
+                className="btn editBtn"
                 id="span-last-name"
                 onClick={() => handleButton("lastName", "span-last-name")}
               >
@@ -315,7 +314,7 @@ function Settings() {
                 disabled
               />
               <button
-                className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
+                className="btn editBtn"
                 id="span-email"
                 onClick={() => handleButton("email", "span-email")}
               >
@@ -336,7 +335,7 @@ function Settings() {
               disabled
             />
             <button
-              className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
+              className="btn editBtn"
               id="span-birthDate"
               onClick={() => handleButton("birthDate", "span-birthDate")}
             >
@@ -345,7 +344,7 @@ function Settings() {
             <span className="text-red-500">{errors.birthDate}</span>
           </div>
 
-           <div className="w-1/5 flex flex-col"></div>
+          <div className="w-1/5 flex flex-col"></div>
           <label htmlFor="balance">Balance</label>
           <input
             type="text"
@@ -359,7 +358,7 @@ function Settings() {
           <label htmlFor="balance">Charge your balance? </label>
           <a
             href="/paypal"
-            className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
+            className="btn editBtn"
           >
             click here
           </a>
@@ -389,7 +388,7 @@ function Settings() {
           <br />
           <div>
             <a
-              className="btn-left my-2 hover:bg-blue-200 text-blue-500 cursor-pointer"
+              className="btn editBtn"
               onClick={() => setChangePasswordPopup(true)}
             >
               Change Password
@@ -409,8 +408,7 @@ function Settings() {
           <br />
 
           <div
-            className="flex justify-center gap-4 m-4  
-          "
+            className="flex justify-center gap-4 m-4"
           >
             <button
               id="save"

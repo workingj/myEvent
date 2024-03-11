@@ -63,28 +63,6 @@
   font-size: 1.2rem;
   border: none;
 }
-.btn {
-  width: 6rem;
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-}
-.vSpace {
-  line-height: 0.8rem;
-}
-.vCenter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-.hCenter {
-  display: flex !important;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
 .addContactBtn {
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -101,13 +79,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-#Dates .btn {
-  background-color: #fff;
-}
-#Dates .btn:hover {
-  background-color: #000;
-  color: #fff;
 }
 .layer2 {
   z-index: 100;

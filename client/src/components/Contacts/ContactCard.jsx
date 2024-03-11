@@ -28,10 +28,10 @@ export default function ContactCard({
       <span className="cData">{contact.street}</span>
       <span className="vSpace">&nbsp;</span>
       <span>
-        <button className="editBtn" onClick={() => handleEdit(contact)}>
+        <button className="btn editBtn" onClick={() => handleEdit(contact)}>
           Edit
         </button>
-        <button className="deleteBtn" onClick={() => handleDelete(contact)}>
+        <button className="btn deleteBtn" onClick={() => handleDelete(contact)}>
           Delete
         </button>
       </span>

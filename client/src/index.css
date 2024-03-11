@@ -75,63 +75,68 @@ body {
     height: 6rem;
   }
 }
-.editBtn {
-  text-decoration: underline;
-  color: black;
+
+.btn {
+  min-width: 6rem;
+  color: #fff;
+  background-color: black;
   border: 1px solid black;
   border-radius: 15px;
+  /* text-decoration: underline; */
   padding: 0.1rem 0;
-  width: 6rem;
   text-align: center;
   margin: 0 0.5rem;
+}
+.btn:hover {
+  color: black;
+}
+.menuBtn {
+  width: 12rem;
+  padding: 0.4rem 1.4rem;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  border-radius: 20px;
+}
+.menuBtn:hover {
+  background-color: rgb(108, 209, 249);
+}
+.editBtn {
 }
 .editBtn:hover {
   background-color: #fcd133ff;
-  color: black;
 }
 .deleteBtn {
-  text-decoration: underline;
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-  padding: 0.1rem 0;
-  width: 6rem;
-  text-align: center;
-  margin: 0 0.5rem;
 }
 .deleteBtn:hover {
-  color: black;
   background-color: #f78f9dff;
 }
 .okBtn {
-  text-decoration: underline;
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-  padding: 0.1rem 0;
-  width: 6rem;
-  text-align: center;
-  margin: 0 0.5rem;
 }
 .okBtn:hover {
-  color: black;
-  background-color: #99f78f;
+  background-color: #99f78fff;
 }
 .cancelBtn {
-  text-decoration: underline;
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-  padding: 0.1rem 0;
-  width: 6rem;
-  text-align: center;
-  margin: 0 0.5rem;
 }
 .cancelBtn:hover {
-  color: black;
   background-color: #f78f9dff;
 }
 
+.vSpace {
+  line-height: 0.8rem;
+}
+.vCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.hCenter {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 .popup {
   display: flex;
   align-items: center;
@@ -194,29 +199,25 @@ body {
   width: 63%;
   cursor: pointer;
 }
-.menu{
+.menu {
   display: none;
- 
-
 }
 
-
 @media (max-width: 700px) {
-  .navbar, .rightSide {
+  .navbar,
+  .rightSide {
     display: none;
   }
-  .menu{
+  .menu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     position: fixed;
     top: 0;
     right: 0;
-   
+
     height: 3rem;
     background-color: #f3333333;
     z-index: 1;
   }
-  
- 
 }

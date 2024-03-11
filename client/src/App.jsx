@@ -43,7 +43,6 @@ export default function App() {
             <Route path="/user/register" element={<RegisterForm />} />
             <Route path="/user/profile" element={<Profile />} />
             <Route path="/user/settings" element={<Settings />} />
-            <Route path="/user/mail" element={<TestMail />} />
             <Route
               path="/home/settings/changepassword"
               element={<ChangePassword />}
@@ -79,61 +78,6 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
-    </>
-  );
-}
-
-import "./components/Contacts/Contact.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-function TestMail() {
-  const [mailData, setMailData] = useState();
-
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/mail`)
-      .then((res) => {
-        console.log(res.data);
-        setMailData(res.data);
-      })
-      .catch((error) => {
-        console.error("ERR testing Mail:", error.stack);
-      });
-  }, []);
-
-  return (
-    <>
-      <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-        <h2>Test Mail</h2>
-        {mailData && (
-          <>
-            <p>
-              <hr />
-            </p>
-            <p>
-              <b>{mailData.message}</b>
-              <br />
-              <span>{mailData.id}</span>
-            </p>
-            {/* {!mailData[0] &&
-              mailData.map((res) => {
-                return (
-                  <>
-                    <p>
-                      <hr />
-                    </p>
-                    <p>
-                      <b>{res.message}</b>
-                      <br />
-                      <span>{res.id}</span>
-                    </p>
-                  </>
-                );
-              })} */}
-          </>
-        )}
-      </div>
     </>
   );
 }

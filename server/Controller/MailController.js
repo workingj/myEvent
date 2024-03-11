@@ -10,7 +10,7 @@ export const processEvents = asyncHandler(async (req, res, next) => {
 
     const events = await Event.find();
     if (!events) throw new ErrorResponse(`Contacts do not exist`, 404);
-    console.log("events:", events.length);
+    // console.log("events:", events.length);
 
     let responseData = [];
 
@@ -23,13 +23,11 @@ export const processEvents = asyncHandler(async (req, res, next) => {
 
             let now = new Date();
             const act = new Date(Date.UTC(Number.parseInt(date[0]), Number.parseInt(date[1]), Number.parseInt(date[2]), Number.parseInt(time[0]), Number.parseInt(time[1]), Number.parseInt(time[2])));
-            console.log("now", now.valueOf(), now);
-            console.log("act", act.valueOf(), act);
-
-            now.valueOf() > act.valueOf() && console.log("now > act: ", now.valueOf() > act.valueOf(), "TRIGGER" + event.title);
-            now.valueOf() < act.valueOf() && console.log("now < act: ", now.valueOf() > act.valueOf());
-
-            console.log(now.valueOf() - act.valueOf(), event.title);
+            // console.log("now", now.valueOf(), now);
+            // console.log("act", act.valueOf(), act);
+            // now.valueOf() > act.valueOf() && console.log("now > act: ", now.valueOf() > act.valueOf(), "TRIGGER" + event.title);
+            // now.valueOf() < act.valueOf() && console.log("now < act: ", now.valueOf() > act.valueOf());
+            // console.log(now.valueOf() - act.valueOf(), event.title);
 
             if (now.valueOf >= act.valueOf) {
                 let Mail = {
@@ -50,7 +48,7 @@ export const processEvents = asyncHandler(async (req, res, next) => {
 
 
                 getContact(event.contact.valueOf()).then((contact) => {
-                    console.log("user", contact.email, contact.firstName + contact.lastName);
+                    // console.log("user", contact.email, contact.firstName + contact.lastName);
                     try {
                         Mail.contactMail = contact.email;
                         Mail.contactName = contact.firstName + " " + contact.lastName;
@@ -59,7 +57,7 @@ export const processEvents = asyncHandler(async (req, res, next) => {
                     }
 
                     getUser(event.user.valueOf()).then((user) => {
-                        console.log("user", user.email, user.firstName + user.lastName);
+                        // console.log("user", user.email, user.firstName + user.lastName);
                         try {
                             Mail.userMail = user.email;
                             Mail.userName = user.firstName + " " + user.lastName;
@@ -90,28 +88,10 @@ export const processEvents = asyncHandler(async (req, res, next) => {
     });
 
     setTimeout(() => {
-        events.length && res.status(201).json(responseData)
+        // events.length && res.status(201).json(responseData)
         console.log(`PROCESS EVENTS RESULT: ${responseData.length / 2} User-Events have been processed!`);
     }
         , 6000);
-
-    // const subject = `MyEvents: Firstname Lastname Greets You!`
-    // const htmlText = `<h1>Test Mail</h1><p>From <b>MyEvent</b> NodeJs Server!</p>`;
-
-    // sendMail(mailJoe, subject, htmlText).then((mres) => {
-    //     data.push(mres);
-    //     sendMail(mailFar, subject, htmlText).then((mres) => {
-    //         data.push(mres);
-    //         // res.status(201).json(mres);
-    //         sendMail(mailIss, subject, htmlText).then((mres) => {
-    //             data.push(mres);
-    //             // res.status(201).json(mres);
-    //             res.status(201).json(data);
-    //         });
-    //         // res.status(201).json(mres);
-    //     });
-    //     // res.status(201).json(mres);
-    // });
 });
 
 async function getContact(id) {
@@ -134,7 +114,6 @@ async function closeEvent(event) {
     event.active = false;
 
     return new Promise((resolve, reject) => {
-
         resolve(Event.findByIdAndUpdate(event.id, event, { new: true, runValidators: true, }));
         reject("Error: getUser");
     })

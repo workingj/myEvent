@@ -2,7 +2,7 @@ import React from "react";
 import defaultAvatar from "../../assets/defaultAvatar.svg";
 import { useAuth } from "../../Context/MyEventContext";
 
-export default function Profile({ User }) {
+export default function Profile() {
   const { userData, images } = useAuth();
   return (
     <>

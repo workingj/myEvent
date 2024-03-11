@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import axios from "axios";
 import Menu from "./Menu";
+import { FaBars } 
+ from "react-icons/fa";
 
 
 
@@ -32,16 +34,16 @@ const Navbar = () => {
   return (
     <nav className=" h-30 rounded-t-lg flex justify-between items-center flex-grow bg-opacity-80 m-auto px-5 py-5 ps-12  rounded-xl shadow-xl shadow-gray-200 w-full">
       <div
-        className=" menu bg-black w-28 text-white rounded-full p-1 text-white  
+        className=" menu bg-black w-28 text-white rounded-full p-1 text-white  w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end
     "
       >
         <button onClick={() => setShowMenu(!showMenu)} className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">
       
-      menu
+          <FaBars />
 
         </button>
       </div>
-      {showMenu && <Menu setShowMenu={setShowMenu} />}
+      {showMenu && <Menu setShowMenu={setShowMenu}  />}
       <div className="navbar flex items-center space-x-4 flex-grow">
         <div className="w-12 h-12 overflow-hidden flex justify-center">
           <Link to="/">

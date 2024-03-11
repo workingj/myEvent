@@ -65,11 +65,13 @@ function AddEvent({ handleCancel, setAddPopup }) {
 
 const handleBalancel = async() => {
 let b=Number(userData.balance)-Number(giftCards.price);
+console.log("balance", typeof(b));
 
  if (b < 0) {
    toast.error("Not enough balance");
    setEnough(false);
    setIsUpadating(false);
+   return 0
  }
   else {
  
@@ -80,15 +82,17 @@ let b=Number(userData.balance)-Number(giftCards.price);
   )
   .then((response) => {
     console.log(response);
-    if (response.status === 200) {
+ 
       console.log("balance updated");
       
       setEnough(true);
       setIsUpadating(true);
-    }
+      return 1;
+    
   })
   .catch((error) => {
     console.error(error);
+
    
   });
 }
@@ -104,10 +108,10 @@ let b=Number(userData.balance)-Number(giftCards.price);
     setSending(true);
     console.log("event", event);
 
-    await handleBalancel();
-    if (isUpadating) { 
+    const i=await handleBalancel();
+    if (i===0) { 
       setSending(false);
-      return;
+      return ;
       
     }
     else {
@@ -401,6 +405,11 @@ let b=Number(userData.balance)-Number(giftCards.price);
                   handleCancelGiftCards={handleCancelGiftCards}
                   setGiftCards={handleGiftCard}
                   giftCards={giftCards}
+                  setIsUpadating={setIsUpadating}
+                  setEnough={setEnough}
+                  handleBalancel={handleBalancel}
+                  userData={userData}
+                  
 
                 />
               )}

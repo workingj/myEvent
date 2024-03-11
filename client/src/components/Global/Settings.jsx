@@ -21,6 +21,10 @@ function Settings() {
     avater: userData.avatar,
     birthDate: userData.birthDate,
   });
+  const [dataDelete, setDataDelete] = useState({  
+    email: "",
+    password: "",
+  });
   const [isEditMode, setIsEditMode] = useState(false);
   const [errors, setErrors] = useState({});
   const [activeSave, setActiveSave] = useState(false);
@@ -187,24 +191,53 @@ function Settings() {
   // delete account
 
   const handleDeleteAccount = async() => {
+    console.log("dataDelete", dataDelete);
     try {
       const VITE_API_URL = import.meta.env.VITE_API_URL;
-      const response = await axios.delete(`${VITE_API_URL}/user/${userData._id}`);
-      handleDeleteAllEvents();
-      handleDeleteAllContacts();
-      
-      toast.success("Account deleted successfully");
-      handleLogout();
-      setIsLoggedIn(false);
-      
+      const response = await axios.delete(`${VITE_API_URL}/user/${userData._id}`, {
+        data: dataDelete
+      });
+      if (response.status === 200) {
+        console.log("response", response);
+        handleDeleteAllEvents();
+        handleDeleteAllContacts();
+        toast.success("Account deleted successfully");
+        handleLogout();
+        setIsLoggedIn(false);
+        window.location = "/";
+        
+      }
+   
     
-      window.location = "/";
     } catch (error) {
       console.error("error deleting account", error);
       toast.error("Account not deleted");
     }
       
   }
+
+  // const handleDeleteAccount = async () => {
+  //   console.log("dataDelete", dataDelete);
+  //   try {
+  //     const VITE_API_URL = import.meta.env.VITE_API_URL;
+  //     const response = await axios.delete(`${VITE_API_URL}/user/${userData._id}`, {
+  //       data: dataDelete
+  //     });
+      
+  //     if (response.status === 200) {
+  //       console.log("response", response);
+  //       handleDeleteAllEvents();
+  //       handleDeleteAllContacts();
+  //       toast.success("Account deleted successfully");
+  //       handleLogout();
+  //       setIsLoggedIn(false);
+  //       window.location = "/";
+  //     }
+  //   } catch (error) {
+  //     console.error("error deleting account", error);
+  //     toast.error("Account not deleted");
+  //   }
+  // };
 
 
 
@@ -423,7 +456,52 @@ function Settings() {
           <div className="popup">
             <div className="popupInner 
             ">
-              <h2>Are you sure you want to delete your account?</h2>
+              {/* write your Email and password */}
+              <h2>
+                write your Email and password to delete your account
+              </h2>
+              <div className="flex justify-center items-center gap-2 direction-column
+              ">
+               <div>
+               <label htmlFor="email">Email:</label>
+                <input
+
+                  type="email"  
+                  id="email"
+                  name="email"
+                  value={dataDelete.email}
+                  className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                  onChange={(e) => setDataDelete({ ...dataDelete, email: e.target.value })}
+                />
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={dataDelete.password}
+                  className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                  onChange={(e) => setDataDelete({ ...dataDelete, password: e.target.value })}
+                />
+               </div>
+              </div>
+              <div className="flex justify-center items-center gap-2">
+                <a
+                  className="bg-red-500 text-white text-sm rounded-md
+            border-solid border-2 border-red-500 py-1 px-1 hover:bg-red-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4 cursor-pointer "
+                  onClick={handleDeleteAccount}
+                >
+                  Yes
+                </a>
+                <a
+                  className="bg-blue-500 text-white text-sm rounded-md
+            border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4 cursor-pointer"
+                  onClick={() => setDeletePopup(false)}
+                >
+                  No
+                </a>
+              </div>
+
+              {/* <h2>Are you sure you want to delete your account?</h2>
               <div className="flex justify-center items-center gap-2"
               >
               <a
@@ -440,7 +518,7 @@ function Settings() {
               >
                 No
               </a>
-              </div>
+              </div> */}
             </div>
           </div>
         )}

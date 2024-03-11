@@ -40,4 +40,4 @@ app.use(errorHandler);
 // LISTENER
 app.listen(PORT, () => console.log(`Server is running on port:${PORT}`));
 
-setInterval(processEvents, 1000 * 60 * 1);
+setInterval(processEvents, 1000 * 60 * 5);

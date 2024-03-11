@@ -1,4 +1,5 @@
 import React from 'react'
+// import Lottie from "lottie-react";
 
 function ForTeam() {
   return (
@@ -20,6 +21,14 @@ function ForTeam() {
         <h3> Johannas 😄 </h3>
         <h3> Issa 😠</h3>
         </b>
+        <br />
+        <br />
+        <p>
+          We are here to help you and we look forward to hearing from you!
+        </p>
+
+        {/* <Lottie animationData={groovyWalkAnimation} />; */}
+
       </div>
     </div>
   )

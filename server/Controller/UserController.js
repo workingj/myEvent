@@ -71,17 +71,21 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 
 
 export const deleteUser = asyncHandler(async (req, res, next) => {
-  const {
-    body,
-    params: { id },
-  } = req;
-
-  const found = await User.findById(id);
+const id = req.params.id;
+const {email, password} = req.body;
+  const found = await User.findById(id).select("+password");
   if (!found) throw new ErrorResponse(`User ${id} does not exist`, 404);
+
+  const match = await bcrypt.compare(password, found.password);
+  console.log(match? 'Password match': 'Password does not match');
+  if (!match) throw new ErrorResponse("Password is not correct", 401);
+  if (found.email !== email) throw new ErrorResponse("Email is not correct", 401);
+  
 
   await User.findByIdAndDelete(id);
   res.json({ success: `User ${id} was deleted` });
 });
+
 
 //Login
 export const login = asyncHandler(async (req, res, next) => {

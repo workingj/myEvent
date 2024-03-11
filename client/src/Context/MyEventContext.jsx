@@ -51,7 +51,7 @@ useEffect(() => {
   axios
     .get(`${VITE_API_URL}/user/image/${userData&&userData._id}`)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setImages(res.data);
     })
     .catch((err) => {

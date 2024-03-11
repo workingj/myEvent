@@ -5,17 +5,20 @@ import cookieParser from 'cookie-parser';
 import contactRouter from './routes/ContactRouter.js';
 import userRouter from './routes/UserRouter.js';
 import "./db/db.js";
+import "./services/mail.js";
 import dotenv from "dotenv";
 import adminTemplateRouter from "./routes/TemplateRouter.js";
 import eventRouter from "./routes/EventRouter.js";
 import giftRouter from "./routes/GiftRouter.js";
+import { processEvents } from "./Controller/MailController.js";
+
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 8000;
 
 // CONFIGURE EXPRESS
-app.use(cors({origin:'http://localhost:5173', credentials:true}));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 
 // COOKIES
@@ -36,3 +39,5 @@ app.use(errorHandler);
 
 // LISTENER
 app.listen(PORT, () => console.log(`Server is running on port:${PORT}`));
+
+setInterval(processEvents, 1000 * 60 * 5);

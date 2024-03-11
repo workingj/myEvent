@@ -121,75 +121,77 @@ function CreateTemplate({
   }
 
   return (
-    <div className="w-screen h-screen  bg-black bg-opacity-30">
-      <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
-        <div className="p-4">
-          <h2 className="text-2xl font-semibold mb-4">Create a new Template</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <p className="mb-2 text-sm">{updateFlag == true ? 'Title' : ''}</p>
-              <input
-                placeholder="Title"
-                type="text"
-                name="title"
-                value={postData.title}
-                onChange={handleChange}
-                className="border rounded-full w-full p-2"
-              />
-            </div>
-            <div className="mb-4">
-              <p className="mb-2 text-sm">{updateFlag == true ? 'Content' : ''}</p>
-              <textarea
-                placeholder="Content"
-                name="content"
-                cols="30"
-                rows="10"
-                value={postData.content}
-                onChange={handleChange}
-                className="border rounded-xl w-full p-2"
-              ></textarea>
-            </div>
-            <div className="mb-4">
-              <p className="mb-2 text-sm">{updateFlag == true ? 'Type' : ''}</p>
-              <input
-                placeholder="Type (Birth Date, Marriage,...)"
-                type="text"
-                name="type"
-                value={postData.type}
-                onChange={handleChange}
-                className="border rounded-full w-full p-2"
-              />
-            </div>
-            <div className="mb-4">
-              <p className="mb-2 text-sm">{updateFlag == true ? 'Image URLs' : ''}</p>
-              <input
-                placeholder="Image-URL"
-                type="text"
-                name="images"
-                value={postData.images}
-                onChange={handleChange}
-                className="border rounded-full w-full p-2"
-              />
-            </div>
-            {updateFlag !== true ? <button
-              type="submit"
-              className="bg-blue-400 hover:bg-blue-600 p-4 m-2 rounded-full text-white font-bold"
-            >
-              Submit
-            </button> :
-              <button
-                onClick={handleUpdate}
-                className="bg-blue-400 hover:bg-blue-600 p-4 m-2 rounded-full text-white font-bold"
+    <div className="w-screen h-screen  bg-black bg-opacity-30 ">
+      <div className="popup">
+        <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80 ">
+          <div className="p-4 ">
+            <h2 className="text-2xl font-semibold mb-4">Create a new Template</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <p className="mb-2 text-sm">{updateFlag == true ? 'Title' : ''}</p>
+                <input
+                  placeholder="Title"
+                  type="text"
+                  name="title"
+                  value={postData.title}
+                  onChange={handleChange}
+                  className="border rounded-full w-full p-2"
+                />
+              </div>
+              <div className="mb-4">
+                <p className="mb-2 text-sm">{updateFlag == true ? 'Content' : ''}</p>
+                <textarea
+                  placeholder="Content"
+                  name="content"
+                  cols="30"
+                  rows="10"
+                  value={postData.content}
+                  onChange={handleChange}
+                  className="border rounded-xl w-full p-2"
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <p className="mb-2 text-sm">{updateFlag == true ? 'Type' : ''}</p>
+                <input
+                  placeholder="Type (Birth Date, Marriage,...)"
+                  type="text"
+                  name="type"
+                  value={postData.type}
+                  onChange={handleChange}
+                  className="border rounded-full w-full p-2"
+                />
+              </div>
+              <div className="mb-4">
+                <p className="mb-2 text-sm">{updateFlag == true ? 'Image URLs' : ''}</p>
+                <input
+                  placeholder="Image-URL"
+                  type="text"
+                  name="images"
+                  value={postData.images}
+                  onChange={handleChange}
+                  className="border rounded-full w-full p-2"
+                />
+              </div>
+              {updateFlag !== true ? <button
+                type="submit"
+                className="bg-black hover:bg-gray-600 rounded-full p-3 mt-2 text-white font-bold"
               >
-                Update
-              </button>}
-            <button
-              className="bg-gray-400 hover:bg-blue-600 p-4 rounded-full text-white font-bold m-2"
-              onClick={handleCancelButtonClick}
-            >
-              Cancel
-            </button>
-          </form>
+                Submit
+              </button> :
+                <button
+                  onClick={handleUpdate}
+                  className="bg-black hover:bg-gray-600 rounded-full p-3 mt-2 text-white font-bold"
+                >
+                  Update
+                </button>}
+              <button
+                className="bg-gray-400 hover:bg-black rounded-full p-3 m-4 text-white font-bold"
+                onClick={handleCancelButtonClick}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

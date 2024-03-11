@@ -56,7 +56,7 @@ useEffect(() => {
     }
   };
   return (
-    <div className="w-screen h-screen  bg-black bg-opacity-30">
+    <div className="w-screen h-screen  bg-black bg-opacity-30 popup">
       <div className="container mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500 bg-white bg-opacity-90">
         <div className="p-4 mt-20">
           <h2 className="text-2xl font-semibold mb-4">Register</h2>

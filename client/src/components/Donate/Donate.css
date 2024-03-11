@@ -1,17 +1,18 @@
 .green{
-    background-color:blue !important;
+    background-color:rgb(13, 13, 14) !important;
 }
 input[type="radio"]:checked+label .click_option{
-    border:2px solid #888888;
+    border:2px solid #0f0f0f;
     
 } 
 input[type="radio"]:checked+label .selecting{
-    border:2px solid blue;
+    border:2px solid rgb(17, 17, 17);
     transform:scale(1.02);
-    color:blue;
+    color:white;
+    background-color: black;
 } 
-input[type="radio"]:checked+label{
-    border:2px solid blue;
+input[type="radio"]:checked .selecting {
+    border:2px solid rgba(240, 233, 233, 0);
     transform:scale(1.02);
-    color:blue;
+    color:rgb(17, 17, 17);
 }

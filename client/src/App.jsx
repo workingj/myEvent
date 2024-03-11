@@ -48,7 +48,6 @@ export default function App() {
               path="/home/settings/changepassword"
               element={<ChangePassword />}
             />
-
             <Route path="/myevents" element={<MyEvents />} />
             {/* <Route path="/myevents/showall" element={<ShowAll />} /> */}
             <Route path="/myevents/addevent" element={<AddEvent />} />
@@ -56,10 +55,13 @@ export default function App() {
             <Route path="/home/contacts" element={<Contacts />} />
             <Route path="/admin/templates" element={<Template />} />
             <Route path="/donate" element={<Donate />} />
-            <Route path="/paypal" element={<Paypal />} />        <Route path="/
-        " element={<GiftCardTemplates />} />
-        <Route path="/gift/upload" element={<UploadCards/>} />
-
+            <Route path="/paypal" element={<Paypal />} />{" "}
+            <Route
+              path="/
+        "
+              element={<GiftCardTemplates />}
+            />
+            <Route path="/gift/upload" element={<UploadCards />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
@@ -106,24 +108,29 @@ function TestMail() {
         <h2>Test Mail</h2>
         {mailData && (
           <>
-            <hr />
+            <p>
+              <hr />
+            </p>
             <p>
               <b>{mailData.message}</b>
               <br />
               <span>{mailData.id}</span>
             </p>
-            {mailData.map((res) => {
-              return (
-                <>
-                <hr />
-                  <p>
-                    <b>{res.message}</b>
-                    <br />
-                    <span>{res.id}</span>
-                  </p>
-                </>
-              );
-            })}
+            {/* {!mailData[0] &&
+              mailData.map((res) => {
+                return (
+                  <>
+                    <p>
+                      <hr />
+                    </p>
+                    <p>
+                      <b>{res.message}</b>
+                      <br />
+                      <span>{res.id}</span>
+                    </p>
+                  </>
+                );
+              })} */}
           </>
         )}
       </div>

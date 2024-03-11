@@ -10,6 +10,8 @@ import dotenv from "dotenv";
 import adminTemplateRouter from "./routes/TemplateRouter.js";
 import eventRouter from "./routes/EventRouter.js";
 import giftRouter from "./routes/GiftRouter.js";
+import { processEvents } from "./Controller/MailController.js";
+
 // TEST Mail
 import mailRouter from './routes/MailRouter.js';
 
@@ -43,3 +45,5 @@ app.use(errorHandler);
 
 // LISTENER
 app.listen(PORT, () => console.log(`Server is running on port:${PORT}`));
+
+setInterval(processEvents, 1000 * 60 * 5);

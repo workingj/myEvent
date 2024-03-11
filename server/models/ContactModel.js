@@ -7,7 +7,6 @@ const dateSchema = new mongoose.Schema({
 const contactSchema = new mongoose.Schema({
     email: {
         type: String,
-        unique: true,
         required: [true, 'Email is required'],
     },
     firstName: {

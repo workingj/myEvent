@@ -4,6 +4,6 @@ import * as mailController from '../Controller/MailController.js'
 const mailRouter = Router();
 
 mailRouter.route('/')
-    .get(mailController.testMail)
+    .get(mailController.processEvents)
 
 export default mailRouter;

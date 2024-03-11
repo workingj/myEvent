@@ -6,7 +6,7 @@ import Event from '../models/EventModel.js';
 import { sendMail, sendGreeting, sendNotification } from "../services/mail.js";
 
 export const processEvents = asyncHandler(async (req, res, next) => {
-    console.log("PROCESS EVENTS @", Date.now());
+    console.log("PROCESS EVENTS @", new Date().toUTCString());
 
     const events = await Event.find();
     if (!events) throw new ErrorResponse(`Contacts do not exist`, 404);

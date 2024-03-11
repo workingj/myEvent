@@ -139,11 +139,18 @@ useEffect(() => {
               />
             </div>
             <button
-              className="bg-black text-white p-2 mt-2 rounded-full hover:bg-gray-700"
+              className="bg-black hover:bg-gray-600 rounded-full p-3 mt-2 text-white font-bold"
               type="submit"
             >
               Register
             </button>
+            <Link to="/" >
+                    <button
+                className="bg-gray-400 hover:bg-black rounded-full p-3 m-4 text-white font-bold"               
+              >
+                Cancel
+              </button>
+              </Link>
           </form>
           <p>
             Have you already an account?

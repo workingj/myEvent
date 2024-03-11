@@ -64,7 +64,7 @@ const Navbar = () => {
         "
         >
           <div className="space-x-4">
-            <Link to="/">
+            <Link to="/home">
               <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end " onClick={() => setOverview(true)}>
                 Home
               </button>

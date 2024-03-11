@@ -11,6 +11,7 @@ function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  const [error, setError] = useState("");
   
 
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ useEffect(() => {
         );
         if (response.status === 201) {
             toast.success('Successfully registered.')
-            navigate('/home');
+            navigate('/user/login');
         }
     } catch (error) {
       setError(error.response.data.error);
@@ -55,7 +56,7 @@ useEffect(() => {
     }
   };
   return (
-    <div className="w-screen h-screen  bg-black bg-opacity-30">
+    <div className="w-screen h-screen  bg-black bg-opacity-30 popup">
       <div className="container mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500 bg-white bg-opacity-90">
         <div className="p-4 mt-20">
           <h2 className="text-2xl font-semibold mb-4">Register</h2>
@@ -138,11 +139,18 @@ useEffect(() => {
               />
             </div>
             <button
-              className="bg-black text-white p-2 mt-2 rounded-full hover:bg-gray-700"
+              className="bg-black hover:bg-gray-600 rounded-full p-3 mt-2 text-white font-bold"
               type="submit"
             >
               Register
             </button>
+            <Link to="/" >
+                    <button
+                className="bg-gray-400 hover:bg-black rounded-full p-3 m-4 text-white font-bold"               
+              >
+                Cancel
+              </button>
+              </Link>
           </form>
           <p>
             Have you already an account?

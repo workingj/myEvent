@@ -67,3 +67,20 @@ export const deleteContact = asyncHandler(async (req, res, next) => {
     await Contact.findByIdAndDelete(id);
     res.json({ success: `Contact ${id} was deleted` });
 });
+
+
+
+// @desc    del all contacts for user
+
+export const deleteAllContactsForUser = asyncHandler(async (req, res, next) => {
+    console.log(req.body)
+
+    const { user } = req.body
+
+    const contact = await Contact.deleteMany({ user });
+    if (!contact) throw new ErrorResponse(`Contacts not found`, 404);
+
+    res.status(200).json({ success: true, data: {} });
+}
+
+);

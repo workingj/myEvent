@@ -9,7 +9,9 @@ function ShowTemplets({
 }) {
   const [contentPopup, setContentPopup] = useState(false);
   return (
-    <div className="popup fixed inset-0 flex items-center justify-center">
+    <div className="popup fixed inset-0 flex items-center justify-center"
+    // onClick={handleCancelTemplate}
+    >
       <div className="container mx-auto  bg-white rounded-xl overflow-hidden shadow-lg">
         <div className="p-8">
           <h2 className="text-3xl font-semibold mb-4">Choose a Template</h2>

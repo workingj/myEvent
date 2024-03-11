@@ -24,8 +24,9 @@ import ChangePassword from "./components/Global/ChangePassword.jsx";
 import Donate from "./components/Donate/Donate.jsx";
 import Paypal from "./components/Donate/Paypal.jsx";
 
-import GiftCardTemplates from "./components/Events/GiftCardTemplates.jsx";
+
 import UploadCards from "./components/Admin/UploadCards.jsx";
+import Footer from "./components/Global/Footer.jsx";
 
 export default function App() {
   const { isLoggedIn } = useAuth();
@@ -35,49 +36,45 @@ export default function App() {
       <ToastContainer />
       {isLoggedIn ? (
         <div className="flex ">
-          <Routes>
-            <Route path="/home" element={<Overview />} />
-            <Route path="/user/login" element={<LoginForm />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/forteam" element={<ForTeam />} />
-            <Route path="/user/register" element={<RegisterForm />} />
-            <Route path="/user/profile" element={<Profile />} />
-            <Route path="/user/settings" element={<Settings />} />
-            <Route
-              path="/home/settings/changepassword"
-              element={<ChangePassword />}
-            />
-            <Route path="/myevents" element={<MyEvents />} />
-            {/* <Route path="/myevents/showall" element={<ShowAll />} /> */}
-            <Route path="/myevents/addevent" element={<AddEvent />} />
-            <Route path="/myevents/edit/:id" element={<EditeEvent />} />
-            <Route path="/home/contacts" element={<Contacts />} />
-            <Route path="/admin/templates" element={<Template />} />
-            <Route path="/donate" element={<Donate />} />
-            <Route path="/paypal" element={<Paypal />} />{" "}
-            <Route
-              path="/
-        "
-              element={<GiftCardTemplates />}
-            />
-            <Route path="/gift/upload" element={<UploadCards />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+      <Routes>
+        <Route path="/home" element={<Overview />} />
+        <Route path="/user/login" element={<LoginForm />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/forteam" element={<ForTeam />} />
+        <Route path="/user/register" element={<RegisterForm />} />
+        <Route path="/user/profile" element={<Profile />} />
+        <Route path="/user/settings" element={<Settings />} />
+        <Route path="/home/settings/changepassword" element={<ChangePassword />} />
 
-          <RigtSide />
-        </div>
-      ) : (
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/paypal" element={<Paypal />} />
-          <Route path="/user/login" element={<LoginForm />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/user/register" element={<RegisterForm />} />
-          <Route path="/forteam" element={<ForTeam />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      )}
+        <Route path="/myevents" element={<MyEvents />} />
+        {/* <Route path="/myevents/showall" element={<ShowAll />} /> */}
+        <Route path="/myevents/addevent" element={<AddEvent />} />
+        <Route path="/myevents/edit/:id" element={<EditeEvent />} />
+        <Route path="/home/contacts" element={<Contacts />} />
+        <Route path="/admin/templates" element={<Template />} />
+        <Route path="/donate" element={<Donate />} />
+        <Route path="/paypal" element={<Paypal />} />     
+
+        <Route path="/gift/upload" element={<UploadCards/>} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      
+      <RigtSide />
+     </div>
+  ) : (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/donate" element={<Donate />} />
+      <Route path="/paypal" element={<Paypal />} />
+      <Route path="/user/login" element={<LoginForm />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/user/register" element={<RegisterForm />} />
+      <Route path="/forteam" element={<ForTeam />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  )}
+  <Footer />
     </>
   );
 }

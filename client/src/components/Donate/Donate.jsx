@@ -34,7 +34,7 @@ const navigate = useNavigate();
                     <div className="w-full ">
                         <input className="appearance-none " type="radio" name="giving" id="giving1"  />
                         <label htmlFor="giving1">
-                            <div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex ">
+                            <div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex rounded-full">
                                 <p>One Time Giving</p>
                             </div>
                         </label>
@@ -42,7 +42,7 @@ const navigate = useNavigate();
                     <div className="w-full "> 
                         <input className="appearance-none " type="radio" name="giving" id="giving2" />
                         <label htmlFor="giving2">
-                            <div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex ">
+                            <div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex rounded-full ">
                                 <p>Monthly Giving</p>
                             </div>
                         </label>
@@ -52,19 +52,19 @@ const navigate = useNavigate();
                 <div className="flex -mt-5 gap-2">
                     <div className="w-full ">
                         <input className="appearance-none " type="radio" name="money" id="money1" value={20} onClick={onSelectHandler}/>
-                        <label htmlFor="money1" className="h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex ">20 €</label>
+                        <label htmlFor="money1" ><div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex rounded-full ">20 €</div></label>
                     </div>
                     <div className="w-full ">
                         <input className="appearance-none " type="radio" name="money" id="money2" value={15} onClick={onSelectHandler}/>
-                        <label htmlFor="money2" className="h-10 text-gray-700 font-semibold cursor-pointer transition-all text-sm justify-center items-center w-full border-2 flex ">15 €</label>
+                        <label htmlFor="money2"  ><div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex rounded-full ">15 €</div></label>
                     </div>
                     <div className="w-full ">
                         <input className="appearance-none " type="radio" name="money" id="money3" value={10} onClick={onSelectHandler}/>
-                        <label htmlFor="money3" className="h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex ">10 €</label>
+                        <label htmlFor="money3"  ><div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex rounded-full ">10 €</div></label>
                     </div>
                     <div className="w-full ">
                         <input className="appearance-none " type="radio" name="money" id="money4" value={''} onClick={onSelectHandler}/>
-                        <label htmlFor="money4" className="h-10 text-gray-700 font-semibold cursor-pointer transition-all text-sm justify-center items-center w-full border-2 flex ">Other</label>
+                        <label htmlFor="money4"  ><div className="selecting h-10 text-gray-700 font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex rounded-full ">Other</div></label>
                     </div>
                 </div>
                 <span className="justify-start mt-4 text-xl font-semibold text-purple-900 pr-1">€</span><input type="text" className="mt-4 text-xl font-semibold text-purple-900 " placeholder="00.00" value={moneyValue} id="other" onClick={(e)=>setMoneyValue(e.value)}/>
@@ -74,7 +74,7 @@ const navigate = useNavigate();
                     <p className="text-sm font-semibold text-purple-900 text-gray-700 ">This gift is in honour or in memory</p>
                 </div>
                 <div className="my-4 flex justify-between"> 
-                    <button className="h-10 w-32 bg-blue-600 text-sm text-white rounded-lg cursor-pointer transition-all hover:bg-blue-800 " onClick={()=>navigate('/paypal')}>Donate Now</button> 
+                    <button className=" bg-black  text-white hover:bg-gray-600 h-10  font-semibold text-sm cursor-pointer transition-all justify-center items-center w-full border-2 flex rounded-full" onClick={()=>navigate('/paypal')}>Donate Now</button> 
                 </div>
             </div>
             <div className="h-full hidden md:block relative md:rounded-lg  overflow-hidden bg-[url('https://imgur.com/2hR32WP.jpg')] w-full">

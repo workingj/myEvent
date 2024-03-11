@@ -12,6 +12,19 @@ function LoginForm() {
   const { setIsLoggedIn, checkUser } = useAuth();
   const navigate = useNavigate();
 
+  function reverseTimer(minutes) {
+    // Convert minutes to milliseconds
+    const milliseconds = minutes * 60 * 1000;
+  
+    // Set a timeout to display an alert after login
+    setTimeout(function () {
+      navigate("/user/login");
+      alert("  Time's up! please login again !!");
+      toast.warning("Please login again!");
+    }, milliseconds);
+  }
+  
+
   useEffect(() => {
     document.body.classList.add("bg-white");
     return () => {
@@ -36,6 +49,7 @@ function LoginForm() {
         checkUser();
         setIsLoggedIn(true);
         navigate("/home");
+        reverseTimer(31);
       }
     } catch (error) {
       setError(error.response.data.message);

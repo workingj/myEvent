@@ -221,25 +221,15 @@ function AddEvent({ handleCancel, setAddPopup }) {
   }
 
   return (
-    // <div className="popup fixed inset-0 flex items-center justify-center"
-    // onClick={(e) => handleCancel(e)}
-    // >
-    //   <div className="container mx-auto  bg-white rounded-xl overflow-hidden shadow-lg">
     <div
-      className="popup fixed top-0 left-0  h-full bg-gray-900 bg-opacity-50 flex justify-center items-center 
-    "
+      className="popup fixed top-0 left-0  h-full bg-gray-900 bg-opacity-50 flex justify-center items-center"
       onClick={(e) => handleCancel(e)}
     >
       <div
         className=" popupInner
-        container mt-20 mx-auto rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  max-w-xl
-      "
+        container mt-20 mx-auto rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  max-w-xl"
       >
-        <div
-          className=" w-full container
-      "
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className=" w-full container" onClick={(e) => e.stopPropagation()}>
           <div className="p-4">
             <h2 className="text-2xl font-semibold mb-4">Create a new Event</h2>
             <form onSubmit={handleSubmit}>
@@ -341,7 +331,7 @@ function AddEvent({ handleCancel, setAddPopup }) {
               )}
               {/*choose gift card  */}
               <span>
-                <label className="block mb-2">Choose a gift card:</label>
+                <label className="block mb-2">Gift card:</label>
                 <button
                   className="btn editBtn"
                   onClick={(e) => {
@@ -349,7 +339,7 @@ function AddEvent({ handleCancel, setAddPopup }) {
                     setGiftCardsPopup(true);
                   }}
                 >
-                  Choose gift Card
+                  Choose gift card
                 </button>
               </span>
               {!enough && (
@@ -404,13 +394,6 @@ function AddEvent({ handleCancel, setAddPopup }) {
               </span>
               <span>
                 <label>Image</label>
-                {/* <input
-                  type="text"
-                  name="image"
-                  value={template.images&&template.images}
-                  onChange={handleChange}
-                  className="border rounded w-full p-2"
-                /> */}
                 {template.images && (
                   <div className="flex justify-center items-center">
                     <img
@@ -422,15 +405,11 @@ function AddEvent({ handleCancel, setAddPopup }) {
                 )}
               </span>
               <span className="hCenter">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white rounded p-2 mt-4"
-                >
+                <button type="submit" className="btn okBtn btnSizeB">
                   ADD EVENT
                 </button>
                 <button
-                  className=" bg-red-500 text-white rounded p-2 mt-4 ml-4
-          "
+                  className="btn cancelBtn btnSizeB"
                   onClick={(e) => handleCancel(e)}
                 >
                   Cancel

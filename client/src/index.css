@@ -21,7 +21,7 @@ h2 {
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: normal;
 }
 body {
@@ -146,7 +146,7 @@ body {
 .cancelBtn:hover {
   background-color: #f78f9dff;
 }
-.btnSizeB{
+.btnSizeB {
   font-size: 1.2rem !important;
 }
 
@@ -211,10 +211,9 @@ body {
   font-size: 2rem;
 }
 .popupInner span {
-  display: block;
+  display: flex;
   width: 100%;
   text-align: left;
-  /* border: 1px solid red; */
 }
 .popupInner label {
   display: inline-block;
@@ -231,10 +230,24 @@ body {
   cursor: pointer;
 }
 .popupInner input[type="date"] {
-  width: 63%;
+  display: inline;
+  width: auto;
+  margin: auto;
+  cursor: pointer;
+}
+.popupInner input[type="time"] {
+  display: inline;
+  width: auto;
+  margin: auto;
   cursor: pointer;
 }
 .popupInner select {
+  display: inline;
+  width: auto;
+  margin: auto;
+  cursor: pointer;
+}
+.popupInner button {
   display: inline;
   width: auto;
   margin: auto;

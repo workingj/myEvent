@@ -233,6 +233,12 @@ body {
   width: 63%;
   cursor: pointer;
 }
+.popupInner select {
+  display: inline;
+  width: auto;
+  margin: auto;
+  cursor: pointer;
+}
 .menu {
   display: none;
 }

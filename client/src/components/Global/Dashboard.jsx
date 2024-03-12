@@ -2,9 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/MyEventContext";
 
-
 function Dashboard() {
-  const { isLoggedIn,  userData } = useAuth();
+  const { isLoggedIn, userData } = useAuth();
   const navigate = useNavigate();
   return (
     <div className=" mt-5 flex flex-col items-center justify-start pt-8 p-4 rounded-md  mx-auto max-w-md h-96 w-60">
@@ -29,7 +28,7 @@ function Dashboard() {
               Contacts
             </button>
           </li>
-           <li>
+          <li>
             <button
               className="btn menuBtn"
               onClick={() => navigate("/admin/templates")}
@@ -37,18 +36,21 @@ function Dashboard() {
               Templates
             </button>
           </li>
-          <li>
-            <button
-              className="btn menuBtn"
-              onClick={() => navigate("/gift/upload")}
-            >
-              Upload Cards
-            </button>
-          </li>
+          {isLoggedIn && userData.role === "admin" ? (
+            <li>
+              <button
+                className="btn menuBtn"
+                onClick={() => navigate("/gift/upload")}
+              >
+                Upload Cards
+              </button>
+            </li>
+          ) : (
+            ""
+          )}
           <li>
             <span className="vSpace">&nbsp;</span>
           </li>
-          {isLoggedIn && userData.role ==="admin" ?
           <li>
             <button
               className="btn menuBtn editBtn"
@@ -56,8 +58,7 @@ function Dashboard() {
             >
               Settings
             </button>
-          </li> : ''}
-        
+          </li>
         </ul>
       </div>
     </div>

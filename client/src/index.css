@@ -303,5 +303,15 @@ body {
   z-index: 0;
 }
 .addEventBtn:hover {
-  background-color:#fcd133 ;
+  background-color: #fcd133;
+}
+.Template tr {
+  display: block;
+  margin-bottom: 1rem;
+}
+.Template tr:hover {
+  border: 1px solid #000;
+}
+.Template thead tr:hover {
+  border: none;
 }

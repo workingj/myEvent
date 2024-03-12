@@ -9,7 +9,9 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [timeoutId, setTimeoutId] = useState("");
   const { setIsLoggedIn, checkUser } = useAuth();
+ 
   const navigate = useNavigate();
 
   function reverseTimer(minutes) {
@@ -17,15 +19,17 @@ function LoginForm() {
     const milliseconds = minutes * 60 * 1000;
   
     // Set a timeout to display an alert after login
-    setTimeout(function () {
+    setTimeoutId ( ()=> {
       navigate("/user/login");
       alert("  Time's up! please login again !!");
       toast.warning("Please login again!");
+      setTimeoutId(clearTimeout(timeoutId));
     }, milliseconds);
   }
   
 
   useEffect(() => {
+    setTimeoutId(clearTimeout(timeoutId));
     document.body.classList.add("bg-white");
     return () => {
       document.body.classList.remove("bg-white");
@@ -49,7 +53,7 @@ function LoginForm() {
         checkUser();
         setIsLoggedIn(true);
         navigate("/home");
-        reverseTimer(31);
+        reverseTimer(1);
       }
     } catch (error) {
       setError(error.response.data.message);

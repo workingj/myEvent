@@ -7,14 +7,17 @@ import axios from "axios";
 import { useAuth } from "../../Context/MyEventContext";
 
 function Overview() {
-  const [lastEvents, setLastEvents] = useState([]);
-  const [limitLastEvents, setLimitLastEvents] = useState([]);
-  const [nextEvents, setNextEvents] = useState([]);
 
-  const [latestEventNR, setLatestEventNR] = useState(0);
-  const [user, setUser] = useState("");
-  const { contacts, isLoggedIn, userData } = useAuth();
+  const {isLoggedIn,setIsLoggedIn } = useAuth();
 
+  'const [flag, setFlag] = useState(null);'
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsLoggedIn(true);
+    }
+    
+  }, [isLoggedIn]);
   
   return (
     <>

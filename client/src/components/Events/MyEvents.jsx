@@ -136,15 +136,9 @@ function MyEvents({ handleButtonClick }) {
         <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
           <div
             className="addEventBtn cursor-pointer border rounded-md border-gray-400"
-            onClick={
-              () =>
-                //  handleButtonClick("addEvent")
-                {
-                  setAddPopup(true);
-                }
-
-              // navigate("/myevents/addevent")
-            }
+            onClick={() => {
+              setAddPopup(true);
+            }}
           >
             <img src={plus} alt="add" className="w-20 h-20" />
           </div>
@@ -278,13 +272,13 @@ function MyEvents({ handleButtonClick }) {
                       handleDelete(eventId);
                       setDeletePopup(false);
                     }}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    className="btn okBtn btnSizeB"
                   >
                     Yes
                   </button>
                   <button
                     onClick={() => setDeletePopup(false)}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="btn deleteBtn btnSizeB"
                   >
                     No
                   </button>

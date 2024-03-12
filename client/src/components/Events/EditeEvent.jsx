@@ -65,7 +65,7 @@ function EditeEvent({ handleCancel, id, setEditPopup }) {
                 {`${name && name.firstName} ${name && name.lastName}`}
               </span>
             </span>
-            <span className="hSpace">&nbsp;</span>
+            <hr />
             <span>
               <label className="block mb-2">Title:</label>
               <input

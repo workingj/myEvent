@@ -23,7 +23,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
   return (
     <form
       onSubmit={(e) => {
-        handleOk(e, contact);
+        handleOk(e, contact, setContact);
         handleCancel(e);
       }}
     >
@@ -93,6 +93,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
         {contact.dates[0] &&
           contact.dates.map((date) => {
             return (
+              <>
               <span>
                 <label htmlFor={date.title}>{date.title}</label>
                 <input
@@ -113,6 +114,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
                   }}
                 />
               </span>
+              </>
             );
           })}
         <span className="hCenter">
@@ -140,6 +142,8 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
       {addDatePopup && (
         <AddDatePopup
           closePopup={(e) => {
+            
+          
             setAddDatePopup(false);
           }}
           contact={contact}

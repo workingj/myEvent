@@ -4,7 +4,7 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 
 export const getAllImages = asyncHandler(async (req, res, next) => {
   try {
-    const images = await Gift.find();
+    const images = await Gift.find().populate('user');
     if (!images.length) {
       throw { statusCode: 404, message: 'Image not found' };
     }
@@ -15,7 +15,7 @@ export const getAllImages = asyncHandler(async (req, res, next) => {
 });
 
 export const getImage = asyncHandler(async (req, res, next) => {
-  const image = await Gift.findById(req.params.id);
+  const image = await Gift.findById(req.params.id).populate('user');
 
   if (!image) {
     return next(
@@ -37,7 +37,7 @@ export const uploadImage = asyncHandler (async (req, res, next) => {
     name: req.headers.name,
     url: req.file.path,
     price: req.headers.price,
-  });
+  }).papulate('user');
 
   res.status(201).json({ success: true, data: image });
 });

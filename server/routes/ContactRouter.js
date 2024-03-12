@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as contactController from '../Controller/ContactController.js'
+import upload from '../services/Uploade.js';
 
 const contactRouter = Router();
 
@@ -18,9 +19,17 @@ contactRouter.route('/:id')
     .delete(contactController.deleteContact)
     .put(contactController.updateContact);
 
+
+
 contactRouter.route('/test/')
     .post(contactController.createContact)
 // .get(contactController.getAllContactsForUser)
+
+
+// //Upload image
+
+contactRouter.route("/upload/:id").put(upload.single("image"), contactController.uploadImage);
+// userRouter.route("/upload/:id").put(upload.single("image"), userController.uploadImage);
 
 
 export default contactRouter;

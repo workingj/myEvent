@@ -17,7 +17,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
   
 
   } = req.body;
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email }).populate("user");
   const existingUsername = await User.findOne({ username });
   if (existingUsername)
     throw new ErrorResponse(
@@ -38,7 +38,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
     avatar,
     role,
    
-  });
+  }).papulate("user");
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });

@@ -124,11 +124,6 @@ function MyEvents({ handleButtonClick }) {
     }
   };
 
-  // click edit button as pop up
-
-  // m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full
-  // container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
-
   // Show image in popup if clicked
   const showImage = (e) => {
     const img = e.target;

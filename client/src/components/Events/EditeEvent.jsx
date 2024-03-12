@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
-import { useAuth } from '../../Context/MyEventContext';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useAuth } from "../../Context/MyEventContext";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
-function EditeEvent({handleCancel, id,setEditPopup}) {
+function EditeEvent({ handleCancel, id, setEditPopup }) {
   // const { id } = useParams();
-  const {  allEvents, userData, contacts, template
-  } = useAuth();
-  console.log('id: '+id)
-  const event = allEvents&&allEvents.find((event) => event._id === id);
+  const { allEvents, userData, contacts, template } = useAuth();
+  console.log("id: " + id);
+  const event = allEvents && allEvents.find((event) => event._id === id);
   const [editeEvent, setEditeEvent] = useState(event);
-  const name = contacts && editeEvent && contacts.find((contact) => contact._id === editeEvent.contact);
+  const name =
+    contacts &&
+    editeEvent &&
+    contacts.find((contact) => contact._id === editeEvent.contact);
 
-
-  
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const navigate = useNavigate();
@@ -21,9 +21,12 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
     e.preventDefault();
     setSending(true);
     try {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/user/events/${id}
-      `, editeEvent);
-      
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/user/events/${id}
+      `,
+        editeEvent
+      );
+
       console.log(response);
       if (response.status === 200) {
         setEditeEvent({
@@ -37,7 +40,7 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
           time: "",
         });
         setSending(false);
-        setEditPopup(false)
+        setEditPopup(false);
         navigate("/myevents");
       }
     } catch (error) {
@@ -50,93 +53,90 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
     return date.toISOString().split("T")[0];
   };
   return (
-    <div className="popup fixed inset-0 flex items-center justify-center  bg-gray-500
-    " onClick={
-      handleCancel
-    }>
+    <div className="popup" onClick={handleCancel}>
       <div className="container mt-20 mx-auto max-w-md rounded-xl shadow-xl shadow-gray-500 shadow  bg-white bg-opacity-80">
-      <div className="popupInner" onClick={(e) => e.stopPropagation()}>
-        <div className="p-4">
-          <h2 className="text-21 font-semibold mb-4">Edite Event</h2>
+        <div className="popupInner" onClick={(e) => e.stopPropagation()}>
+          <h2>Edit Event</h2>
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <p className="block mb-2">
-                <span className="font-bold">Contact: <b className="text-black"> {` ${name&&name.firstName} ${name&&name.lastName}`}</b></span>
-                
-              </p>
-              <p className="block mb-2">Title:</p>
+            <span>
+              <label htmlFor="">Contact:</label>
+              <span>
+                {`${name && name.firstName} ${name && name.lastName}`}
+              </span>
+            </span>
+            <span className="hSpace">&nbsp;</span>
+            <span>
+              <label className="block mb-2">Title:</label>
               <input
                 type="text"
-                value={editeEvent&&editeEvent.title}
-                onChange={(e) => setEditeEvent({ ...editeEvent, title: e.target.value })}
+                value={editeEvent && editeEvent.title}
+                onChange={(e) =>
+                  setEditeEvent({ ...editeEvent, title: e.target.value })
+                }
                 className="border rounded-full w-full p-2"
               />
-            </div>
-            <div className="mb-4">
-              <p className="block mb-2">Date:</p>
+            </span>
+            <span>
+              <label className="block mb-2">Date:</label>
               <input
                 type="date"
-                value={editeEvent&&formatDate(editeEvent.actionDate)}
-                onChange={(e) => setEditeEvent({ ...editeEvent, actionDate: e.target.value })}
+                value={editeEvent && formatDate(editeEvent.actionDate)}
+                onChange={(e) =>
+                  setEditeEvent({ ...editeEvent, actionDate: e.target.value })
+                }
                 className="border rounded-full w-full p-2"
               />
-            </div>
-            <div className="mb-4">
-              <p className="block mb-2">Time:</p>
+            </span>
+            <span>
+              <label className="block mb-2">Time:</label>
               <input
                 type="time"
-                value={editeEvent&&editeEvent.time}
-                onChange={(e) => setEditeEvent({ ...editeEvent, time: e.target.value })}
+                value={editeEvent && editeEvent.time}
+                onChange={(e) =>
+                  setEditeEvent({ ...editeEvent, time: e.target.value })
+                }
                 className="border rounded-full w-full p-2"
               />
-            </div>
+            </span>
 
-            <div className="mb-4">
-              <p className="block mb-2">Text:</p>
-              <textarea
-                value={editeEvent&&editeEvent.text}
-                onChange={(e) => setEditeEvent({ ...editeEvent, text: e.target.value })}
-                className="border rounded-lg w-full p-2 h-32 resize-none"
-              />
-            </div>
-            <div className="mb-4">
-        
-                  <div className="flex justify-center items-center">
-                    <img
-                      src={event.image}
-                      alt="template image"
-                      className="w-20 h-20 rounded-full"
-                    />
-                  </div>
-              
-            </div>
+            <label className="block mb-2 max-w-24">Text:</label>
+            <textarea
+              value={editeEvent && editeEvent.text}
+              onChange={(e) =>
+                setEditeEvent({ ...editeEvent, text: e.target.value })
+              }
+              className="border rounded-lg w-full p-2 h-32 max-h-52"
+            />
+            <span>
+              <div className="flex justify-center items-center">
+                <img
+                  src={event.image}
+                  alt="template image"
+                  className="w-20 h-20 rounded-full"
+                />
+              </div>
+            </span>
             <span className="hCenter">
-          
               <button
                 type="submit"
-                className="okBtn"
+                className="btn okBtn btnSizeB"
                 disabled={sending}
-               
-                >
+              >
                 Save
               </button>
-              <button className="cancelBtn" onClick={(e) => handleCancel(e)}>
-            Cancel
-          </button>
+              <button
+                className="btn cancelBtn btnSizeB"
+                onClick={(e) => handleCancel(e)}
+              >
+                Cancel
+              </button>
             </span>
-            </form>
-
-            </div>
-            </div>
-            </div>
-
-
-
-
-      
+          </form>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default EditeEvent
+export default EditeEvent;

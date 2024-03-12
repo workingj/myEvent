@@ -1,20 +1,3 @@
-.Container {
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  gap: 2rem;
-  padding: 2rem;
-  width: 80%;
-  min-width: 23rem;
-  max-width: 83rem;
-  min-height: 30rem;
-  margin: auto;
-  background-color: #ffffffcd; /* Opacity 80% */
-
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-}
 .ContactCard {
   display: flex;
   flex-direction: column;

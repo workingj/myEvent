@@ -222,36 +222,12 @@ function Settings() {
       toast.error("Account not deleted");
     }
   };
-
-  // const handleDeleteAccount = async () => {
-  //   console.log("dataDelete", dataDelete);
-  //   try {
-  //     const VITE_API_URL = import.meta.env.VITE_API_URL;
-  //     const response = await axios.delete(`${VITE_API_URL}/user/${userData._id}`, {
-  //       data: dataDelete
-  //     });
-
-  //     if (response.status === 200) {
-  //       console.log("response", response);
-  //       handleDeleteAllEvents();
-  //       handleDeleteAllContacts();
-  //       toast.success("Account deleted successfully");
-  //       handleLogout();
-  //       setIsLoggedIn(false);
-  //       window.location = "/";
-  //     }
-  //   } catch (error) {
-  //     console.error("error deleting account", error);
-  //     toast.error("Account not deleted");
-  //   }
-  // };
-
   return (
     <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
       <h2>Profile Settings</h2>
-      <div className="Container">
-        <form onSubmit={(e) => handleFormSubmit(e)}>
-          <div className="w-1/5 flex flex-col">
+      <div className="Container mw-30">
+        <form onSubmit={(e) => handleFormSubmit(e)} className="settingsForm">
+          <div className="settings">
             <span>
               <label htmlFor="firstName">First Name</label>
               <input
@@ -261,14 +237,13 @@ function Settings() {
                 value={data.firstName}
                 className={`border ${
                   errors.firstName ? "border-red-500" : "border-gray-300"
-                } rounded-md p-2 m-2 w-72 bg-gray-100`}
+                } rounded-md p-2 m-2 bg-gray-100`}
                 onChange={(e) => {
                   setData({ ...data, firstName: e.target.value });
                 }}
                 readOnly
                 disabled
               />
-              {/* edit button */}
               <button
                 id="span-first-name"
                 className="btn editBtn"
@@ -286,7 +261,7 @@ function Settings() {
                 id="lastName"
                 name="lastName"
                 value={data.lastName}
-                className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                className="border border-gray-300 rounded-md p-2 m-2  bg-gray-100"
                 onChange={(e) => setData({ ...data, lastName: e.target.value })}
                 readOnly
                 disabled
@@ -308,7 +283,7 @@ function Settings() {
                 id="email"
                 name="email"
                 value={data.email}
-                className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                className="border border-gray-300 rounded-md p-2 m-2  bg-gray-100"
                 onChange={(e) => setData({ ...data, email: e.target.value })}
                 readOnly
                 disabled
@@ -323,119 +298,118 @@ function Settings() {
               <span className="text-red-500">{errors.email}</span>
             </span>
 
-            <label htmlFor="birthDate">Birthday</label>
-            <input
-              type="date"
-              id="birthDate"
-              name="birthDate"
-              value={formatDate(data.birthDate)}
-              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-              onChange={(e) => setData({ ...data, birthDate: e.target.value })}
-              readOnly
-              disabled
-            />
-            <button
-              className="btn editBtn"
-              id="span-birthDate"
-              onClick={() => handleButton("birthDate", "span-birthDate")}
-            >
-              Edit
-            </button>
-            <span className="text-red-500">{errors.birthDate}</span>
+            <span>
+              <label htmlFor="birthDate">Birthday</label>
+              <input
+                type="date"
+                id="birthDate"
+                name="birthDate"
+                value={formatDate(data.birthDate)}
+                className="border border-gray-300 rounded-md p-2 m-2  bg-gray-100"
+                onChange={(e) =>
+                  setData({ ...data, birthDate: e.target.value })
+                }
+                readOnly
+                disabled
+              />
+              <button
+                className="btn editBtn"
+                id="span-birthDate"
+                onClick={() => handleButton("birthDate", "span-birthDate")}
+              >
+                Edit
+              </button>
+              <span className="text-red-500">{errors.birthDate}</span>
+            </span>
+            <span>
+              <label htmlFor="balance">Balance</label>
+              <input
+                type="text"
+                id="balance"
+                name="balance"
+                value={userData.balance + "€"}
+                className="border border-gray-300 rounded-md p-2 m-2  bg-gray-100"
+                readOnly
+                disabled
+              />
+            </span>
           </div>
 
-          <div className="w-1/5 flex flex-col"></div>
-          <label htmlFor="balance">Balance</label>
-          <input
-            type="text"
-            id="balance"
-            name="balance"
-            value={userData.balance + "€"}
-            className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
-            readOnly
-            disabled
-          />
-          <label htmlFor="balance">Charge your balance? </label>
-          <a
-            href="/paypal"
-            className="btn editBtn"
-          >
-            click here
-          </a>
+          <div className="settings">
+            <span>
+              <label htmlFor="balance">Charge your balance? </label>
+              <button href="/paypal" className="btn editBtn">
+                purchase
+              </button>
+            </span>
+            <hr />
+            <span className="tCenter">
+              <label htmlFor="avater">Avatar</label>
+            </span>
+            <span>
+              <input
+                type="file"
+                id="avater"
+                name="avater"
+                className="border border-gray-300 rounded-md p-2 m-2  bg-gray-100"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+              <span className="text-red-500">{errors.avater}</span>
 
-          <div>
-            <label htmlFor="avater">Avater</label>
-            <input
-              type="file"
-              id="avater"
-              name="avater"
-              className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100 
-              
-              "
-              onChange={(e) => setFile(e.target.files[0])}
-            />
+              <button
+                onClick={(e) => handleAvatarChange(e)}
+                type="submit"
+                className="btn okBtn"
+              >
+                Upload
+              </button>
+            </span>
 
-            <span className="text-red-500">{errors.avater}</span>
-            <button
-              onClick={(e) => handleAvatarChange(e)}
-              type="submit"
-              className="bg-blue-500 text-white text-sm rounded-md
-            border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2"
-            >
-              Upload
-            </button>
+            <hr />
+            <span>
+              <label htmlFor="">Change Password</label>
+              <button
+                className="btn editBtn"
+                onClick={() => setChangePasswordPopup(true)}
+              >
+                Change
+              </button>
+            </span>
+            <hr />
+            <span>
+              <label>Do you want to delete your account?</label>
+              <button className="btn deleteBtn" onClick={setDeletePopup}>
+                Click here
+              </button>
+            </span>
           </div>
-          <br />
-          <div>
-            <a
-              className="btn editBtn"
-              onClick={() => setChangePasswordPopup(true)}
-            >
-              Change Password
-            </a>
-          </div>
-          <br />
-          <div>
-            Do you want to delete your account?
-            <a
-              className="btn-left my-2 hover:bg-red-200 text-red-500 cursor-pointer"
-              onClick={setDeletePopup}
-            >
-              Click here
-            </a>
-          </div>
-
-          <br />
-
-          <div
-            className="flex justify-center gap-4 m-4"
-          >
-            <button
-              id="save"
-              type="submit"
-              className="bg-blue-500 text-white text-sm rounded-md 
-            border-solid border-2 border-blue-500 py-1 px-1 hover:bg-blue-800 transition duration-300 font-oleo font-bold py-1 px-2"
-              disabled={!activeSave}
-            >
-              Save
-            </button>
-            <button
-              id="cancel"
-              type="reset"
-              className="bg-red-500 text-white text-sm rounded-md 
-            border-solid border-2 border-red-500 py-1 px-1 hover:bg-red-800 transition duration-300 font-oleo font-bold py-1 px-2 mr-4"
-              onClick={() =>
-                setData({
-                  firstName: userData.firstName,
-                  lastName: userData.lastName,
-                  email: userData.email,
-                  avater: userData.avatar,
-                  birthDate: userData.birthDate,
-                })
-              }
-            >
-              Cancel
-            </button>
+          <div className="w-full">
+            <span>
+              <button
+                id="save"
+                type="submit"
+                className="btn okBtn btnSizeB"
+                disabled={!activeSave}
+              >
+                Save
+              </button>
+              <button
+                id="cancel"
+                type="reset"
+                className="btn cancelBtn btnSizeB"
+                onClick={() =>
+                  setData({
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    avater: userData.avatar,
+                    birthDate: userData.birthDate,
+                  })
+                }
+              >
+                Cancel
+              </button>
+            </span>
           </div>
         </form>
         {deletePopup && (
@@ -457,7 +431,7 @@ function Settings() {
                     id="email"
                     name="email"
                     value={dataDelete.email}
-                    className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                    className="border border-gray-300 rounded-md p-2 m-2  bg-gray-100"
                     onChange={(e) =>
                       setDataDelete({ ...dataDelete, email: e.target.value })
                     }
@@ -468,7 +442,7 @@ function Settings() {
                     id="password"
                     name="password"
                     value={dataDelete.password}
-                    className="border border-gray-300 rounded-md p-2 m-2  w-72 bg-gray-100"
+                    className="border border-gray-300 rounded-md p-2 m-2  bg-gray-100"
                     onChange={(e) =>
                       setDataDelete({ ...dataDelete, password: e.target.value })
                     }

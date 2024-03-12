@@ -4,11 +4,24 @@ import Contact from '../models/ContactModel.js';
 
 
 export const createContact = asyncHandler(async (req, res, next) => {
-    const newContact = await Contact.create(req.body);
+    const {wm, email, user, dates, street, city, zipcode, lastName, firstName } = req.body;
 
-    if (!newContact) throw new ErrorResponse(`Contact ${req.body.contactname} could not be created`, 422);
+    const contact = await Contact.create({
+      
+        email,
+        user,
+        dates,
+        street,
+        city,
+        zipcode,
+        lastName,
+        firstName,
+    });
 
-    res.status(201).json(newContact);
+    res.status(201).json({
+        success: true,
+        data: contact,
+    });
 });
 
 export const getContact = asyncHandler(async (req, res, next) => {

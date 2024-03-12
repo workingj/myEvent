@@ -115,6 +115,21 @@ export const deleteAllEvents = asyncHandler(async (req, res, next) => {
 });
 
 
+// @desc    del all events for contact
+export const deleteAllEventsForContact = asyncHandler(async (req, res, next) => {
+  console.log(req.body)
+
+  const {contact,user}=req.body
+
+  const event = await Event.deleteMany({contact,user});
+
+  if (!event) {
+    return next(
+      new ErrorResponse(`Event not found with id of ${req.params.id}`, 404)
+    );
+  }
+});
+
 
 
 

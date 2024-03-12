@@ -89,6 +89,7 @@ const {email, password} = req.body;
 
 //Login
 export const login = asyncHandler(async (req, res, next) => {
+  
   const { email, password } = req.body;
   const isUserExist = await User.findOne({ email }).select("+password");
   if (!isUserExist) throw new Error("Email doest not exist", 404);

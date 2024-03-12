@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function EditeEvent({handleCancel, id,setEditPopup}) {
   // const { id } = useParams();
-  const {  allEvents, userData, contacts
+  const {  allEvents, userData, contacts, template
   } = useAuth();
   console.log('id: '+id)
   const event = allEvents&&allEvents.find((event) => event._id === id);
@@ -101,12 +101,15 @@ function EditeEvent({handleCancel, id,setEditPopup}) {
               />
             </div>
             <div className="mb-4">
-              <p className="block mb-2">Image:</p>
-              <input
-                type="file"
-                onChange={(e) => setEditeEvent({ ...editeEvent, image: e.target.files[0] })}
-                className="border rounded-full w-full p-2"
-              />
+        
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={event.image}
+                      alt="template image"
+                      className="w-20 h-20 rounded-full"
+                    />
+                  </div>
+              
             </div>
             <span className="hCenter">
           

@@ -52,6 +52,7 @@ function AddEvent({ handleCancel, setAddPopup }) {
     user: userData._id,
     contact: "",
     time: "",
+    coupon: "",
   });
 
   const navigate = useNavigate();
@@ -73,7 +74,10 @@ console.log("balance", typeof(b));
    setIsUpadating(false);
    return 0
  }
-  else {
+  else { setEvent({
+    ...event,
+    coupon: giftCards.price,
+  });
  
   await axios.put(`${import.meta.env.VITE_API_URL}/user/${userData._id}`, 
   {balance: b}
@@ -82,6 +86,10 @@ console.log("balance", typeof(b));
   )
   .then((response) => {
     console.log(response);
+    setEvent({
+      ...event,
+      coupon: giftCards.price,
+    });
  
       console.log("balance updated");
       
@@ -409,6 +417,8 @@ console.log("balance", typeof(b));
                   setEnough={setEnough}
                   handleBalancel={handleBalancel}
                   userData={userData}
+                  event={event}
+                  setEvent={setEvent}
                   
 
                 />

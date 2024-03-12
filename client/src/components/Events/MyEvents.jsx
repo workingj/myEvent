@@ -6,6 +6,9 @@ import { SpinnerDotted } from "spinners-react";
 import EditeEvent from "./EditeEvent.jsx";
 import AddEvent from "./AddEvent.jsx";
 import plus from "../../assets/plus.svg";
+import Lottie from 'lottie-react';
+import doneyAnimation from '../../../public/annimation/done.json';
+
 
 function MyEvents({ handleButtonClick }) {
   // const [allEvents, setAllEvents] = useState([]);
@@ -20,6 +23,7 @@ function MyEvents({ handleButtonClick }) {
   // const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [animationPopup,setAnimationPopup] = useState(false);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -116,6 +120,7 @@ function MyEvents({ handleButtonClick }) {
       );
       if (response.data.success) {
         setAllEvents(allEvents.filter((event) => event._id !== id));
+        setAnimationPopup(true);
       } else {
         console.error("Invalid response format:", response.data);
       }
@@ -156,6 +161,13 @@ function MyEvents({ handleButtonClick }) {
   };
   
 
+  useEffect (()=> {
+    setTimeout(() => {
+      setAnimationPopup(false);
+    }, 3000);
+  }
+  ,[animationPopup]);
+
   return (
     <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
       <h2>MY EVENTS</h2>
@@ -168,6 +180,23 @@ function MyEvents({ handleButtonClick }) {
         >
           <img src={plus} alt="add" className="w-20 h-20" />
         </div>
+
+          {/* show annimation for 3 second */}
+          {animationPopup && (
+            <div className="popup" onClick={() => setAnimationPopup(false)}>
+              
+                <Lottie animationData={doneyAnimation} className='' style={{
+                  width: '100%',
+                  height: '300px',
+                  margin: 'auto',
+                  display: 'block',
+                  color:'#fcd133'
+                }}  
+              loop={false}
+
+                />
+              </div>
+          )}
 
         {/* show contacts in dropdown */}
         <div className="mb-4">

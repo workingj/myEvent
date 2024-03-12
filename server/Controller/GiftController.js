@@ -4,7 +4,7 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 
 export const getAllImages = asyncHandler(async (req, res, next) => {
   try {
-    const images = await Gift.find().populate('user');
+    const images = await Gift.find();
     if (!images.length) {
       throw { statusCode: 404, message: 'Image not found' };
     }
@@ -15,7 +15,7 @@ export const getAllImages = asyncHandler(async (req, res, next) => {
 });
 
 export const getImage = asyncHandler(async (req, res, next) => {
-  const image = await Gift.findById(req.params.id).populate('user');
+  const image = await Gift.findById(req.params.id);
 
   if (!image) {
     return next(

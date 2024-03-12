@@ -67,7 +67,7 @@ export const updateEvent = asyncHandler(async (req, res, next) => {
   (req.params.id, req.body, {
     new: true,
     runValidators: true,
-  }).populate('user');
+  });
 
   if (!event) {
     return next(
@@ -86,7 +86,7 @@ export const updateEvent = asyncHandler(async (req, res, next) => {
 // @route   DELETE /events/:id
 // @access  Private
 export const deleteEvent = asyncHandler(async (req, res, next) => {
-  const event = await Event.findByIdAndDelete(req.params.id).populate('user');
+  const event = await Event.findByIdAndDelete(req.params.id);
 
   if (!event) {
     return next(
@@ -105,7 +105,7 @@ export const deleteAllEvents = asyncHandler(async (req, res, next) => {
 
   const {user}=req.body
 
-  const event = await Event.deleteMany({user}).populate('user');
+  const event = await Event.deleteMany({user});
 
   if (!event) {
     return next(
@@ -123,7 +123,7 @@ export const deleteAllEventsForContact = asyncHandler(async (req, res, next) => 
 
   const {contact,user}=req.body
 
-  const event = await Event.deleteMany({contact,user}).populate('user');
+  const event = await Event.deleteMany({contact,user});
 
   if (!event) {
     return next(

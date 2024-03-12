@@ -16,7 +16,7 @@ export const createContact = asyncHandler(async (req, res, next) => {
         zipcode,
         lastName,
         firstName,
-    }).populate('user');
+    });
 
     res.status(201).json({
         success: true,
@@ -27,7 +27,7 @@ export const createContact = asyncHandler(async (req, res, next) => {
 export const getContact = asyncHandler(async (req, res, next) => {
     const id = req.params.id;
 
-    const contact = await Contact.findById(id).populate('user');
+    const contact = await Contact.findById(id);
     if (!contact) throw new ErrorResponse(`Contact ${id} does not exist`, 404);
 
     res.send(contact);
@@ -35,7 +35,7 @@ export const getContact = asyncHandler(async (req, res, next) => {
 
 export const getAllContacts = asyncHandler(async (req, res, next) => {
 
-    const contacts = await Contact.find().populate('user');
+    const contacts = await Contact.find();
     if (!contacts) throw new ErrorResponse(`Contacts do not exist`, 404);
 
     res.send(contacts);
@@ -45,7 +45,7 @@ export const getAllContacts = asyncHandler(async (req, res, next) => {
 export const getAllContactsForUser = asyncHandler(async (req, res, next) => {
     const { user } = req.body
     const contacts = await Contact.find
-        ({ user: user }).populate('user');
+        ({ user: user });
     if (!contacts) throw new ErrorResponse(`No contacts found`, 404);
 
     res.status(200).json({ success: true, data: contacts });
@@ -63,7 +63,7 @@ export const updateContact = asyncHandler(async (req, res, next) => {
     if (!found) throw new ErrorResponse(`Contact ${id} does not exist`, 404);
     const updatedPost = await Contact.findByIdAndUpdate(id, body, {
         new: true,
-    }).populate('user');
+    });
 
     res.json(updatedPost);
 });
@@ -77,7 +77,7 @@ export const deleteContact = asyncHandler(async (req, res, next) => {
     const found = await Contact.findById(id);
     if (!found) throw new ErrorResponse(`Contact ${id} does not exist`, 404);
 
-    await Contact.findByIdAndDelete(id).populate('user');
+    await Contact.findByIdAndDelete(id);
     res.json({ success: `Contact ${id} was deleted` });
 });
 
@@ -90,7 +90,7 @@ export const deleteAllContactsForUser = asyncHandler(async (req, res, next) => {
 
     const { user } = req.body
 
-    const contact = await Contact.deleteMany({ user }).populate('user');
+    const contact = await Contact.deleteMany({ user });
     if (!contact) throw new ErrorResponse(`Contacts not found`, 404);
 
     res.status(200).json({ success: true, data: {} });
@@ -109,12 +109,3 @@ export const deleteAllContactsForUser = asyncHandler(async (req, res, next) => {
 );
 
 
-// export const uploadImage = asyncHandler(async (req, res, next) => {
-//     const user =
-//       await User.findByIdAndUpdate(req.params.id, { avatar: req.file.path });
-//    console.log('file: '+req.file.path);
-//     if (!user) throw new ErrorResponse(`User ${req.params.id} does not exist`, 404);
-//     res.json(user.avatar);
-//   }
-//   );
-  

@@ -49,9 +49,9 @@ function MyEventContext({ children }) {
 useEffect(() => {
   const VITE_API_URL = import.meta.env.VITE_API_URL;
   axios
-    .get(`${VITE_API_URL}/user/image/${userData&&userData._id}`)
+    .get(`${VITE_API_URL}/user/image/${userData._id?userData._id:""}`)
     .then((res) => {
-      // console.log(res.data);
+      console.log(res.data);
       setImages(res.data);
     })
     .catch((err) => {

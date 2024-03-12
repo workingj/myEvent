@@ -133,6 +133,37 @@ function MyEvents({ handleButtonClick }) {
 
   // m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full
   // container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
+
+  // Show image in popup if clicked
+  const showImage = (e) => {
+    const img = e.target;
+    const src = img.src;
+    const modal = document.createElement("div");
+    modal.style.display = "block";
+    modal.style.position = "fixed";
+    modal.style.zIndex = "1";
+    modal.style.paddingTop = "100px";
+    modal.style.left = "0";
+    modal.style.top = "0";
+    modal.style.width = "100%";
+    modal.style.height = "100%";
+    modal.style.overflow = "auto";
+    modal.style.backgroundColor = "rgb(0,0,0)";
+    modal.style.backgroundColor = "rgba(0,0,0,0.9)";
+    modal.onclick = () => {
+      modal.style.display = "none";
+    };
+    const modalImg = document.createElement("img");
+    modalImg.src = src;
+    modalImg.style.margin = "auto";
+    modalImg.style.display = "block";
+    modalImg.style.width = "80%";
+    modalImg.style.maxWidth = "700px";
+    modalImg.style.maxHeight = "500px";
+    modalImg.style.objectFit = "contain";
+    modal.appendChild(modalImg);
+    document.body.appendChild(modal);
+  };
   
 
   return (
@@ -227,9 +258,11 @@ function MyEvents({ handleButtonClick }) {
                         </td>
                         <td className="border px-4 py-2">
                         <img
+                        id="image"
                           src={event.image}
                           alt={event.title}
                           className="w-20 h-20 object-cover rounded-xl"
+                          onClick={showImage}
                         />
                       </td>
                       <td className="border px-4 py-2">
@@ -237,7 +270,8 @@ function MyEvents({ handleButtonClick }) {
                         {` @ ${event.time}`}
                       </td>
                       <td className="border px-4 py-2">
-                        <div className="flex justify-center items-center gap-2">
+                        <div className="flex justify-center items-center gap-2 
+                        ">
                           <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             onClick={() => {

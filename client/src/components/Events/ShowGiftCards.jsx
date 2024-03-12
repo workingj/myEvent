@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 
-function ShowGiftCards({ handleCancelGiftCards , setGiftCards, giftCards}) {
+function ShowGiftCards({ handleCancelGiftCards , setGiftCards, giftCards, setEvent, event}) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -15,6 +15,7 @@ function ShowGiftCards({ handleCancelGiftCards , setGiftCards, giftCards}) {
         `${import.meta.env.VITE_API_URL}/giftcards`
       );
       setCards(response.data);
+      
     } catch (error) {
       console.error("error fetching cards", error);
     }
@@ -68,7 +69,10 @@ function ShowGiftCards({ handleCancelGiftCards , setGiftCards, giftCards}) {
             <button
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
               onClick={() => {
+                setEvent({ ...event, coupon: giftCards.price });
+                
                 handleCancelGiftCards(false);
+
               }}
             >
               Confirm

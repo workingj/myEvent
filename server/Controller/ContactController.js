@@ -97,3 +97,15 @@ export const deleteAllContactsForUser = asyncHandler(async (req, res, next) => {
 }
 
 );
+
+//  upload Image to Cloudinary by contact id
+ export const uploadImage = asyncHandler(async (req, res, next) => {
+    const contact = await Contact.findByIdAndUpdate( req.params.id, { image: req.file.path });
+    console.log('file: '+req.file.path);
+    if (!contact) throw new ErrorResponse(`User ${req.params.id} does not exist`, 404);
+    res.json(contact.image);
+
+}
+);
+
+

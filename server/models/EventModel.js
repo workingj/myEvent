@@ -34,6 +34,10 @@ const EventModel = new mongoose.Schema({
     type: String,
  
   },
+  coupon: {
+    type: String,
+    default: '0',
+  },
 });
 
 export default mongoose.model('Event', EventModel);

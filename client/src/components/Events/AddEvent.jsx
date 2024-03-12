@@ -40,6 +40,7 @@ function AddEvent({ handleCancel, setAddPopup }) {
     user: userData._id,
     contact: "",
     time: "",
+    coupon: "",
   });
 
   const navigate = useNavigate();
@@ -54,30 +55,47 @@ function AddEvent({ handleCancel, setAddPopup }) {
     let b = Number(userData.balance) - Number(giftCards.price);
     console.log("balance", typeof b);
 
-    if (b < 0) {
-      toast.error("Not enough balance");
-      setEnough(false);
-      setIsUpadating(false);
-      return 0;
-    } else {
-      await axios
-        .put(`${import.meta.env.VITE_API_URL}/user/${userData._id}`, {
-          balance: b,
-        })
-        .then((response) => {
-          console.log(response);
+ if (b < 0) {
+   toast.error("Not enough balance");
+   setEnough(false);
+   setIsUpadating(false);
+   return 0
+ }
+  else { setEvent({
+    ...event,
+    coupon: giftCards.price,
+  });
+ 
+  await axios.put(`${import.meta.env.VITE_API_URL}/user/${userData._id}`, 
+  {balance: b}
 
-          console.log("balance updated");
+  
+  )
+  .then((response) => {
+    console.log(response);
+    setEvent({
+      ...event,
+      coupon: giftCards.price,
+    });
+ 
+      console.log("balance updated");
+      
+      setEnough(true);
+      setIsUpadating(true);
+      return 1;
+    
+  })
+  .catch((error) => {
+    console.error(error);
 
-          setEnough(true);
-          setIsUpadating(true);
-          return 1;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
+   
+  });
+}
+
+}
+
+
+
 
   // -------------------create event---------------------
   const handleSubmit = async (e) => {
@@ -367,6 +385,10 @@ function AddEvent({ handleCancel, setAddPopup }) {
                   setEnough={setEnough}
                   handleBalancel={handleBalancel}
                   userData={userData}
+                  event={event}
+                  setEvent={setEvent}
+                  
+
                 />
               )}
 

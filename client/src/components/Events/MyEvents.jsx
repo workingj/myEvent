@@ -5,6 +5,9 @@ import { useAuth } from "../../Context/MyEventContext";
 import { SpinnerDotted } from "spinners-react";
 import EditeEvent from "./EditeEvent.jsx";
 import AddEvent from "./AddEvent.jsx";
+import Lottie from 'lottie-react';
+import doneyAnimation from '../../../public/annimation/done.json';
+
 
 function MyEvents({ handleButtonClick }) {
   // const [allEvents, setAllEvents] = useState([]);
@@ -19,6 +22,7 @@ function MyEvents({ handleButtonClick }) {
   // const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [animationPopup,setAnimationPopup] = useState(false);
 
 
 
@@ -121,6 +125,7 @@ function MyEvents({ handleButtonClick }) {
       );
       if (response.data.success) {
         setAllEvents(allEvents.filter((event) => event._id !== id));
+        setAnimationPopup(true);
       } else {
         console.error("Invalid response format:", response.data);
       }
@@ -166,6 +171,13 @@ function MyEvents({ handleButtonClick }) {
   };
   
 
+  useEffect (()=> {
+    setTimeout(() => {
+      setAnimationPopup(false);
+    }, 3000);
+  }
+  ,[animationPopup]);
+
   return (
     <>
       
@@ -195,6 +207,23 @@ function MyEvents({ handleButtonClick }) {
                />
             </h2>
           </div>
+
+          {/* show annimation for 3 second */}
+          {animationPopup && (
+            <div className="popup" onClick={() => setAnimationPopup(false)}>
+              
+                <Lottie animationData={doneyAnimation} className='' style={{
+                  width: '100%',
+                  height: '300px',
+                  margin: 'auto',
+                  display: 'block',
+                  color:'#fcd133'
+                }}  
+              loop={false}
+
+                />
+              </div>
+          )}
 
           {/* show contacts in dropdown */}
           <div className="mb-4">

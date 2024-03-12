@@ -19,6 +19,7 @@ function Template() {
   const [toEditData, setToEditData] = useState({});
   const [showImage, setshowImage] = useState(false);
   const [imageToShow, setImageToShow] = useState("");
+ 
 
 
   const onDelete = async (id) => {
@@ -69,6 +70,7 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
       )
     );
   }
+
   function onShowImage(e) {
     setImageToShow(e.target.src);
     setshowImage(!showImage);

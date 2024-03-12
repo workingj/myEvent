@@ -321,6 +321,7 @@ function Settings() {
               </button>
               <span className="text-red-500">{errors.birthDate}</span>
             </span>
+              <hr />
             <span>
               <label htmlFor="balance">Balance</label>
               <input
@@ -334,7 +335,6 @@ function Settings() {
               />
             </span>
           </div>
-
           <div className="settings">
             <span>
               <label htmlFor="balance">Charge your balance? </label>

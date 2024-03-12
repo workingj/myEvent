@@ -176,6 +176,7 @@ body {
   align-items: center;
   justify-content: center;
   position: fixed;
+  z-index: 1;
   right: 0;
   top: 0;
   width: 100%;
@@ -284,4 +285,7 @@ body {
     background-color: #f3333333;
     z-index: 1;
   }
+}
+.social-icon {
+  z-index: 0;
 }

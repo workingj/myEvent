@@ -19,6 +19,7 @@ function Template() {
   const [toEditData, setToEditData] = useState({});
   const [showImage, setshowImage] = useState(false);
   const [imageToShow, setImageToShow] = useState("");
+ 
 
   const onDelete = async (id) => {
     const userResponse = window.prompt(
@@ -68,6 +69,7 @@ function Template() {
       )
     );
   }
+
   function onShowImage(e) {
     setImageToShow(e.target.src);
     setshowImage(!showImage);

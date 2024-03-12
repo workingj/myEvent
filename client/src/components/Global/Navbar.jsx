@@ -7,6 +7,7 @@ import axios from "axios";
 import Menu from "./Menu";
 import { FaBars } 
  from "react-icons/fa";
+ import { useTranslation } from "react-i18next";
 
 
 
@@ -15,6 +16,7 @@ const Navbar = () => {
   const { setOverview } = useContext(DataContext);
   const { isLoggedIn, setIsLoggedIn, userData } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
+  const { i18n } = useTranslation();
 
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -31,6 +33,10 @@ const Navbar = () => {
       toast.error("Error logging out");
     }
   };
+    const changeLanguage = (lng) => {
+   i18n.changeLanguage(lng);
+ };
+  const { t } = useTranslation();
 
   return (
     <nav className=" h-30 rounded-t-lg flex justify-between items-center flex-grow bg-opacity-80 m-auto px-5 py-5 ps-12  rounded-xl shadow-xl shadow-gray-200 w-full">
@@ -148,3 +154,37 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+// import { color } from "framer-motion";
+// import { useTranslation } from "react-i18next";
+
+// const LanguageSwitcher = () => {
+//   const { i18n } = useTranslation();
+
+//   const changeLanguage = (lng) => {
+//     i18n.changeLanguage(lng);
+//   };
+//   const { t } = useTranslation();
+
+//   return (
+//     <div>
+//       <label className="lable">{t("Select Language:")} </label>
+
+//       <select onChange={(e) => changeLanguage(e.target.value)}>
+//         <option key="en" value="en">
+//           EN
+//         </option>
+//         <option key="de" value="de">
+//           DE
+//         </option>
+//       </select>
+//     </div>
+//   );
+// };
+
+// export default LanguageSwitcher;

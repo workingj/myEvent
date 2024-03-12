@@ -54,10 +54,6 @@
   border: 1px solid #666;
   background-color: #fcd133ff;
 }
-.addContactBtn:hover > svg > path {
-  fill: #eee;
-  stroke: #666;
-}
 #Dates {
   display: flex;
   flex-direction: column;

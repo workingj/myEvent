@@ -237,9 +237,9 @@ function MyEvents({ handleButtonClick }) {
                         {` @ ${event.time}`}
                       </td>
                       <td className="border px-4 py-2">
-                        <div className="flex justify-center items-center gap-2">
+                        <div className="flex justify-center items-center gap-2 flex-wrap">
                           <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="btn editBtn"
                             onClick={() => {
                               // handleButtonClick("editEvent", event);
                               // navigate(`/myevents/editevent/${event._id}`);
@@ -252,8 +252,9 @@ function MyEvents({ handleButtonClick }) {
                            Edit
   
                           </button>
+                          <span className="vSpace"></span>
                           <button
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                            className="btn deleteBtn"
                             onClick={() => {
                               setEventId(event._id);
                               setDeletePopup(true);

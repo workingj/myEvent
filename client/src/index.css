@@ -63,7 +63,7 @@ body {
     padding: 0.4rem 2rem;
   }
   && button:hover {
-    background-color: #fcd133ff;
+    background-color: #fcd133;
     color: black;
   }
 }
@@ -129,10 +129,10 @@ body {
   background-color: #99f78fff;
 }
 .editBtn {
-  /* color: #fcd133ff; */
+  /* color: #fcd133; */
 }
 .editBtn:hover {
-  background-color: #fcd133ff;
+  background-color: #fcd133;
 }
 .deleteBtn {
   /* color: #f78f9dff; */
@@ -301,4 +301,7 @@ body {
 }
 .social-icon {
   z-index: 0;
+}
+.addEventBtn:hover {
+  background-color:#fcd133 ;
 }

@@ -338,7 +338,13 @@ function Settings() {
           <div className="settings">
             <span>
               <label htmlFor="balance">Charge your balance? </label>
-              <button href="/paypal" className="btn editBtn">
+              <button
+                className="btn editBtn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/paypal");
+                }}
+              >
                 purchase
               </button>
             </span>
@@ -357,7 +363,10 @@ function Settings() {
               <span className="text-red-500">{errors.avater}</span>
 
               <button
-                onClick={(e) => handleAvatarChange(e)}
+                onClick={(e) => {
+                  e.preventDefault(e);
+                  handleAvatarChange(e);
+                }}
                 type="submit"
                 className="btn okBtn"
               >
@@ -370,7 +379,10 @@ function Settings() {
               <label htmlFor="">Change Password</label>
               <button
                 className="btn editBtn"
-                onClick={() => setChangePasswordPopup(true)}
+                onClick={(e) => {
+                  e.preventDefault(e);
+                  setChangePasswordPopup(true);
+                }}
               >
                 Change
               </button>
@@ -378,7 +390,13 @@ function Settings() {
             <hr />
             <span>
               <label>Do you want to delete your account?</label>
-              <button className="btn deleteBtn" onClick={setDeletePopup}>
+              <button
+                className="btn deleteBtn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setDeletePopup(true);
+                }}
+              >
                 Click here
               </button>
             </span>

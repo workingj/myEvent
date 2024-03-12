@@ -119,7 +119,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
           })}
         <span className="hCenter">
           <button
-            className="btn"
+            className="btn editBtn"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -132,10 +132,10 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
       </div>
       <span className="vSpace"></span>
       <span className="hCenter">
-        <button type="submit" className="okBtn">
+        <button type="submit" className="btn okBtn btnSizeB">
           Ok
         </button>
-        <button className="cancelBtn" onClick={(e) => handleCancel(e)}>
+        <button className="btn cancelBtn btnSizeB" onClick={(e) => handleCancel(e)}>
           Cancel
         </button>
       </span>

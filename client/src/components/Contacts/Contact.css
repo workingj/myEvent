@@ -1,20 +1,3 @@
-.Contacts {
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  gap: 2rem;
-  padding: 2rem;
-  width: 80%;
-  min-width: 23rem;
-  max-width: 83rem;
-  min-height: 30rem;
-  margin: auto;
-  background-color: #ffffffcd; /* Opacity 80% */
-
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-}
 .ContactCard {
   display: flex;
   flex-direction: column;
@@ -63,28 +46,6 @@
   font-size: 1.2rem;
   border: none;
 }
-.btn {
-  width: 6rem;
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-}
-.vSpace {
-  line-height: 0.8rem;
-}
-.vCenter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-.hCenter {
-  display: flex !important;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
 .addContactBtn {
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -93,21 +54,10 @@
   border: 1px solid #666;
   background-color: #fcd133ff;
 }
-.addContactBtn:hover > svg > path {
-  fill: #eee;
-  stroke: #666;
-}
 #Dates {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-#Dates .btn {
-  background-color: #fff;
-}
-#Dates .btn:hover {
-  background-color: #000;
-  color: #fff;
 }
 .layer2 {
   z-index: 100;

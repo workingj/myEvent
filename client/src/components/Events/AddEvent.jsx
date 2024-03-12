@@ -8,30 +8,18 @@ import ShowTemplets from "./ShowTemplets";
 import ShowGiftCards from "./ShowGiftCards";
 
 function AddEvent({ handleCancel, setAddPopup }) {
-  const {
-    contacts,
-    allEvents,
-    setAllEvents,
-    userData,
-    template,
-    setTemplate,
-  } = useAuth();
+  const { contacts, allEvents, setAllEvents, userData, template, setTemplate } =
+    useAuth();
   const [latestEventNR, setLatestEventNR] = useState(0);
-
 
   const [sending, setSending] = useState(false);
   const [templateData, setTemplateData] = useState([]);
   const [templatePopup, setTemplatePopup] = useState(false);
   const [giftCardsPopup, setGiftCardsPopup] = useState(false);
-  const [giftCards, setGiftCards] = useState(
-{    url: "",
-    name: "",
-    price: "",}
-  );
+  const [giftCards, setGiftCards] = useState({ url: "", name: "", price: "" });
   const [enough, setEnough] = useState(true);
   const [isUpadating, setIsUpadating] = useState(false);
   // const [balance, setBalance] = useState(0);
- 
 
   // -------------------latest event number---------------------
 
@@ -61,12 +49,11 @@ function AddEvent({ handleCancel, setAddPopup }) {
   //    setBalance( Number(x) - Number(y));
   // }
 
-
   // -------------------handle balance---------------------
 
-const handleBalancel = async() => {
-let b=Number(userData.balance)-Number(giftCards.price);
-console.log("balance", typeof(b));
+  const handleBalancel = async () => {
+    let b = Number(userData.balance) - Number(giftCards.price);
+    console.log("balance", typeof b);
 
  if (b < 0) {
    toast.error("Not enough balance");
@@ -116,52 +103,47 @@ console.log("balance", typeof(b));
     setSending(true);
     console.log("event", event);
 
-    const i=await handleBalancel();
-    if (i===0) { 
+    const i = await handleBalancel();
+    if (i === 0) {
       setSending(false);
-      return ;
-      
-    }
-    else {
+      return;
+    } else {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/user/events/create`,
+          event
+        );
 
+        console.log(response);
+        if (response.status === 201) {
+          setEvent({
+            actionDate: "",
+            title: "",
+            text: "",
+            image: "",
+            eventNR: latestEventNR,
+            user: userData._id,
+            contact: "",
+          });
+          setTemplate({
+            title: "",
+            content: "",
+            images: "",
+          });
+          setAllEvents([...allEvents, response.data]);
+          setSending(false);
+          setAddPopup(false);
 
+          toast.success("Event created successfully");
 
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/user/events/create`,
-        event
-      );
-
-      console.log(response);
-      if (response.status === 201) {
-        setEvent({
-          actionDate: "",
-          title: "",
-          text: "",
-          image: "",
-          eventNR: latestEventNR,
-          user: userData._id,
-          contact: "",
-        });
-        setTemplate({
-          title: "",
-          content: "",
-          images: "",
-        });
-        setAllEvents([...allEvents, response.data]);
+          navigate("/myevents");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Error creating event");
         setSending(false);
-        setAddPopup(false);
-       
-
-        toast.success("Event created successfully");
-
-        navigate("/myevents");
       }
-    } catch (error) {
-      console.error(error);
-      toast.error("Error creating event");
-      setSending(false);
-    }}
+    }
   };
   const handleChange = (e) => {
     setEvent({
@@ -172,7 +154,7 @@ console.log("balance", typeof(b));
       ...template,
       [e.target.name]: e.target.value,
     });
-    if (e.target.name==='content') {
+    if (e.target.name === "content") {
       setEvent({
         ...event,
         text: e.target.value,
@@ -257,31 +239,21 @@ console.log("balance", typeof(b));
   }
 
   return (
-    // <div className="popup fixed inset-0 flex items-center justify-center"
-    // onClick={(e) => handleCancel(e)}
-    // >
-    //   <div className="container mx-auto  bg-white rounded-xl overflow-hidden shadow-lg">
     <div
-      className="popup fixed top-0 left-0  h-full bg-gray-900 bg-opacity-50 flex justify-center items-center 
-    "
+      className="popup fixed top-0 left-0  h-full bg-gray-900 bg-opacity-50 flex justify-center items-center"
       onClick={(e) => handleCancel(e)}
     >
       <div
         className=" popupInner
-        container mt-20 mx-auto rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  max-w-xl
-      "
+        container mt-20 mx-auto rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80  max-w-xl"
       >
-        <div
-          className=" w-full container
-      "
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className=" w-full container" onClick={(e) => e.stopPropagation()}>
           <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-4">Create an Event</h2>
+            <h2 className="text-2xl font-semibold mb-4">Create a new Event</h2>
             <form onSubmit={handleSubmit}>
               {/* choose a contact */}
-              <div className="mb-4">
-                <p className="block mb-2">Choose a contact:</p>
+              <span>
+                <label>Choose a contact:</label>
                 <select
                   name="contact"
                   value={event.contact}
@@ -296,15 +268,15 @@ console.log("balance", typeof(b));
                         value={contact._id}
                         onChange={handleContactChange}
                       >
-                        {contact.firstName+" "+contact.lastName}
+                        {contact.firstName + " " + contact.lastName}
                       </option>
                     ))}
                 </select>
-              </div>
+              </span>
 
               {/* choose date from dates in Contact */}
-              <div className="mb-4">
-                <p className="block mb-2">Choose a date:</p>
+              <span>
+                <label>Choose a date:</label>
                 <select
                   name="actionDate"
                   value={event.actionDate}
@@ -330,52 +302,42 @@ console.log("balance", typeof(b));
                       )
                     )}
                 </select>
-              </div>
+              </span>
               {/* choose Time */}
-              <div className="mb-4">
-                <p className="block mb-2">Choose a time:</p>
+              <span>
+                <label>Choose a time:</label>
                 <input
                   type="time"
                   name="time"
                   value={event.time}
                   onChange={handleChange}
-                  className="border rounded w-full p-2"
                 />
-
-                {/* <select
-                  name="time"
-                  value={event.time}
-                  onChange={handleChange}
-                  className="border rounded w-full p-2"
-                >
-                  <option value="">Choose a time</option>
-                  <option value="morning">Morning</option>
-                  <option value="afternoon">Afternoon</option>
-                  <option value="evening">Evening</option>
-                </select> */}
-              </div>
+              </span>
 
               {/* action date */}
 
-              <div className="mb-4">
-                <p className="block mb-2">Action Date:</p>
+              <span>
+                <label>Action Date:</label>
                 <input
                   type="date"
                   name="actionDate"
                   value={formatDate(event.actionDate)}
                   onChange={handleChange}
-                  className="border rounded w-full p-2"
                 />
-              </div>
+              </span>
 
-              <div className="mb-4">
-                <a
-                  className="bg-blue-500 text-white rounded p-2 mt-4 cursor-pointer hover:bg-blue-700"
-                  onClick={() => setTemplatePopup(true)}
+              <span>
+                <label htmlFor="">Template</label>
+                <button
+                  className="btn editBtn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setTemplatePopup(true);
+                  }}
                 >
                   choose a template
-                </a>
-              </div>
+                </button>
+              </span>
               {templatePopup && (
                 <ShowTemplets
                   templateData={templateData}
@@ -383,31 +345,37 @@ console.log("balance", typeof(b));
                   handleCancelTemplate={handleCancelTemplate}
                   setTemplate={setTemplate}
                   setEvent={setEvent}
-
                 />
               )}
               {/*choose gift card  */}
-              <div className="mb-4">
-                <p className="block mb-2">Choose a gift card:</p>
-                <a
-                  className="bg-blue-500 text-white rounded p-2 mt-4 cursor-pointer hover:bg-blue-700"
-                  onClick={() => setGiftCardsPopup(true)}
+              <span>
+                <label className="block mb-2">Gift card:</label>
+                <button
+                  className="btn editBtn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setGiftCardsPopup(true);
+                  }}
                 >
-                  Choose gift Card
-                </a>
-              </div>
+                  Choose gift card
+                </button>
+              </span>
               {!enough && (
                 <>
-                <p className="text-red-500">Not enough balance, please add balance to send gift card.
-                </p>
-                <p className="text-red-500">
-                  Do you want to add balance? <a href="/paypal" className="text-blue-500 hover:text-blue-700"
-                  >click hier</a>
-                </p>
+                  <p className="text-red-500">
+                    Not enough balance, please add balance to send gift card.
+                  </p>
+                  <p className="text-red-500">
+                    Do you want to add balance?{" "}
+                    <a
+                      href="/paypal"
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      click hier
+                    </a>
+                  </p>
                 </>
-
-              )
-              }
+              )}
               {giftCardsPopup && (
                 <ShowGiftCards
                   handleCancelGiftCards={handleCancelGiftCards}
@@ -426,45 +394,28 @@ console.log("balance", typeof(b));
 
               {/* choose Templet */}
 
-              <div className="mb-4">
-                <p className="block mb-2">Title:</p>
+              <span>
+                <label>Title:</label>
                 <input
                   type="text"
                   name="title"
-                  value={template.title&&template.title}
+                  value={template.title && template.title}
                   onChange={handleChange}
                   className="border rounded w-full p-2"
                 />
-              </div>
-              <div className="mb-4">
-                <p className="block mb-2">Text:</p>
+              </span>
+              <span>
+                <label>Text:</label>
                 <textarea
                   type="text-area"
                   name="content"
                   value={template.content && template.content}
                   onChange={handleChange}
-                  className="border rounded w-full p-2 col-span-2 h-72"
+                  className="border rounded w-full p-2 col-span-2"
                 />
-                {/*  const [event, setEvent] = useState({
-    actionDate: "",
-    title: "",
-    text: "",
-    image: "",
-    eventNR: latestEventNR,
-    user: userData._id,
-    contact: "",
-    time: "",
-  }); */}
-              </div>
-              <div className="mb-4">
-                <p className="block mb-2">Image</p>
-                {/* <input
-                  type="text"
-                  name="image"
-                  value={template.images&&template.images}
-                  onChange={handleChange}
-                  className="border rounded w-full p-2"
-                /> */}
+              </span>
+              <span>
+                <label>Image</label>
                 {template.images && (
                   <div className="flex justify-center items-center">
                     <img
@@ -474,17 +425,13 @@ console.log("balance", typeof(b));
                     />
                   </div>
                 )}
-              </div>
+              </span>
               <span className="hCenter">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white rounded p-2 mt-4"
-                >
+                <button type="submit" className="btn okBtn btnSizeB">
                   ADD EVENT
                 </button>
                 <button
-                  className=" bg-red-500 text-white rounded p-2 mt-4 ml-4
-          "
+                  className="btn cancelBtn btnSizeB"
                   onClick={(e) => handleCancel(e)}
                 >
                   Cancel

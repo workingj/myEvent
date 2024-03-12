@@ -9,7 +9,6 @@ import { useAuth } from "../../Context/MyEventContext";
 import validator from "validator";
 import { AddPopup, EditPopup, DateTitlePopup } from "./ContactPopup.jsx";
 
-
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,50 +56,50 @@ export default function Contacts() {
         setLoading(false);
         setError(true);
       });
-  }, [addPopup, editPopup, deletePopup,isEdating,contacts]);
-
-  // useEffect(() => { 
-  //   setFillter(contacts);
-  // }
-  // , [contacts,isEdating,addPopup, editPopup, deletePopup]);
+  }, [addPopup, editPopup, deletePopup, isEdating, contacts]);
 
   return (
     <>
-    <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-      <h2>CONTACTS</h2>
-      <div className="Contacts">
-        <AddContactCard handleAdd={handleAdd} />
-        {contacts&&contacts.map((contact) => (
-          <ContactCard
-            key={contact._id}
-            Contact={contact}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        ))}
-        {editPopup && (
-          <EditPopup
-            contact={contactCache.current}
-            handleCancel={handleCancel}
-            setIsEdating={setIsEdating}
-            isEdating={isEdating}
-            setContact={setContacts}
-          />
-        )}
-        {deletePopup && (
-          <DateTitlePopup
-            contact={contactCache.current}
-            handleCancel={handleCancel}
-            setDeletePopup={setDeletePopup}
-            deletePopup={deletePopup}
-            setContact={setContacts}
-          />
-        )}
-        {addPopup && (
-          <AddPopup handleCancel={handleCancel} userID={userData._id} contacts={contacts}
-          setContact={setContacts}/>
-        )}
-      </div>
+      <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+        <h2>CONTACTS</h2>
+        <div className="Container">
+          <AddContactCard handleAdd={handleAdd} />
+          {contacts &&
+            contacts.map((contact) => (
+              <ContactCard
+                key={contact._id}
+                Contact={contact}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            ))}
+          {editPopup && (
+            <EditPopup
+              contact={contactCache.current}
+              handleCancel={handleCancel}
+              setIsEdating={setIsEdating}
+              isEdating={isEdating}
+              setContact={setContacts}
+            />
+          )}
+          {deletePopup && (
+            <DateTitlePopup
+              contact={contactCache.current}
+              handleCancel={handleCancel}
+              setDeletePopup={setDeletePopup}
+              deletePopup={deletePopup}
+              setContact={setContacts}
+            />
+          )}
+          {addPopup && (
+            <AddPopup
+              handleCancel={handleCancel}
+              userID={userData._id}
+              contacts={contacts}
+              setContact={setContacts}
+            />
+          )}
+        </div>
       </div>
     </>
   );

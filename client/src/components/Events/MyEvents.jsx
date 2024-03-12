@@ -5,10 +5,11 @@ import { useAuth } from "../../Context/MyEventContext";
 import { SpinnerDotted } from "spinners-react";
 import EditeEvent from "./EditeEvent.jsx";
 import AddEvent from "./AddEvent.jsx";
+import plus from "../../assets/plus.svg";
 
 function MyEvents({ handleButtonClick }) {
   // const [allEvents, setAllEvents] = useState([]);
-  const { contacts, setContacts, allEvents, setAllEvents, userData ,template} =
+  const { contacts, setContacts, allEvents, setAllEvents, userData, template } =
     useAuth();
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [editPopup, setEditPopup] = useState(false);
@@ -20,11 +21,8 @@ function MyEvents({ handleButtonClick }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-
 
     if (isNaN(date.getTime())) {
       return "";
@@ -39,10 +37,7 @@ function MyEvents({ handleButtonClick }) {
     }
   }, [allEvents, addPopup, editPopup, deletePopup]);
 
-// fetshing gift api from 
-
-
-
+  // fetshing gift api from
 
   const handleCancel = (e) => {
     e.stopPropagation();
@@ -167,181 +162,164 @@ function MyEvents({ handleButtonClick }) {
   
 
   return (
-    <>
-      
-      <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-        <h2>My Events</h2>
+    <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+      <h2>MY EVENTS</h2>
+      <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
         <div
-          className=" container m-4 text-center flex justify-center items-center flex-col gap-5 w-full
-
-    "
+          className="addEventBtn cursor-pointer border rounded-md border-gray-400"
+          onClick={() => {
+            setAddPopup(true);
+          }}
         >
-          <div
-            className=" cursor-pointer height-20 hover:bg-green-300"
-            onClick={
-              () =>
-                //  handleButtonClick("addEvent")
-                {
-                  setAddPopup(true);
-                }
+          <img src={plus} alt="add" className="w-20 h-20" />
+        </div>
 
-              // navigate("/myevents/addevent")
-            }
+        {/* show contacts in dropdown */}
+        <div className="mb-4">
+          <strong className="block mb-2">Filter for Contacts:</strong>
+          <select
+            name="contact"
+            value={event.contact}
+            onChange={(e) => {
+              setEvent({ ...event, contact: e.target.value });
+              setFilteredEvents(
+                e.target.value
+                  ? allEvents.filter(
+                      (event) => event.contact === e.target.value
+                    )
+                  : allEvents
+              );
+            }}
+            className="border rounded w-full p-2"
           >
-            <h2 className="   hover:bg-green-300 
-             ">
-              {/* <img src="../../assets/add.png" alt="add" className="w-10 h-10" /> */}
-              <img src="./add.jpg" alt="add" className="w-10 h-10" 
-               />
-            </h2>
-          </div>
+            <option value="">All contact</option>
+            {Array.isArray(contacts) &&
+              contacts.map((contact) => (
+                <option key={contact._id} value={contact._id}>
+                  {contact.firstName}
+                </option>
+              ))}
+          </select>
+        </div>
 
-          {/* show contacts in dropdown */}
-          <div className="mb-4">
-            <p className="block mb-2">Choose a contact:</p>
-            <select
-              name="contact"
-              value={event.contact}
-              onChange={(e) => {
-                setEvent({ ...event, contact: e.target.value });
-                setFilteredEvents(
-                  e.target.value
-                    ? allEvents.filter(
-                        (event) => event.contact === e.target.value
-                      )
-                    : allEvents
-                );
-              }}
-              className="border rounded w-full p-2"
-            >
-              <option value="">All contact</option>
-              {Array.isArray(contacts) &&
-                contacts.map((contact) => (
-                  <option key={contact._id} value={contact._id}>
-                    {contact.firstName}
-                  </option>
-                ))}
-            </select>
-          </div>
-
-          {/* table for data */}
-          {loading ? (
-            <SpinnerDotted size="100" color="#686769" />
-          ) : (
-            <table className="table-auto"  
-            >
-              <thead>
-                <tr>
-                  <th className="px-4 py-2">Name</th>
-                  <th className="px-4 py-2">Title</th>
-                  <th className="px-4 py-2">Content</th>
-                  <th className="px-4 py-2">image</th>
-                  <th className="px-4 py-2">Date</th>
-                  <th className="px-4 py-2">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredEvents &&
-                  filteredEvents.map((event) => (
-                    <tr key={event._id}>
-                      <td className="border px-4 py-2">
-                        {contacts &&
-                        contacts.find((contact) => contact._id === event.contact)
-                          ? contacts.find(
-                              (contact) => contact._id === event.contact
-                            ).firstName + " " + contacts.find( (contact) => contact._id === event.contact).lastName
-                          : "Unknown Contact"}
-                      </td>
-                      <td className="border px-4 py-2">{event.title}</td>
-                      <td className="border px-4 py-2">
-                        {event.text}
-                        </td>
-                        <td className="border px-4 py-2">
-                        <img
+        {/* table for data */}
+        {loading ? (
+          <SpinnerDotted size="100" color="#686769" />
+        ) : (
+          <table className="table-auto">
+            <thead>
+              <tr>
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Title</th>
+                <th className="px-4 py-2">Content</th>
+                <th className="px-4 py-2">image</th>
+                <th className="px-4 py-2">Date</th>
+                <th className="px-4 py-2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredEvents &&
+                filteredEvents.map((event) => (
+                  <tr key={event._id}>
+                    <td className="border px-4 py-2">
+                      {contacts &&
+                      contacts.find((contact) => contact._id === event.contact)
+                        ? contacts.find(
+                            (contact) => contact._id === event.contact
+                          ).firstName +
+                          " " +
+                          contacts.find(
+                            (contact) => contact._id === event.contact
+                          ).lastName
+                        : "Unknown Contact"}
+                    </td>
+                    <td className="border px-4 py-2">{event.title}</td>
+                    <td className="border px-4 py-2">
+                      {event.text.split(".")[0] + " ..."}
+                    </td>
+                    <td className="border px-4 py-2">
+                      <img
                         id="image"
-                          src={event.image}
-                          alt={event.title}
-                          className="w-20 h-20 object-cover rounded-xl"
+                        src={event.image}
+                        alt={event.title}
+                        className="w-20 h-20 object-cover rounded-xl"
                           onClick={showImage}
-                        />
-                      </td>
-                      <td className="border px-4 py-2">
-                        {formatDate(event.actionDate)}
-                        {` @ ${event.time}`}
-                      </td>
-                      <td className="border px-4 py-2">
-                        <div className="flex justify-center items-center gap-2 
-                        ">
-                          <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => {
-                              // handleButtonClick("editEvent", event);
-                              // navigate(`/myevents/editevent/${event._id}`);
-  
-                              //  navigate(`/myevents/edit/${event._id}`);
-                              setEventId(event._id);
-                              setEditPopup(true);
-                            }}
-                          >
-                           Edit
-  
-                          </button>
-                          <button
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => {
-                              setEventId(event._id);
-                              setDeletePopup(true);
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-          {addPopup && (
-            <AddEvent handleCancel={handleCancel} setAddPopup={setAddPopup} />
-          )}
+                      />
+                    </td>
+                    <td className="border px-4 py-2">
+                      {formatDate(event.actionDate)}
+                      {` @ ${event.time}`}
+                    </td>
+                    <td className="border px-4 py-2">
+                      <div className="flex justify-center items-center gap-2 
+                         flex-wrap">
+                        <button
+                          className="btn editBtn"
+                          onClick={() => {
+                            // handleButtonClick("editEvent", event);
+                            // navigate(`/myevents/editevent/${event._id}`);
 
-          {editPopup && (
-            <EditeEvent
-              id={eventId}
-              handleCancel={handleCancel}
-              setEditPopup={setEditPopup}
-            />
-          )}
-          {deletePopup && (
-            <div className="popup"
-            onClick={handleCancel}
-            >
-              <div className="popupInner" onClick={(e) => e.stopPropagation()}>
-                <h2>Do you want to delete this event?</h2>
-                <div className="flex justify-center items-center gap-2">
-                  <button
-                    onClick={() => {
-                      handleDelete(eventId);
-                      setDeletePopup(false);
-                    }}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Yes
-                  </button>
-                  <button
-                    onClick={() => setDeletePopup(false)}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    No
-                  </button>
-                </div>
+                            //  navigate(`/myevents/edit/${event._id}`);
+                            setEventId(event._id);
+                            setEditPopup(true);
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <span className="vSpace"></span>
+                        <button
+                          className="btn deleteBtn"
+                          onClick={() => {
+                            setEventId(event._id);
+                            setDeletePopup(true);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
+        {addPopup && (
+          <AddEvent handleCancel={handleCancel} setAddPopup={setAddPopup} />
+        )}
+
+        {editPopup && (
+          <EditeEvent
+            id={eventId}
+            handleCancel={handleCancel}
+            setEditPopup={setEditPopup}
+          />
+        )}
+        {deletePopup && (
+          <div className="popup" onClick={handleCancel}>
+            <div className="popupInner" onClick={(e) => e.stopPropagation()}>
+              <h2>Do you want to delete this event?</h2>
+              <div className="flex justify-center items-center gap-2">
+                <button
+                  onClick={() => {
+                    handleDelete(eventId);
+                    setDeletePopup(false);
+                  }}
+                  className="btn okBtn btnSizeB"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => setDeletePopup(false)}
+                  className="btn deleteBtn btnSizeB"
+                >
+                  No
+                </button>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
 export default MyEvents;

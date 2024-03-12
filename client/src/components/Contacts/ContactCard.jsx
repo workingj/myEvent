@@ -26,17 +26,22 @@ export default function ContactCard({
       </h3>
       <span className="cData">{contact.email}</span>
       <span className="vSpace">&nbsp;</span>
-      <span className="cBirthday"style={{color: contact.dates.length===0?"red":"black" }}>Dates: {contact.dates.length}</span>
-      <span className="cData" >
+      <span
+        className="cBirthday"
+        style={{ color: contact.dates.length === 0 ? "red" : "black" }}
+      >
+        Dates: {contact.dates.length}
+      </span>
+      <span className="cData">
         {contact.zipcode} {contact.city}
       </span>
       <span className="cData">{contact.street}</span>
       <span className="vSpace">&nbsp;</span>
       <span>
-        <button className="editBtn" onClick={() => handleEdit(contact)}>
+        <button className="btn editBtn" onClick={() => handleEdit(contact)}>
           Edit
         </button>
-        <button className="deleteBtn" onClick={() => handleDelete(contact)}>
+        <button className="btn deleteBtn" onClick={() => handleDelete(contact)}>
           Delete
         </button>
       </span>

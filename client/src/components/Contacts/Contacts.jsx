@@ -9,6 +9,7 @@ import { useAuth } from "../../Context/MyEventContext";
 import validator from "validator";
 import { AddPopup, EditPopup, DateTitlePopup } from "./ContactPopup.jsx";
 
+
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,6 +19,8 @@ export default function Contacts() {
   const [addPopup, setAddPopup] = useState(false);
   const contactCache = useRef();
   const { userData } = useAuth();
+  const [isEdating, setIsEdating] = useState(false);
+  // const [fillter, setFillter] = useState([]);
 
   function handleEdit(contact) {
     contactCache.current = contact;
@@ -54,7 +57,12 @@ export default function Contacts() {
         setLoading(false);
         setError(true);
       });
-  }, [addPopup, editPopup, deletePopup]);
+  }, [addPopup, editPopup, deletePopup,isEdating,contacts]);
+
+  // useEffect(() => { 
+  //   setFillter(contacts);
+  // }
+  // , [contacts,isEdating,addPopup, editPopup, deletePopup]);
 
   return (
     <>
@@ -62,7 +70,7 @@ export default function Contacts() {
       <h2>CONTACTS</h2>
       <div className="Contacts">
         <AddContactCard handleAdd={handleAdd} />
-        {contacts.map((contact) => (
+        {contacts&&contacts.map((contact) => (
           <ContactCard
             key={contact._id}
             Contact={contact}
@@ -74,16 +82,23 @@ export default function Contacts() {
           <EditPopup
             contact={contactCache.current}
             handleCancel={handleCancel}
+            setIsEdating={setIsEdating}
+            isEdating={isEdating}
+            setContact={setContacts}
           />
         )}
         {deletePopup && (
           <DateTitlePopup
             contact={contactCache.current}
             handleCancel={handleCancel}
+            setDeletePopup={setDeletePopup}
+            deletePopup={deletePopup}
+            setContact={setContacts}
           />
         )}
         {addPopup && (
-          <AddPopup handleCancel={handleCancel} userID={userData._id} />
+          <AddPopup handleCancel={handleCancel} userID={userData._id} contacts={contacts}
+          setContact={setContacts}/>
         )}
       </div>
       </div>

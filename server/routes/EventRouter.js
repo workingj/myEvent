@@ -13,12 +13,16 @@ eventRouter.route('/')
     .post(eventController.createEvent);
 eventRouter.route('/deleteAll')
     .delete(eventController.deleteAllEvents);
+eventRouter.route('/allforcontact')
+    .delete(eventController.deleteAllEventsForContact);
    
 
 eventRouter.route('/:id')
     .get(eventController.getEvent)
     .put(eventController.updateEvent)
     .delete(eventController.deleteEvent);
+
+
 
 
 

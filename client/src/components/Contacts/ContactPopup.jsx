@@ -7,11 +7,12 @@ import { useAuth } from "../../Context/MyEventContext";
 import validator from "validator";
 import { ContactForm } from "./ContactForm";
 
-export function AddPopup({ handleCancel, userID }) {
+
+export function AddPopup({ handleCancel, userID ,setContacts,contacts}) {
   const navigate = useNavigate();
 
   // Add new contact
-  const handleAddOk = async (e, contact) => {
+  const handleAddOk = async (e, contact,setContact) => {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -30,13 +31,23 @@ export function AddPopup({ handleCancel, userID }) {
           withCredentials: true,
         }
       );
+      //     setContact((prev) => prev.map((c) => (c._id === contact._id ? contact : c)));
       if (response.status === 201) {
+    
         toast.success("Contact successfully created!");
-        navigate("/home/contacts");
+        setContact((prev) => [...prev,contact]);
+
+        
+        // setAllEvents([...allEvents, response.data]);
+        
+        console.log(response&&response.data.data);
+
+        // navigate("/home/contacts");
       }
+      
     } catch (error) {
       console.error("ERR form handle Ok", error);
-      toast.error(error.response.data.message || "Could not create Contact!");
+      toast.error("Could not create Contact!");
     }
   };
 
@@ -55,7 +66,7 @@ export function AddPopup({ handleCancel, userID }) {
   );
 }
 
-export function EditPopup({ contact, handleCancel }) {
+export function EditPopup({ contact, handleCancel,isEdating, setIsEdating, setContact}) {
   const navigate = useNavigate();
 
   // Edit existing contact
@@ -77,10 +88,12 @@ export function EditPopup({ contact, handleCancel }) {
           withCredentials: true,
         }
       );
-      if (response.status === 201) {
+     
         toast.success("Successfully Updated.");
-        navigate("user/contacts");
-      }
+        setContact((prev) => prev.map((c) => (c._id === contact._id ? contact : c)));
+        // navigate("user/contacts");
+        setIsEdating(!isEdating);
+    
     } catch (error) {
       toast.error(error.response.data.error || "Could not Update Contact!");
     }
@@ -100,8 +113,26 @@ export function EditPopup({ contact, handleCancel }) {
   );
 }
 
-export function DateTitlePopup({ contact, handleCancel }) {
+export function DateTitlePopup({ contact, handleCancel,setDeletePopup,deletePopup, setContact }) {
   const navigate = useNavigate();
+  const {  userData } =
+  useAuth();
+
+  const handleDeleteAllEvents = async () => {
+    try {
+      const VITE_API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.delete(`${VITE_API_URL}/user/events/allforcontact`, {
+        data: { user: userData._id, contact: contact._id 
+         }
+      });
+      toast.success("All events deleted successfully");
+
+    } catch (error) {
+      console.error("error deleting all events", error);
+      toast.error("All events not deleted");
+    }
+  };
+
 
   // Delete contact
   const handleDeleteOk = async (contact) => {
@@ -112,10 +143,12 @@ export function DateTitlePopup({ contact, handleCancel }) {
           withCredentials: true,
         }
       );
-      if (response.status === 201) {
+      
+        handleDeleteAllEvents();
+        setContact((prev) => prev.filter((c) => c._id !== contact._id));
         toast.success("Contact successfully deleted!");
-        navigate("user/contacts");
-      }
+        navigate("/home/contacts");
+      
     } catch (error) {
       toast.error(error.response.data.error || "Could not delete Contact!");
     }
@@ -131,6 +164,7 @@ export function DateTitlePopup({ contact, handleCancel }) {
             onClick={(e) => {
               handleDeleteOk(contact);
               handleCancel(e);
+              setDeletePopup(!deletePopup);
             }}
           >
             Ok
@@ -172,6 +206,7 @@ export function AddDatePopup({ closePopup, contact, setContact }) {
                 value: D.toISOString().split("T")[0],
               });
               setContact(data);
+             
               closePopup();
             }}
           >

@@ -48,7 +48,7 @@ export const processEvents = asyncHandler(async (req, res, next) => {
 
 
                 getContact(event.contact.valueOf()).then((contact) => {
-                    // console.log("user", contact.email, contact.firstName + contact.lastName);
+                    console.log("user", contact.email, contact.firstName + contact.lastName);
                     try {
                         Mail.contactMail = contact.email;
                         Mail.contactName = contact.firstName + " " + contact.lastName;
@@ -57,7 +57,7 @@ export const processEvents = asyncHandler(async (req, res, next) => {
                     }
 
                     getUser(event.user.valueOf()).then((user) => {
-                        // console.log("user", user.email, user.firstName + user.lastName);
+                        console.log("user", user.email, user.firstName + user.lastName);
                         try {
                             Mail.userMail = user.email;
                             Mail.userName = user.firstName + " " + user.lastName;

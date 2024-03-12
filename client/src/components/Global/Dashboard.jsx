@@ -2,9 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/MyEventContext";
 
-
 function Dashboard() {
-  const { isLoggedIn,  userData } = useAuth();
+  const { isLoggedIn, userData } = useAuth();
   const navigate = useNavigate();
   return (
     <div className=" mt-5 flex flex-col items-center justify-start pt-8 p-4 rounded-md  mx-auto max-w-md h-96 w-60">
@@ -15,46 +14,51 @@ function Dashboard() {
           {/* Buttons */}
           <li>
             <button
-             className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+              className="btn menuBtn"
               onClick={() => navigate("/myevents")}
             >
-               Events
+              Events
             </button>
           </li>
           <li>
             <button
-              className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+              className="btn menuBtn"
               onClick={() => navigate("/home/contacts")}
             >
-               Contacts
+              Contacts
             </button>
           </li>
-           <li>
+          <li>
             <button
-              className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+              className="btn menuBtn"
               onClick={() => navigate("/admin/templates")}
             >
-               Templates
+              Templates
             </button>
+          </li>
+          {isLoggedIn && userData.role === "admin" ? (
+            <li>
+              <button
+                className="btn menuBtn"
+                onClick={() => navigate("/gift/upload")}
+              >
+                Upload Cards
+              </button>
+            </li>
+          ) : (
+            ""
+          )}
+          <li>
+            <span className="vSpace">&nbsp;</span>
           </li>
           <li>
             <button
-              className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+              className="btn menuBtn editBtn"
               onClick={() => navigate("/user/settings")}
             >
-               Settings
+              Settings
             </button>
           </li>
-          {isLoggedIn && userData.role ==="admin" ?
-          <li>
-            <button
-              className="bg-black w-44 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
-              onClick={() => navigate("/gift/upload")}
-            >
-             Upload Cards
-            </button>
-          </li> : ''}
-        
         </ul>
       </div>
     </div>

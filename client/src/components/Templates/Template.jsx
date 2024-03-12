@@ -21,33 +21,32 @@ function Template() {
   const [imageToShow, setImageToShow] = useState("");
  
 
-
   const onDelete = async (id) => {
-    const userResponse = window.prompt("Do you want to proceed? Type 'yes' to confirm.");
+    const userResponse = window.prompt(
+      "Do you want to proceed? Type 'yes' to confirm."
+    );
 
-if (userResponse && userResponse.toLowerCase() === 'yes') {
+    if (userResponse && userResponse.toLowerCase() === "yes") {
+      console.log("User confirmed!");
 
-  console.log("User confirmed!");
-
-    try {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
-        { withCredentials: true }
-      );
-      if (response.data) {
-        toast.success("Successfully Deleted!");
-        setTemplateData(templateData.filter((e) => e._id !== id));
-      } else {
-        toast.error("Delete was not successfull !!");
+      try {
+        const response = await axios.delete(
+          `${import.meta.env.VITE_API_URL}/admin/templates/${id}`,
+          { withCredentials: true }
+        );
+        if (response.data) {
+          toast.success("Successfully Deleted!");
+          setTemplateData(templateData.filter((e) => e._id !== id));
+        } else {
+          toast.error("Delete was not successfull !!");
+        }
+      } catch (error) {
+        setError(error.response.data.message);
+        toast.error("Login failed!");
       }
-    } catch (error) {
-      setError(error.response.data.message);
-      toast.error("Login failed!");
+    } else {
+      console.log("User canceled or entered an invalid response.");
     }
-  } else {
-  
-    console.log("User canceled or entered an invalid response.");
-  }
   };
 
   const handleshowCreateTemplate = () => {
@@ -115,12 +114,12 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
   }, [searchedData, setSearchedData]);
 
   return showMainComponent ? (
-    <div className="container mt-20 mx-auto max-w-6xl rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
-        
-      <div className="p-4">
-        <h2 className="text-2xl font-semibold mb-4">Templates</h2>
+    <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+      <h2>MY TEMPLATES</h2>
+
+      <div className="Container Template  m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
         {/* Table */}
-        
+
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
           {showImage && (
             <div
@@ -178,13 +177,15 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                 <option value="content">Content</option>
                 <option value="type">Type</option>
               </select>
-              {userData.role === 'admin' &&<button
-                type="submit"
-                className="bg-black hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
-                onClick={handleshowCreateTemplate}
-              >
-                Create a new Template
-              </button>}
+              {userData.role === "admin" && (
+                <button
+                  type="submit"
+                  className="bg-black hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+                  onClick={handleshowCreateTemplate}
+                >
+                  Create a new Template
+                </button>
+              )}
             </div>
           </div>
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -213,23 +214,25 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                   Type
                 </th>
 
-                {userData.role === 'admin' && <th scope="col" className="px-6 py-3 text-center">
-                  Action
-                </th>}
+                {userData.role === "admin" && (
+                  <th scope="col" className="px-6 py-3 text-center">
+                    Action
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody>
               {templateData.map((e) => (
                 <tr
                   key={e._id}
-                  className="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  className="bg-white border rounded-lg"
                 >
                   <td className="w-4 p-4">
                     <div className="flex items-center"></div>
                   </td>
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+                    className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black w-40"
                   >
                     {e.title}
                   </th>
@@ -240,42 +243,45 @@ if (userResponse && userResponse.toLowerCase() === 'yes') {
                       alt="No Image"
                       width="100rem"
                       height="100rem"
-                      onClick={e.images  && onShowImage }
+                      onClick={e.images && onShowImage}
                     />
                   </td>
                   <td>
                     <p className="text-justify">{e.content}</p>
                   </td>
-                  <td className="px-6 py-4">{e.type}</td>
+                  <td className="px-6 py-4 w-32">{e.type}</td>
                   <td className="px-6 py-4 text-sm">
-                    {userData.role === 'admin' && <a
-                      href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
-                      onClick={() => {
-                        setToEditData({
-                          title: e.title,
-                          content: e.content,
-                          images: e.images,
-                          type: e.type,
-                          id: e._id,
-                          updateFlag: true,
-                        }),
-                          onEdit();
-                      }}
-                    >
-                      Edit
-                    </a> 
-                    }
-                    {userData.role === 'admin' && <a
-                      href="#"
-                      className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
-                      onClick={() => {
-                        onDelete(e._id);
-                        setToEditData({});
-                      }}
-                    >
-                      Delete
-                    </a>}
+                    {userData.role === "admin" && (
+                      <a
+                        href="#"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
+                        onClick={() => {
+                          setToEditData({
+                            title: e.title,
+                            content: e.content,
+                            images: e.images,
+                            type: e.type,
+                            id: e._id,
+                            updateFlag: true,
+                          }),
+                            onEdit();
+                        }}
+                      >
+                        Edit
+                      </a>
+                    )}
+                    {userData.role === "admin" && (
+                      <a
+                        href="#"
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
+                        onClick={() => {
+                          onDelete(e._id);
+                          setToEditData({});
+                        }}
+                      >
+                        Delete
+                      </a>
+                    )}
                   </td>
                 </tr>
               ))}

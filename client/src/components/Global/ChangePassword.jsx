@@ -50,44 +50,41 @@ const handleChange = (e) => {
       >
       
         <div className="mb-4">
-          <p className="block mb-2">Old Password:</p>
+          <label className='w-full'>Old Password:</label>
           <input
           name='oldPassword'
             type="password"
             value={data.oldPassword}
-            className="border rounded-full w-full p-2"
             onChange={(e) => handleChange(e)}
           />
         </div>
         <div className="mb-4">
-          <p className="block mb-2">New Password:</p>
+          <label className='w-full'>New Password:</label>
           <input
             name='newPassword'
             value={data.newPassword}
             type="password"
-            className="border rounded-full w-full p-2"
             onChange={(e) => handleChange(e)}
           />
         </div>
         <div className="mb-4">
-          <p className="block mb-2">Confirm New Password:</p>
+          <label className='w-full'>Confirm New Password:</label>
           <input
             name='confirmPassword'
             value={data.confirmPassword}
             type="password"
-            className="border rounded-full w-full p-2"
             onChange={(e) => handleChange(e)}
           />
         </div>
         <span className="hCenter">
           <button
             type="submit"
-            className="bg-blue-500 text-white rounded p-2 mt-4"
+            className="btn okBtn btnSizeB"
           >
             Save
           </button>
-          <button className=" bg-red-500 text-white rounded p-2 mt-4 ml-4
-          " onClick={(e) => handleCancel(e)}>
+          <button className="btn cancelBtn btnSizeB"
+           onClick={(e) => handleCancel(e)}>
             Cancel
           </button>
           </span>

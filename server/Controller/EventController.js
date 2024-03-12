@@ -32,9 +32,10 @@ export const getEvent = asyncHandler(async (req, res, next) => {
 // @route   POST /events
 // @access  Private
 export const createEvent = asyncHandler(async (req, res, next) => {
-  const { actionDate, title, text, image, eventNR, user, contact,time
+  const { actionDate, title, text, image, eventNR, user, contact,time, coupon
    } = req.body;
    
+   console.log(req.body)
 
   const event = await Event.create(
     {
@@ -45,7 +46,8 @@ export const createEvent = asyncHandler(async (req, res, next) => {
       eventNR,
       user,
       contact,
-      time
+      time,
+      coupon,
 
     }
   );
@@ -65,7 +67,7 @@ export const updateEvent = asyncHandler(async (req, res, next) => {
   (req.params.id, req.body, {
     new: true,
     runValidators: true,
-  });
+  }).populate('user');
 
   if (!event) {
     return next(
@@ -84,7 +86,7 @@ export const updateEvent = asyncHandler(async (req, res, next) => {
 // @route   DELETE /events/:id
 // @access  Private
 export const deleteEvent = asyncHandler(async (req, res, next) => {
-  const event = await Event.findByIdAndDelete(req.params.id);
+  const event = await Event.findByIdAndDelete(req.params.id).populate('user');
 
   if (!event) {
     return next(
@@ -103,7 +105,7 @@ export const deleteAllEvents = asyncHandler(async (req, res, next) => {
 
   const {user}=req.body
 
-  const event = await Event.deleteMany({user});
+  const event = await Event.deleteMany({user}).populate('user');
 
   if (!event) {
     return next(
@@ -121,7 +123,7 @@ export const deleteAllEventsForContact = asyncHandler(async (req, res, next) => 
 
   const {contact,user}=req.body
 
-  const event = await Event.deleteMany({contact,user});
+  const event = await Event.deleteMany({contact,user}).populate('user');
 
   if (!event) {
     return next(

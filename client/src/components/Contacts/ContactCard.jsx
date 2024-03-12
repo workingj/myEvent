@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
 import defaultAvatar from "../../assets/defaultAvatar.svg";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useAuth } from "../../Context/MyEventContext";
 
 export default function ContactCard({
   Contact: contact,
@@ -15,7 +18,9 @@ export default function ContactCard({
 
   return (
     <div name="ContactCard" className="ContactCard">
-      <DefaultAvatar Contact={contact} />
+      <DefaultAvatar Contact={contact}
+    
+      />
       <h3 className="cName">
         {contact.firstName} {contact.lastName}
       </h3>
@@ -40,13 +45,91 @@ export default function ContactCard({
 }
 
 function DefaultAvatar({ Contact }) {
+
+  const [avatarPopup, setAvatarPopup] = useState(false);
+  const [file, setFile] = useState(null);
+  const { userData } = useAuth();
+
+  const [changImage, setChangImage] = useState(false);
+
+
+   // -------------------avatar change--------------
+   const handleAvatarChange = () => {
+   
+    if (!file) {
+      toast.error("please select a Card to upload");
+     
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+    const VITE_API_URL = import.meta.env.VITE_API_URL;
+    console.log("file: ", file);
+    try {
+      axios
+        .put(`${VITE_API_URL}/test/upload/${Contact._id }`, formData)
+        .then((res) => {
+          console.log(res);
+          setChangImage(!changImage)
+          toast.success("Avatar updated successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Avatar not updated");
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div name="DefaultAvatar" className="DefaultAvatar">
+    <div name="DefaultAvatar" className="DefaultAvatar cursor-pointer"
+    onClick={() =>
+      setAvatarPopup(!avatarPopup)
+    
+    }
+    >
       <span className="initialen">
-        {Contact.firstName[0]}
-        {Contact.lastName[0]}
+        {Contact.image ? "" : Contact.firstName[0]}
+        {Contact.image ? "" : Contact.lastName[0]}
       </span>
-      <img src={defaultAvatar} alt="" />
+      <img src={Contact.image ? Contact.image : defaultAvatar
+
+      } alt="" />
+      {avatarPopup && (
+      <div className="popup" onClick={() => setAvatarPopup(!avatarPopup)}>
+        <div className="popupInner" onClick={(e) => e.stopPropagation()}>
+          <h3>Change Avatar</h3>
+          <span className="hCenter">
+            <input type="file" className=" shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+            "  onChange={(e) => 
+              setFile(e.target.files[0])
+              }/>
+          </span>
+          <span className="hCenter">
+            <button
+              className="okBtn"
+              onClick={() => {
+                handleAvatarChange();
+                setAvatarPopup(!avatarPopup);
+              }}
+            >
+              Ok
+            </button>
+            <button
+              className="cancelBtn"
+              onClick={() => setAvatarPopup(false)}
+            >
+              Cancel
+            </button>
+          </span>
+        </div>
+      </div>
+    )}
     </div>
+ 
+
   );
+
+  // 
 }

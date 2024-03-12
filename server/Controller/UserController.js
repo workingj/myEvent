@@ -17,7 +17,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
   
 
   } = req.body;
-  const existingUser = await User.findOne({ email }).populate("user");
+  const existingUser = await User.findOne({ email });
   const existingUsername = await User.findOne({ username });
   if (existingUsername)
     throw new ErrorResponse(

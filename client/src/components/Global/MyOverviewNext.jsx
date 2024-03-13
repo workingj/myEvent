@@ -127,7 +127,7 @@ function MyOverviewNext({ handleButtonClick }) {
               <tbody className=" border-0">
                 {filteredEvents &&
                   filteredEvents.map((event) => (
-                    <tr className="  rounded-full shadow-xl shadow-gray-500  bg-white bg-opacity-80 mx-4 hover:cursor-pointer" key={event._id} onClick={()=>navigate('/myevents')}>
+                    <tr className="  rounded-full shadow-xl shadow-gray-400  bg-white bg-opacity-80 mx-4 hover:cursor-pointer" key={event._id} onClick={()=>navigate('/myevents')}>
                       <td className=" px-4 py-2">
                         {contacts &&
                         contacts.find(

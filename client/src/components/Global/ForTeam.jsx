@@ -7,9 +7,11 @@ function ForTeam() {
   
   const { t } = useTranslation();
   return (
-    <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-      <div>
-        <h2>{t("Our Team")}</h2>
+    <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+    <h2>{t("Our Team")}</h2>
+    <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
+
+
         <p>
           {t("We are a team of developers, designers, and creators. We are passionate about creating tools that help people connect and communicate. We believe that the best tools are simple, intuitive, and easy to use. We are constantly working to improve our products and services, and we welcome your feedback and suggestions. If you have any questions or comments, please don't hesitate to contact us.")}
         </p>

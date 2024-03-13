@@ -17,12 +17,17 @@ const onSelectHandler=(e)=>{
 const navigate = useNavigate();
   return (
     <>
-        <div className="container mt-20 mx-auto max-w-6xl rounded-xl shadow-xl shadow-gray-500  bg-white bg-opacity-80">
-<div className="flex justify-center items-center min-h-auto">
+
+<div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+      <h2>Donate</h2>
+      <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
+
+    
+   
     <div className="h-[650px] my-10 w-96 md:w-4/5 bg-white rounded-lg md:rounded-lg">
         <div className="flex h-full w-full">
             <div className="h-full p-3 rounded-lg w-full bg-white">
-                <p className="font-semibold text-xl mt-2 text-purple-800 text-center"> Would you like to donate?</p>
+                <p className="font-semibold text-xl mt-2 text-purple-800 text-center"> Would you like to C?</p>
                 <div className="mt-4 w-full flex flex-col">
                     <div className="flex gap-2 w-full">
                        

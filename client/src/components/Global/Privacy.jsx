@@ -8,8 +8,13 @@ const Privacy = () => {
   const { t } = useTranslation(); 
 
   return (
-    <div className="container mx-auto my-8">
-      <h1 className="text-3xl font-bold mb-4">{t("Privacy Policy")}</h1>
+
+    <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+    <h2>{t("Privacy Policy")}</h2>
+    <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
+
+
+
       <p className="mb-4">{t("Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you across our website, https://www.myevents.com, and other sites we own and operate.")}</p>
 
       <p className="mb-4">{t("We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we're collecting it and how it will be used.")}</p>
@@ -28,6 +33,7 @@ const Privacy = () => {
 
         }}  
         />
+    </div>
     </div>
   );
 };

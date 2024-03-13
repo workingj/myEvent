@@ -7,6 +7,7 @@ import { useAuth } from "../../Context/MyEventContext";
 import axios from "axios";
 import Menu from "./Menu";
 import { toast } from "react-toastify";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -47,12 +48,21 @@ const Navbar = () => {
       </div>
       {showMenu && <Menu setShowMenu={setShowMenu} />}
       <div className="navbar flex items-center space-x-4 flex-grow">
+        <div className="">
+          <Link to="/home">
+            {/* <img src="/src/assets/favicon.svg" alt="SharedTravelLogo" /> */}
+            <img src={logo} alt="SharedTravelLogo" className="logoHeader" />
+          </Link>
+        </div>
         <div>
-          <label className="label font-oleo font-bold py-2 px-4
-          ">{t("Select language")}:</label>
-          <select onChange={(e) => changeLanguage(e.target.value)} className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">
-          
-            <option key="en" value="en" className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end"
+          <select
+            onChange={(e) => changeLanguage(e.target.value)}
+            className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+          >
+            <option
+              key="en"
+              value="en"
+              className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end"
             >
               EN
             </option>
@@ -60,12 +70,6 @@ const Navbar = () => {
               DE
             </option>
           </select>
-        </div>
-        <div className="w-12 h-12 overflow-hidden flex justify-center">
-          <Link to="/">
-            {/* <img src="/src/assets/favicon.svg" alt="SharedTravelLogo" /> */}
-            <img src="/src/assets/logo-3.png" alt="SharedTravelLogo" className="logoHeader"/>
-          </Link>
         </div>
         <ul className="flex items-center space-x-4 flex-grow">
           <Link to="/home">
@@ -76,14 +80,16 @@ const Navbar = () => {
         </ul>
         <div className="flex items-center space-x-4 gap-4 flex-grow justify-end">
           <div className="space-x-4">
-            {isLoggedIn &&<Link to="/home">
-              <button
-                className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
-                onClick={() => setOverview(true)}
-              >
-                {t("Home")}
-              </button>
-            </Link>}
+            {isLoggedIn && (
+              <Link to="/home">
+                <button
+                  className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+                  onClick={() => setOverview(true)}
+                >
+                  {t("Home")}
+                </button>
+              </Link>
+            )}
             <Link to="/privacy">
               <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">
                 {t("Privacy")}

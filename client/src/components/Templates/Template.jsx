@@ -242,7 +242,7 @@ function Template() {
                   </th>
                   <td className="px-6 py-4">
                     <img
-                      className=" hover:scale-110 text-xs"
+                      className="w-80 h-4 hover:scale-110 text-xs"
                       src={e.images}
                       alt="No Image"
                       width="100rem"

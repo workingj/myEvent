@@ -169,8 +169,10 @@ function MyEvents({ handleButtonClick }) {
   }, [animationPopup]);
 
   return (
-    <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-      <h2>{t("MY EVENTS")}</h2>
+
+    <div className=" m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+      <h2>{t('MY EVENTS')}</h2>
+
       <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
         <div
           className="addEventBtn cursor-pointer border rounded-md border-gray-400"
@@ -231,22 +233,33 @@ function MyEvents({ handleButtonClick }) {
         {loading ? (
           <SpinnerDotted size="100" color="#686769" />
         ) : (
-          <table className="table-auto">
-            <thead>
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead  className="text-xs text-gray-700 uppercase 
+              dark:text-gray-400 ">
+              
               <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">{t("Title")}</th>
-                <th className="px-4 py-2">{t("Content")}</th>
-                <th className="px-4 py-2">{t("image")}</th>
-                <th className="px-4 py-2">{t("Date")}</th>
-                <th className="px-4 py-2">{t("Action")}</th>
+
+                <th scope="col" className="px-4 py-2">Name</th>
+                <th scope="col" className="px-4 py-2">{t('Title')}</th>
+                <th scope="col" className="px-4 py-2">{t('Content')}</th>
+                <th scope="col" className="px-4 py-2">{t('image')}</th>
+                <th scope="col" className="px-4 py-2">{t('Date')}</th>
+                <th scope="col" className="px-4 py-2">{t('Action')}</th>
+
               </tr>
+               
             </thead>
             <tbody>
               {filteredEvents &&
                 filteredEvents.map((event) => (
-                  <tr key={event._id}>
-                    <td className="border px-4 py-2">
+                    
+                  <tr key={event._id} className=" rounded-full shadow-xl shadow-gray-500  bg-white bg-opacity-80 mx-4 hover:cursor-pointer ">
+                    {/* <td className="w-4 p-4"> */}
+                    <th
+                    scope="row"
+                    className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black w-40"
+                  >
                       {contacts &&
                       contacts.find((contact) => contact._id === event.contact)
                         ? contacts.find(
@@ -257,14 +270,25 @@ function MyEvents({ handleButtonClick }) {
                             (contact) => contact._id === event.contact
                           ).lastName
                         : "Unknown Contact"}
-                    </td>
-                    <td className="border px-4 py-2">{event.title}</td>
-                    <td className="border px-4 py-2">
+                        </th>
+                    {/* </td> */}
+                    {/* <td className="border px-4 py-2">{event.title}</td> */}
+                    <th
+                    scope="row"
+                    className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black w-40"
+                  >{event.title}
+                    </th>
+                    <td >
+                      <p className="text-justify">
                       {event.text && event.text.length > 50
                         ? event.text.substring(0, 100) + "..."
-                        : event.text}
+
+                        : event.text
+                      }
+                      </p>
+
                     </td>
-                    <td className="border px-4 py-2">
+                    <td className=" px-4 py-2">
                       <img
                         id="image"
                         src={event.image}
@@ -273,15 +297,15 @@ function MyEvents({ handleButtonClick }) {
                         onClick={showImage}
                       />
                     </td>
-                    <td className="border px-4 py-2">
+                    <td className=" px-4 py-2">
                       {formatDate(event.actionDate)}
                       {` @ ${event.time}`}
                     </td>
-                    <td className="border px-4 py-2">
-                      <div
-                        className="flex justify-center items-center gap-2 
-                         flex-wrap"
-                      >
+
+                    <td className=" px-4 py-2">
+                      <div className="flex justify-left items-center gap-2 
+                         flex-wrap">
+
                         <button
                           className="btn editBtn"
                           onClick={() => {
@@ -308,9 +332,11 @@ function MyEvents({ handleButtonClick }) {
                       </div>
                     </td>
                   </tr>
+                    
                 ))}
             </tbody>
           </table>
+          </div>
         )}
         {addPopup && (
           <AddEvent handleCancel={handleCancel} setAddPopup={setAddPopup} />

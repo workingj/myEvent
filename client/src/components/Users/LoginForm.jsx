@@ -53,7 +53,7 @@ function LoginForm() {
         checkUser();
         setIsLoggedIn(true);
         navigate("/home");
-        reverseTimer(1);
+        reverseTimer(31);
       }
     } catch (error) {
       setError(error.response.data.message);

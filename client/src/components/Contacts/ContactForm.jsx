@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { AddDatePopup } from "./ContactPopup.jsx";
 import { useTranslation } from "react-i18next";
 
-
-
 export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
   const { t } = useTranslation();
   const [load, setLoad] = useState(false);
@@ -32,7 +30,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
       }}
     >
       <span>
-        <label htmlFor="email">{t('Email:')}</label>
+        <label htmlFor="email">{t("Email")}</label>
         <input
           type="email"
           name="email"
@@ -41,7 +39,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
         />
       </span>
       <span>
-        <label htmlFor="firstName">{t('First Name:')}</label>
+        <label htmlFor="firstName">{t("First Name:")}</label>
         <input
           type="text"
           name="firstName"
@@ -98,26 +96,26 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
           contact.dates.map((date) => {
             return (
               <>
-              <span>
-                <label htmlFor={date.title}>{date.title}</label>
-                <input
-                  type="date"
-                  name={date.title}
-                  value={date.value.slice(0, 10)}
-                  onChange={(e) => {
-                    const data = contact;
+                <span>
+                  <label htmlFor={date.title}>{date.title}</label>
+                  <input
+                    type="date"
+                    name={date.title}
+                    value={date.value.slice(0, 10)}
+                    onChange={(e) => {
+                      const data = contact;
 
-                    data.dates.map((dataDate) => {
-                      console.log(dataDate.value, e.target.value);
-                      dataDate.title == date.title &&
-                        (dataDate.value = e.target.value);
-                    });
+                      data.dates.map((dataDate) => {
+                        console.log(dataDate.value, e.target.value);
+                        dataDate.title == date.title &&
+                          (dataDate.value = e.target.value);
+                      });
 
-                    setContact(data);
-                    setLoad(!load);
-                  }}
-                />
-              </span>
+                      setContact(data);
+                      setLoad(!load);
+                    }}
+                  />
+                </span>
               </>
             );
           })}
@@ -130,24 +128,25 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
               setAddDatePopup(true);
             }}
           >
-         {t('Add Date')}
+            {t("Add Date")}
           </button>
         </span>
       </div>
       <span className="vSpace"></span>
       <span className="hCenter">
         <button type="submit" className="btn okBtn btnSizeB">
-          {t('Ok')}
+          {t("Ok")}
         </button>
-        <button className="btn cancelBtn btnSizeB" onClick={(e) => handleCancel(e)}>
+        <button
+          className="btn cancelBtn btnSizeB"
+          onClick={(e) => handleCancel(e)}
+        >
           Cancel
         </button>
       </span>
       {addDatePopup && (
         <AddDatePopup
           closePopup={(e) => {
-            
-          
             setAddDatePopup(false);
           }}
           contact={contact}

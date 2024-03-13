@@ -174,18 +174,18 @@ function CreateTemplate({
               </div>
               {updateFlag !== true ? <button
                 type="submit"
-                className="bg-black hover:bg-gray-600 rounded-full p-3 mt-2 text-white font-bold"
+                className="btn okBtn btnSizeB"
               >
                 Submit
               </button> :
                 <button
                   onClick={handleUpdate}
-                  className="bg-black hover:bg-gray-600 rounded-full p-3 mt-2 text-white font-bold"
+                  className="btn okBtn btnSizeB"
                 >
                   Update
                 </button>}
               <button
-                className="bg-gray-400 hover:bg-black rounded-full p-3 m-4 text-white font-bold"
+                className="btn cancelBtn btnSizeB"
                 onClick={handleCancelButtonClick}
               >
                 Cancel

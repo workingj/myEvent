@@ -37,7 +37,7 @@ export const uploadImage = asyncHandler (async (req, res, next) => {
     name: req.headers.name,
     url: req.file.path,
     price: req.headers.price,
-  }).papulate('user');
+  });
 
   res.status(201).json({ success: true, data: image });
 });

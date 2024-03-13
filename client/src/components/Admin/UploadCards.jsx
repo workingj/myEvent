@@ -55,36 +55,42 @@ function UploadCards() {
 
   return  (
     isLoggedIn && userData.role ==="admin" ? (
-    <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-    <h2>Upload Gift Cards</h2>
-    <div
-      className=" container m-4 text-center flex justify-center items-center flex-col gap-5 w-full"  >
+      <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
+      <h2>Upload Gift Cards</h2>
+      <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
+    
       
    <form onSubmit= {handleUpload} className='flex flex-col gap-4 w-full items-center justify-center'
    >
    <label htmlFor="name" 
-   >Name</label>
+   >Name:</label>
     <input
     className='w-1/2 p-2 border border-gray-300 rounded-md'
       type="text"
       name="name"
       value={infoCard.name}
       onChange={handleChanges}
+      placeholder='Name of the card'
     />
-    <label htmlFor="price">Price</label>
+    <label htmlFor="price">Price:</label>
     <input
     className='w-1/2 p-2 border border-gray-300 rounded-md'
       type="number"
       name="price"
       value={infoCard.price}
       onChange={handleChanges}
+      placeholder='Price of the card'
     />
 
     <input type='file' name='file' onChange={(e) => setFile(e.target.files[0])} 
-    className='w-1/2 p-2 border border-gray-300 rounded-md cursor-pointer'
+    className='w-1/2 p-2 border border-gray-300 rounded-md cursor-pointer 
+    bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-semibold 
+    focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75
+    '
+    placeholder='Select a file to upload'
     />
     <button type='submit'
-    className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer'
+    className='btn okBtn btnSizeB'
     >Upload</button>
   </form>
 

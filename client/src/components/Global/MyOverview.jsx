@@ -7,7 +7,7 @@ import { SpinnerDotted } from "spinners-react";
 
 function MyOverview({ handleButtonClick }) {
   // const [allEvents, setAllEvents] = useState([]);
-  const { contacts, setContacts, allEvents, setAllEvents, userData, template } =
+  const { contacts, setContacts, allEvents, setAllEvents, userData, template,isLoggedIn } =
     useAuth();
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [editPopup, setEditPopup] = useState(false);
@@ -29,13 +29,7 @@ function MyOverview({ handleButtonClick }) {
     return date.toISOString().split("T")[0];
   };
 
-  useEffect(() => {
   
-    if (allEvents.length >= 0) {
-      setFilteredEvents(allEvents.filter(e => e.active ===false).slice(0, 10));
-    }
- 
-  }, [allEvents, addPopup, editPopup, deletePopup]);
 
   // fetshing gift api from
 
@@ -66,6 +60,7 @@ function MyOverview({ handleButtonClick }) {
 
   useEffect(() => {
     const fetchEvents = async () => {
+      if(isLoggedIn){
       try {
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}/user/events`,
@@ -89,10 +84,19 @@ function MyOverview({ handleButtonClick }) {
         console.error("Error fetching events:", error);
       }
  
-      console.log('allevents',allEvents);
+    } else {setError("Error fetching data");}
     };
     fetchEvents();
   }, [addPopup, editPopup, deletePopup]);
+
+
+  useEffect(() => {
+  
+    if (allEvents.length >= 0) {
+      setFilteredEvents(allEvents.filter(e => e.active ===false).slice(0, 10));
+    }
+ 
+  }, [allEvents, addPopup, editPopup, deletePopup]);
 
   const navigate = useNavigate();
   const [event, setEvent] = useState({

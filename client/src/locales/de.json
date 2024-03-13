@@ -1,0 +1,111 @@
+
+{
+  "Our Team": "Unser Team",
+  "We are a team of developers, designers, and creators. We are passionate about creating tools that help people connect and communicate. We believe that the best tools are simple, intuitive, and easy to use. We are constantly working to improve our products and services, and we welcome your feedback and suggestions. If you have any questions or comments, please don't hesitate to contact us.": "Wir sind ein Team von Entwicklern, Designern und Kreativen. Wir sind leidenschaftlich darum bemüht, Tools zu entwickeln, die Menschen dabei helfen, sich zu verbinden und zu kommunizieren. Wir glauben, dass die besten Werkzeuge einfach, intuitiv und benutzerfreundlich sind. Wir arbeiten ständig daran, unsere Produkte und Dienstleistungen zu verbessern, und wir freuen uns über Ihr Feedback und Ihre Vorschläge. Wenn Sie Fragen oder Anmerkungen haben, zögern Sie bitte nicht, uns zu kontaktieren.",
+  "We are here to help you and we look forward to hearing from you!": "Wir sind hier, um Ihnen zu helfen, und freuen uns darauf, von Ihnen zu hören!",
+  "Privacy Policy": "Datenschutzrichtlinie",
+  "Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you across our website, https://www.myevents.com, and other sites we own and operate.": "Ihre Privatsphäre ist uns wichtig. Es ist unsere Politik, Ihre Privatsphäre in Bezug auf alle Informationen zu respektieren, die wir von Ihnen auf unserer Website, https://www.myevents.com, und anderen Websites, die wir besitzen und betreiben, sammeln können.",
+  "We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we're collecting it and how it will be used.": "Wir fragen nur nach persönlichen Informationen, wenn wir sie wirklich benötigen, um Ihnen einen Service anzubieten. Wir sammeln sie auf faire und rechtliche Weise, mit Ihrem Wissen und Ihrer Zustimmung. Wir informieren Sie auch darüber, warum wir sie sammeln und wie sie verwendet werden.",
+
+  "Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.": "Ihre fortgesetzte Nutzung unserer Website wird als Zustimmung zu unseren Praktiken im Bereich Datenschutz und persönliche Informationen betrachtet. Wenn Sie Fragen dazu haben, wie wir Benutzerdaten und persönliche Informationen behandeln, können Sie uns gerne kontaktieren.",
+  "This policy is effective as of 1 March 2024.": "Diese Richtlinie ist ab dem 1. März 2024 gültig.",
+  "My Events": "Meine Anlässe",
+  "Home": "Startseite",
+  "Privacy": "Datenschutz",
+  "Team": "Team",
+  "Donate": "Spenden",
+  "Logout": "Abmelden",
+  "Sign in": "Anmelden",
+  "Register": "Registrieren",
+  "Dashboard": "Dashboard",
+ 
+  "Contacts": "Kontakte",
+  "Templates": "Vorlagen",
+  "Upload Cards": "Karten hochladen",
+  "Settings": "Einstellungen",
+
+  "Filter for Contacts:": "Filter für Kontakte:",
+  "All contact": "Alle Kontakte",
+  "Name": "Name",
+  "Title": "Titel",
+  "Content": "Inhalt",
+  "image": "Bild",
+  "Date": "Datum",
+  "Action": "Aktion",
+  "Edit": "Bearbeiten",
+  "Delete": "Löschen",
+  "Do you want to delete this event?": "Möchten Sie diese Veranstaltung wirklich löschen?",
+  "Profile Settings": "Profil-Einstellungen",
+  "First Name": "Vorname",
+  "Last Name": "Nachname",
+  "Email": "E-Mail",
+  "Birthday": "Geburtstag",
+  "Balance": "Kontostand",
+  "Charge your balance?": "Kontostand aufladen?",
+  "purchase": "kaufen",
+  "Avatar": "Profilbild",
+  "Upload": "Hochladen",
+  "Change Password": "Passwort ändern",
+  "Do you want to delete your account?": "Möchten Sie Ihr Konto löschen?",
+  "Click here": "Klicken Sie hier",
+  "Save": "Speichern",
+  "Cancel": "Abbrechen",
+  "Delete Account?": "Konto löschen?",
+  "Enter email and password to delete your account": "Geben Sie E-Mail und Passwort ein, um Ihr Konto zu löschen",
+  "Email:": "E-Mail:",
+  "Password:": "Passwort:",
+  "Yes": "Ja",
+  "No": "Nein",
+  "ContactCard": {
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "changeAvatar": "Avatar ändern"
+  },
+  "DefaultAvatar": {
+    "changeAvatar": "Avatar ändern"
+  },
+  "popup": {
+    "changeAvatar": "Avatar ändern",
+    "ok": "Ok",
+    "cancel": "Abbrechen"
+  },
+  "toastMessages": {
+    "selectImage": "Bitte wählen Sie ein Bild zum Hochladen aus",
+    "uploadSuccess": "Avatar erfolgreich aktualisiert",
+    "uploadError": "Avatar konnte nicht aktualisiert werden"
+  },
+  "contactCard": {
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "changeAvatar": "Avatar ändern"
+  },
+  "defaultAvatar": {
+    "changeAvatar": "Avatar ändern"
+  },
+
+  
+  "Welcome": "Willkommen",
+  "Select language": "Sprache auswählen",
+  "settings": "Einstellungen",
+  "templates": "Meine Vorlagen",
+  "searchForItems": "Nach Elementen suchen",
+  "createNewTemplate": "Eine neue Vorlage erstellen",
+  "templateTitle": "Vorlagentitel",
+
+  "content": "Inhalt",
+  "type": "Typ",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "successfullyDeleted": "Erfolgreich gelöscht!",
+  "deleteWasNotSuccessful": "Löschen war nicht erfolgreich!",
+  "confirmDelete": "Möchten Sie fortfahren? Geben Sie 'ja' ein, um zu bestätigen.",
+  "userConfirmed": "Benutzer bestätigt!",
+  "userCanceled": "Benutzer hat abgebrochen oder eine ungültige Antwort eingegeben.",
+  "popupChangeAvatar": "Avatar ändern",
+  "ok": "OK",
+  "cancel": "Abbrechen",
+  "selectImage": "Bitte wählen Sie ein Bild zum Hochladen aus",
+  "uploadSuccess": "Avatar erfolgreich aktualisiert!",
+  "uploadError": "Avatar nicht aktualisiert",
+  "Image": "Bild"
+}

@@ -8,8 +8,12 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import validator from "validator";
 import { AddPopup, EditPopup, DateTitlePopup } from "./ContactPopup.jsx";
+import { useTranslation } from "react-i18next";
+
+
 
 export default function Contacts() {
+  const { t } = useTranslation();
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -61,7 +65,7 @@ export default function Contacts() {
   return (
     <>
       <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-        <h2>CONTACTS</h2>
+        <h2>{t('CONTACTS')}</h2>
         <div className="Container">
           <AddContactCard handleAdd={handleAdd} />
           {contacts &&

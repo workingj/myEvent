@@ -49,7 +49,7 @@ const Navbar = () => {
       {showMenu && <Menu setShowMenu={setShowMenu} />}
       <div className="navbar flex items-center space-x-4 flex-grow">
         <div className="">
-          <Link to="/">
+          <Link to="/home">
             {/* <img src="/src/assets/favicon.svg" alt="SharedTravelLogo" /> */}
             <img src={logo} alt="SharedTravelLogo" className="logoHeader" />
           </Link>

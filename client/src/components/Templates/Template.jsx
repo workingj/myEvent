@@ -184,7 +184,7 @@ function Template() {
               {userData.role === "admin" && (
                 <button
                   type="submit"
-                  className="bg-black hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
+                  className="btn editBtn"
                   onClick={handleshowCreateTemplate}
                 >
                   {t('Create a new Template')}
@@ -258,7 +258,7 @@ function Template() {
                     {userData.role === "admin" && (
                       <a
                         href="#"
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline p-2"
+                        className="btn editBtn"
                         onClick={() => {
                           setToEditData({
                             title: e.title,
@@ -277,7 +277,7 @@ function Template() {
                     {userData.role === "admin" && (
                       <a
                         href="#"
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline p-2"
+                        className="btn deleteBtn"
                         onClick={() => {
                           onDelete(e._id);
                           setToEditData({});

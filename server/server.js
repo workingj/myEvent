@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // CONFIGURE EXPRESS
-app.use(cors({ origin: 'https://myevent-myfork.onrender.com', credentials: true }));
+app.use(cors({ origin: 'https://my-wbs-event.netlify.app', credentials: true }));
 app.use(express.json());
 
 // COOKIES

@@ -8,7 +8,7 @@ async function sendMail(mailAddr, subject, htmlText) {
     form.append('subject', subject);
     form.append('html', htmlText);
 
-    const domainName = `${process.env.MAILGUN_API_KEY}.mailgun.org`;
+    const domainName = `${process.env.MAILGUN_API_DOMAIN}`;
     const resp = await fetch(
         `https://api.mailgun.net/v3/${domainName}/messages`,
         {

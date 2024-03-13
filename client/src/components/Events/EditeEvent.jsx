@@ -17,6 +17,23 @@ function EditeEvent({ handleCancel, id, setEditPopup }) {
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const navigate = useNavigate();
+
+ // activate event by id
+ const activateEvent = async (id) => {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_URL}/user/events/activate/${id}`
+    );
+    console.log(response);
+    if (response.status === 200) {
+     console.log("Event activated");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
@@ -40,6 +57,9 @@ function EditeEvent({ handleCancel, id, setEditPopup }) {
           time: "",
         });
         setSending(false);
+        activateEvent(id);
+       
+        
         setEditPopup(false);
         navigate("/myevents");
       }

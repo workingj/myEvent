@@ -22,6 +22,9 @@ eventRouter.route('/:id')
     .put(eventController.updateEvent)
     .delete(eventController.deleteEvent);
 
+eventRouter.route('/activate/:id')
+    .put(eventController.activateEvent);
+
 
 
 

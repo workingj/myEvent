@@ -132,6 +132,26 @@ export const deleteAllEventsForContact = asyncHandler(async (req, res, next) => 
   }
 });
 
+// @desc    activate event by active field
+// @route   PUT /events/activate/:id
+// @access  Private
+export const activateEvent = asyncHandler(async (req, res, next) => {
+  const event = await Event.findByIdAndUpdate
+  (req.params.id, {active:true}, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!event) {
+    return next(
+      new ErrorResponse(`Event not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  res.status(200).json({ success: true, data: event });
+}
+);
+
 
 
 

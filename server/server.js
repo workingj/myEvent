@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // CONFIGURE EXPRESS
-app.use(cors({ origin: 'https://my-wbs-event.netlify.app', credentials: true }));
+app.use(cors({ origin: 'https://my-event-beta.vercel.app', credentials: true }));
 // app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 

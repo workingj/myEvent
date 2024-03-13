@@ -38,7 +38,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
     avatar,
     role,
 
-  }).papulate("user");
+  });
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });

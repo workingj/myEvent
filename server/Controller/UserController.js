@@ -14,7 +14,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
     birthDate,
     avatar,
     role,
-  
+
 
   } = req.body;
   const existingUser = await User.findOne({ email });
@@ -37,7 +37,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
     birthDate,
     avatar,
     role,
-   
+
   }).papulate("user");
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
@@ -61,26 +61,26 @@ export const updateUser = asyncHandler(async (req, res, next) => {
   } = req;
   console.log(req.body);
   const user = await User.findByIdAndUpdate
-  (id, body, {
-    new: true,
-    runValidators: true,
-  });
+    (id, body, {
+      new: true,
+      runValidators: true,
+    });
   if (!user) throw new ErrorResponse(`User ${id} does not exist`, 404);
   res.json(user);
 });
 
 
 export const deleteUser = asyncHandler(async (req, res, next) => {
-const id = req.params.id;
-const {email, password} = req.body;
+  const id = req.params.id;
+  const { email, password } = req.body;
   const found = await User.findById(id).select("+password");
   if (!found) throw new ErrorResponse(`User ${id} does not exist`, 404);
 
   const match = await bcrypt.compare(password, found.password);
-  console.log(match? 'Password match': 'Password does not match');
+  console.log(match ? 'Password match' : 'Password does not match');
   if (!match) throw new ErrorResponse("Password is not correct", 401);
   if (found.email !== email) throw new ErrorResponse("Email is not correct", 401);
-  
+
 
   await User.findByIdAndDelete(id);
   res.json({ success: `User ${id} was deleted` });
@@ -89,7 +89,7 @@ const {email, password} = req.body;
 
 //Login
 export const login = asyncHandler(async (req, res, next) => {
-  
+
   const { email, password } = req.body;
   const isUserExist = await User.findOne({ email }).select("+password");
   if (!isUserExist) throw new Error("Email doest not exist", 404);
@@ -99,7 +99,13 @@ export const login = asyncHandler(async (req, res, next) => {
     expiresIn: "30m",
   });
 
-  res.cookie("token", token, { maxAge: 1800000 }); //30min, with Cookie schould use ms
+  // res.cookie("token", token, { maxAge: 1800000 }); //30min, with Cookie schould use ms
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+    maxAge: 1800000,
+  });
   res.send({ status: "success" });
 });
 
@@ -113,7 +119,12 @@ export const getUser = asyncHandler(async (req, res, next) => {
 //Logout
 
 export const logout = asyncHandler(async (req, res, next) => {
-  res.clearCookie("token");
+  // res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+  });
   res.send({ status: "success" });
 });
 
@@ -136,14 +147,14 @@ export const logout = asyncHandler(async (req, res, next) => {
 //     await User.findByIdAndUpdate(id, { password: hash });
 //     res.send({ status: "success" });
 //   } catch (error) {
- 
+
 //     throw new ErrorResponse("Error updating password", 500);
 //   }
-  
+
 // }
 // );
 export const changePassword = asyncHandler(async (req, res, next) => {
-  const { oldPassword, newPassword} = req.body;
+  const { oldPassword, newPassword } = req.body;
   const { id } = req.params;
   console.log(req.body);
   console.log(req.params);
@@ -155,9 +166,9 @@ export const changePassword = asyncHandler(async (req, res, next) => {
   if (!match) {
     throw new ErrorResponse("Password does not match", 401);
   }
-  
 
-  
+
+
   const hash = await bcrypt.hash(newPassword, 10);
   await User.findByIdAndUpdate(id, {
     password: hash,
@@ -179,7 +190,7 @@ export const getImage = asyncHandler(async (req, res, next) => {
 export const uploadImage = asyncHandler(async (req, res, next) => {
   const user =
     await User.findByIdAndUpdate(req.params.id, { avatar: req.file.path });
- console.log('file: '+req.file.path);
+  console.log('file: ' + req.file.path);
   if (!user) throw new ErrorResponse(`User ${req.params.id} does not exist`, 404);
   res.json(user.avatar);
 }

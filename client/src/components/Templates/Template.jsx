@@ -105,9 +105,9 @@ function Template() {
 
   useEffect(() => {
     const token = Cookies.get("token");
-    if (token) {
+  
       fetchData();
-    }
+   
   }, []);
 
   useEffect(() => {

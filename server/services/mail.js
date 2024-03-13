@@ -8,13 +8,13 @@ async function sendMail(mailAddr, subject, htmlText) {
     form.append('subject', subject);
     form.append('html', htmlText);
 
-    const domainName = `${process.env.MAILGUN_API_KEY}.mailgun.org`;
+    const domainName = `${process.env.MAILGUN_API_DOMAIN}`;
     const resp = await fetch(
         `https://api.mailgun.net/v3/${domainName}/messages`,
         {
             method: 'POST',
             headers: {
-                Authorization: 'Basic ' + Buffer.from('api:7c31eba44409c6fe1cafe066b57fa3fc-2c441066-45c05334').toString('base64')
+                Authorization: 'Basic ' + Buffer.from(`api:${process.env.MAILGUN_API_KEY}`).toString('base64')
             },
             body: form
         }

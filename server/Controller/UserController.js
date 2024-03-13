@@ -42,7 +42,15 @@ export const createUser = asyncHandler(async (req, res, next) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
-  res.status(201).json({ success: true, token });
+  // res.status(201).json({ success: true, token });
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+    maxAge: 1800000,
+  });
+  res.send({ status: "success" });
+
 });
 
 // export const getUser = asyncHandler(async (req, res, next) => {

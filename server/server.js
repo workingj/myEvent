@@ -18,7 +18,8 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // CONFIGURE EXPRESS
-app.use(cors({ origin: 'https://myevent-myfork.onrender.com', credentials: true }));
+// app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: 'https://my-event-myfork.vercel.app', credentials: true }));
 app.use(express.json());
 
 // COOKIES

@@ -32,6 +32,9 @@ function MyOverviewNext({ handleButtonClick }) {
   useEffect(() => {
     if (allEvents.length >= 0) {
       setFilteredEvents(allEvents.filter(e => e.active ===true).slice(0, 10));
+      return function cleanup() {
+        setFilteredEvents([]);
+      };
     }
   }, [allEvents, addPopup, editPopup, deletePopup]);
 

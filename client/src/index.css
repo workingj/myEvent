@@ -323,3 +323,9 @@ body {
 .Template thead tr:hover {
   border: none;
 }
+
+.logoHeader{
+  width :150px !important;
+  height: 150px;
+   
+}

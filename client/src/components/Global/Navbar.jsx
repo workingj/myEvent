@@ -24,6 +24,7 @@ const Navbar = () => {
         { withCredentials: true }
       );
       setIsLoggedIn(false);
+      navigate("/user/login");
       navigate("/");
     } catch (error) {
       toast.error("Error logging out");
@@ -60,6 +61,12 @@ const Navbar = () => {
             </option>
           </select>
         </div>
+        <div className="w-12 h-12 overflow-hidden flex justify-center">
+          <Link to="/">
+            {/* <img src="/src/assets/favicon.svg" alt="SharedTravelLogo" /> */}
+            <img src="/src/assets/logo-3.png" alt="SharedTravelLogo" className="logoHeader"/>
+          </Link>
+        </div>
         <ul className="flex items-center space-x-4 flex-grow">
           <Link to="/home">
             <li className="basis-1/4 hover:text-orange-300 text-white font-oleo font-bold py-2 px-4 ">
@@ -69,14 +76,14 @@ const Navbar = () => {
         </ul>
         <div className="flex items-center space-x-4 gap-4 flex-grow justify-end">
           <div className="space-x-4">
-            <Link to="/home">
+            {isLoggedIn &&<Link to="/home">
               <button
                 className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end "
                 onClick={() => setOverview(true)}
               >
                 {t("Home")}
               </button>
-            </Link>
+            </Link>}
             <Link to="/privacy">
               <button className="bg-black w-28 hover:bg-gray-500 rounded-full p-2 mt-1 text-white text-base ml-auto mx-3 items-end ">
                 {t("Privacy")}

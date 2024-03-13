@@ -30,9 +30,11 @@ function MyOverview({ handleButtonClick }) {
   };
 
   useEffect(() => {
+  
     if (allEvents.length >= 0) {
       setFilteredEvents(allEvents.filter(e => e.active ===false).slice(0, 10));
     }
+ 
   }, [allEvents, addPopup, editPopup, deletePopup]);
 
   // fetshing gift api from
@@ -55,6 +57,9 @@ function MyOverview({ handleButtonClick }) {
         setError("Error fetching data");
         setLoading(false);
       });
+      return function cleanup() {
+        setFilteredEvents([]);
+      };
   }, []);
 
   // -------------------get events---------------------

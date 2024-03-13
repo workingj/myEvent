@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // CONFIGURE EXPRESS
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: 'https://myevent-myfork.onrender.com', credentials: true }));
 app.use(express.json());
 
 // COOKIES
@@ -40,4 +40,4 @@ app.use(errorHandler);
 // LISTENER
 app.listen(PORT, () => console.log(`Server is running on port:${PORT}`));
 
-setInterval(processEvents, 1000 * 60 *5);
+setInterval(processEvents, 1000 * 60 * 5);

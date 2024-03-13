@@ -60,10 +60,7 @@ useEffect(() => {
 }, [changImage,userData]);
 
     useEffect(() => {
-      const token = Cookies.get('token');
-      if (token) {
         checkUser();
-      }
     },[])
  
 

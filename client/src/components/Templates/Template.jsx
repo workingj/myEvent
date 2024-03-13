@@ -8,10 +8,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
 import { useTranslation } from "react-i18next";
 
-
 function Template() {
-  
- const { t } = useTranslation();
+  const { t } = useTranslation();
   const { userData } = useAuth();
   const [templateData, setTemplateData] = useState([]);
   const [searchedData, setSearchedData] = useState("");
@@ -23,7 +21,6 @@ function Template() {
   const [toEditData, setToEditData] = useState({});
   const [showImage, setshowImage] = useState(false);
   const [imageToShow, setImageToShow] = useState("");
- 
 
   const onDelete = async (id) => {
     const userResponse = window.prompt(
@@ -105,21 +102,18 @@ function Template() {
 
   useEffect(() => {
     const token = Cookies.get("token");
-  
-      fetchData();
-   
+
+    fetchData();
   }, []);
 
   useEffect(() => {
     const token = Cookies.get("token");
-    if (token) {
-      searchData();
-    }
+    searchData();
   }, [searchedData, setSearchedData]);
 
   return showMainComponent ? (
     <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-      <h2>{t('MY TEMPLATES')}</h2>
+      <h2>{t("MY TEMPLATES")}</h2>
 
       <div className="Container Template  m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
         {/* Table */}
@@ -177,9 +171,9 @@ function Template() {
                 className=" mx-2 pt-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-40 h-10 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={handleChangeSelect}
               >
-                <option value="title">{t('Title')}</option>
-                <option value="content">{t('Content')}</option>
-                <option value="type">{t('Type')}</option>
+                <option value="title">{t("Title")}</option>
+                <option value="content">{t("Content")}</option>
+                <option value="type">{t("Type")}</option>
               </select>
               {userData.role === "admin" && (
                 <button
@@ -187,7 +181,7 @@ function Template() {
                   className="btn editBtn"
                   onClick={handleshowCreateTemplate}
                 >
-                  {t('Create a new Template')}
+                  {t("Create a new Template")}
                 </button>
               )}
             </div>
@@ -201,36 +195,33 @@ function Template() {
                 <th scope="col" className="p-4">
                   <div className="flex items-center">
                     <label htmlFor="checkbox-all-search" className="sr-only">
-                      {t('checkbox')}
+                      {t("checkbox")}
                     </label>
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  {t('Template Title')}
+                  {t("Template Title")}
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  {t('Image')}
+                  {t("Image")}
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  {t('Content')}
+                  {t("Content")}
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  {t('Type')}
+                  {t("Type")}
                 </th>
 
                 {userData.role === "admin" && (
                   <th scope="col" className="px-6 py-3 text-center">
-                    {t('Action')}
+                    {t("Action")}
                   </th>
                 )}
               </tr>
             </thead>
             <tbody>
               {templateData.map((e) => (
-                <tr
-                  key={e._id}
-                  className="bg-white border rounded-lg"
-                >
+                <tr key={e._id} className="bg-white border rounded-lg">
                   <td className="w-4 p-4">
                     <div className="flex items-center"></div>
                   </td>
@@ -271,7 +262,7 @@ function Template() {
                             onEdit();
                         }}
                       >
-                        {t('Edit')}
+                        {t("Edit")}
                       </a>
                     )}
                     {userData.role === "admin" && (
@@ -283,7 +274,7 @@ function Template() {
                           setToEditData({});
                         }}
                       >
-                        {t('Delete')}
+                        {t("Delete")}
                       </a>
                     )}
                   </td>

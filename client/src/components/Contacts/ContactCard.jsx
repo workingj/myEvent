@@ -3,12 +3,16 @@ import defaultAvatar from "../../assets/defaultAvatar.svg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/MyEventContext";
+import { useTranslation } from "react-i18next";
+
+
 
 export default function ContactCard({
   Contact: contact,
   handleEdit,
   handleDelete,
 }) {
+  const { t } = useTranslation();
   let date = new Date(contact.dates.birthday);
   date = `
     ${date.getDate().toString().padStart(2, "0")}.${date
@@ -30,7 +34,7 @@ export default function ContactCard({
         className="cBirthday"
         style={{ color: contact.dates.length === 0 ? "red" : "black" }}
       >
-        Dates: {contact.dates.length}
+        {t('Dates:')} {contact.dates.length}
       </span>
       <span className="cData">
         {contact.zipcode} {contact.city}
@@ -39,10 +43,10 @@ export default function ContactCard({
       <span className="vSpace">&nbsp;</span>
       <span>
         <button className="btn editBtn" onClick={() => handleEdit(contact)}>
-          Edit
+          {t('Edit')}
         </button>
         <button className="btn deleteBtn" onClick={() => handleDelete(contact)}>
-          Delete
+          {t('Delete')}
         </button>
       </span>
     </div>
@@ -54,8 +58,10 @@ function DefaultAvatar({ Contact }) {
   const [avatarPopup, setAvatarPopup] = useState(false);
   const [file, setFile] = useState(null);
   const { userData } = useAuth();
+  const { t } = useTranslation();
 
   const [changImage, setChangImage] = useState(false);
+  
 
 
    // -------------------avatar change--------------
@@ -119,13 +125,13 @@ function DefaultAvatar({ Contact }) {
                 setAvatarPopup(!avatarPopup);
               }}
             >
-              Ok
+              {t('Ok')}
             </button>
             <button
               className="cancelBtn"
               onClick={() => setAvatarPopup(false)}
             >
-              Cancel
+              {t('Cancel')}
             </button>
           </span>
         </div>

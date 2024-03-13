@@ -8,10 +8,13 @@ import AddEvent from "./AddEvent.jsx";
 import plus from "../../assets/plus.svg";
 import Lottie from 'lottie-react';
 import doneyAnimation from '../../../public/annimation/done.json';
+import { useTranslation } from "react-i18next";
 
 
 function MyEvents({ handleButtonClick }) {
   // const [allEvents, setAllEvents] = useState([]);
+  const { t } = useTranslation();
+
   const { contacts, setContacts, allEvents, setAllEvents, userData, template } =
     useAuth();
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -170,7 +173,7 @@ function MyEvents({ handleButtonClick }) {
 
   return (
     <div className="settings m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-      <h2>MY EVENTS</h2>
+      <h2>{t('MY EVENTS')}</h2>
       <div className="Container m-4 text-center flex justify-center items-center flex-col gap-5 w-full">
         <div
           className="addEventBtn cursor-pointer border rounded-md border-gray-400"
@@ -200,7 +203,7 @@ function MyEvents({ handleButtonClick }) {
 
         {/* show contacts in dropdown */}
         <div className="mb-4">
-          <strong className="block mb-2">Filter for Contacts:</strong>
+          <strong className="block mb-2">{t('Filter for Contacts:')}</strong>
           <select
             name="contact"
             value={event.contact}
@@ -216,7 +219,7 @@ function MyEvents({ handleButtonClick }) {
             }}
             className="border rounded w-full p-2"
           >
-            <option value="">All contact</option>
+            <option value="">{t('All contact')}</option>
             {Array.isArray(contacts) &&
               contacts.map((contact) => (
                 <option key={contact._id} value={contact._id}>
@@ -234,11 +237,11 @@ function MyEvents({ handleButtonClick }) {
             <thead>
               <tr>
                 <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Title</th>
-                <th className="px-4 py-2">Content</th>
-                <th className="px-4 py-2">image</th>
-                <th className="px-4 py-2">Date</th>
-                <th className="px-4 py-2">Action</th>
+                <th className="px-4 py-2">{t('Title')}</th>
+                <th className="px-4 py-2">{t('Content')}</th>
+                <th className="px-4 py-2">{t('image')}</th>
+                <th className="px-4 py-2">{t('Date')}</th>
+                <th className="px-4 py-2">{t('Action')}</th>
               </tr>
             </thead>
             <tbody>
@@ -259,7 +262,10 @@ function MyEvents({ handleButtonClick }) {
                     </td>
                     <td className="border px-4 py-2">{event.title}</td>
                     <td className="border px-4 py-2">
-                      {event.text.split(".")[0] + " ..."}
+                      {event.text && event.text.length > 50
+                        ? event.text.substring(0, 100) + "..."
+                        : event.text
+                      }
                     </td>
                     <td className="border px-4 py-2">
                       <img
@@ -288,7 +294,7 @@ function MyEvents({ handleButtonClick }) {
                             setEditPopup(true);
                           }}
                         >
-                          Edit
+                          {t('Edit')}
                         </button>
                         <span className="vSpace"></span>
                         <button
@@ -298,7 +304,7 @@ function MyEvents({ handleButtonClick }) {
                             setDeletePopup(true);
                           }}
                         >
-                          Delete
+                          {t('Delete')}
                         </button>
                       </div>
                     </td>
@@ -330,13 +336,13 @@ function MyEvents({ handleButtonClick }) {
                   }}
                   className="btn okBtn btnSizeB"
                 >
-                  Yes
+                  {t('Yes')}
                 </button>
                 <button
                   onClick={() => setDeletePopup(false)}
                   className="btn deleteBtn btnSizeB"
                 >
-                  No
+                  {t('No')}
                 </button>
               </div>
             </div>

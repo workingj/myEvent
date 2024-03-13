@@ -5,8 +5,11 @@ import { useAuth } from "../../Context/MyEventContext";
 import validateForm from "../../validator/formvalidator.js";
 import ChangePassword from "./ChangePassword.jsx";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 function Settings() {
+  const { t } = useTranslation();
   const {
     isLoggedIn,
     setIsLoggedIn,
@@ -224,12 +227,12 @@ function Settings() {
   };
   return (
     <div className="m-4 text-center flex-1 rounded-md p-4 border border-gray-300 w-full">
-      <h2>Profile Settings</h2>
+      <h2>{t('Profile Settings')}</h2>
       <div className="Container mw-30">
         <form onSubmit={(e) => handleFormSubmit(e)} className="settingsForm">
           <div className="settings">
             <span>
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="firstName">{t('First Name')}</label>
               <input
                 type="text"
                 id="firstName"
@@ -249,13 +252,13 @@ function Settings() {
                 className="btn editBtn"
                 onClick={() => handleButton("firstName", "span-first-name")}
               >
-                Edit
+                {t('Edit')}
               </button>
               <span className="text-red-500">{errors.firstName}</span>
             </span>
 
             <span>
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="lastName">{t('Last Name')}</label>
               <input
                 type="text"
                 id="lastName"
@@ -271,7 +274,7 @@ function Settings() {
                 id="span-last-name"
                 onClick={() => handleButton("lastName", "span-last-name")}
               >
-                Edit
+                {t('Edit')}
               </button>
               <span className="text-red-500">{errors.lastName}</span>
             </span>
@@ -293,13 +296,13 @@ function Settings() {
                 id="span-email"
                 onClick={() => handleButton("email", "span-email")}
               >
-                Edit
+                {t('Edit')}
               </button>
               <span className="text-red-500">{errors.email}</span>
             </span>
 
             <span>
-              <label htmlFor="birthDate">Birthday</label>
+              <label htmlFor="birthDate">{t('Birthday')}</label>
               <input
                 type="date"
                 id="birthDate"
@@ -317,13 +320,13 @@ function Settings() {
                 id="span-birthDate"
                 onClick={() => handleButton("birthDate", "span-birthDate")}
               >
-                Edit
+                  {t('Edit')}
               </button>
               <span className="text-red-500">{errors.birthDate}</span>
             </span>
             <hr />
             <span>
-              <label htmlFor="balance">Balance</label>
+              <label htmlFor="balance">{t('Balance')}</label>
               <input
                 type="text"
                 id="balance"
@@ -337,7 +340,7 @@ function Settings() {
           </div>
           <div className="settings">
             <span>
-              <label htmlFor="balance">Charge your balance? </label>
+              <label htmlFor="balance">{t('Charge your balance?')} </label>
               <button
                 className="btn editBtn"
                 onClick={(e) => {
@@ -345,12 +348,12 @@ function Settings() {
                   navigate("/paypal");
                 }}
               >
-                purchase
+                {t('purchase')}
               </button>
             </span>
             <hr />
             <span className="tCenter">
-              <label htmlFor="avater">Avatar</label>
+              <label htmlFor="avater">{t('Avatar')}</label>
             </span>
             <span>
               <input
@@ -370,13 +373,13 @@ function Settings() {
                 type="submit"
                 className="btn okBtn"
               >
-                Upload
+                {t('Upload')}
               </button>
             </span>
 
             <hr />
             <span>
-              <label htmlFor="">Change Password</label>
+              <label htmlFor="">{t('Change Password')}</label>
               <button
                 className="btn editBtn"
                 onClick={(e) => {
@@ -384,12 +387,12 @@ function Settings() {
                   setChangePasswordPopup(true);
                 }}
               >
-                Change
+                {t('Change')}
               </button>
             </span>
             <hr />
             <span>
-              <label>Do you want to delete your account?</label>
+              <label>{t('Do you want to delete your account?')}</label>
               <button
                 className="btn deleteBtn"
                 onClick={(e) => {
@@ -397,7 +400,7 @@ function Settings() {
                   setDeletePopup(true);
                 }}
               >
-                Click here
+                {t('Click here')}
               </button>
             </span>
           </div>
@@ -409,7 +412,7 @@ function Settings() {
                 className="btn okBtn btnSizeB"
                 disabled={!activeSave}
               >
-                Save
+                {t('Save')}
               </button>
               <button
                 id="cancel"
@@ -425,7 +428,7 @@ function Settings() {
                   })
                 }
               >
-                Cancel
+                {t('Cancel')}
               </button>
             </span>
           </div>
@@ -449,7 +452,7 @@ function Settings() {
                 />
               </span>
               <span>
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">{t('Password:')}</label>
                 <input
                   type="password"
                   id="password"
@@ -466,13 +469,13 @@ function Settings() {
                   className="btn okBtn btnSizeB"
                   onClick={handleDeleteAccount}
                 >
-                  Yes
+                  {t('Yes')}
                 </button>
                 <button
                   className="btn cancelBtn btnSizeB"
                   onClick={() => setDeletePopup(false)}
                 >
-                  No
+                  {t('No')}
                 </button>
               </div>
             </div>

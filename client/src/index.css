@@ -202,6 +202,14 @@ body {
   overflow: scroll;
   scroll-behavior: auto;
 }
+.popupInner::-webkit-scrollbar {
+  display: none;
+}
+
+.popupInner {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 .popupInner form {
   display: flex;
   flex-direction: column;

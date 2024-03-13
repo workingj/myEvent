@@ -1,13 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/MyEventContext";
+import { useTranslation } from "react-i18next";
 
 function Dashboard() {
   const { isLoggedIn, userData } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
-    <div className=" mt-5 flex flex-col items-center justify-start pt-8 p-4 rounded-md  mx-auto max-w-md h-96 w-60">
-      {/* <h3 className="text-2xl mb-6 underline">Dashboard</h3> */}
+    <div className="mt-5 flex flex-col items-center justify-start pt-8 p-4 rounded-md  mx-auto max-w-md h-96 w-60">
+      {/* <h3 className="text-2xl mb-6 underline">{t("Dashboard")}</h3> */}
 
       <div className="rounded-md shadow-md  max-w-md h-auto w-60 pb-2 fixed">
         <ul>
@@ -17,7 +20,7 @@ function Dashboard() {
               className="btn menuBtn"
               onClick={() => navigate("/myevents")}
             >
-              Events
+              {t("Events")}
             </button>
           </li>
           <li>
@@ -25,7 +28,7 @@ function Dashboard() {
               className="btn menuBtn"
               onClick={() => navigate("/home/contacts")}
             >
-              Contacts
+              {t("Contacts")}
             </button>
           </li>
           <li>
@@ -33,7 +36,7 @@ function Dashboard() {
               className="btn menuBtn"
               onClick={() => navigate("/admin/templates")}
             >
-              Templates
+              {t("Templates")}
             </button>
           </li>
           {isLoggedIn && userData.role === "admin" ? (
@@ -42,7 +45,7 @@ function Dashboard() {
                 className="btn menuBtn"
                 onClick={() => navigate("/gift/upload")}
               >
-                Upload Cards
+                {t("Upload Cards")}
               </button>
             </li>
           ) : (
@@ -56,7 +59,7 @@ function Dashboard() {
               className="btn menuBtn editBtn"
               onClick={() => navigate("/user/settings")}
             >
-              Settings
+              {t("Settings")}
             </button>
           </li>
         </ul>

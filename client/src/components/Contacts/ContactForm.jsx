@@ -1,8 +1,12 @@
 import "./Contact.css";
 import { useEffect, useState } from "react";
 import { AddDatePopup } from "./ContactPopup.jsx";
+import { useTranslation } from "react-i18next";
+
+
 
 export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
+  const { t } = useTranslation();
   const [load, setLoad] = useState(false);
   const [addDatePopup, setAddDatePopup] = useState();
   const [contact, setContact] = useState(
@@ -28,7 +32,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
       }}
     >
       <span>
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">{t('Email:')}</label>
         <input
           type="email"
           name="email"
@@ -37,7 +41,7 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
         />
       </span>
       <span>
-        <label htmlFor="firstName">First Name:</label>
+        <label htmlFor="firstName">{t('First Name:')}</label>
         <input
           type="text"
           name="firstName"
@@ -126,14 +130,14 @@ export function ContactForm({ contactInput, handleCancel, handleOk, userID }) {
               setAddDatePopup(true);
             }}
           >
-            Add Date
+         {t('Add Date')}
           </button>
         </span>
       </div>
       <span className="vSpace"></span>
       <span className="hCenter">
         <button type="submit" className="btn okBtn btnSizeB">
-          Ok
+          {t('Ok')}
         </button>
         <button className="btn cancelBtn btnSizeB" onClick={(e) => handleCancel(e)}>
           Cancel
